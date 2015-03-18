@@ -1,0 +1,23 @@
+{
+  "name": "format-quantity",
+  "version": "0.1.0",
+  "description": "Format a number as an integer plus fraction, as seen in recipe ingredient lists",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jakeboone02/format-quantity"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "recipe",
+    "ingredient",
+    "quantity",
+    "number",
+    "format",
+    "string"
+  ],
+  "author": "Jake Boone <jakeboone02@gmail.com>",
+  "license": "MIT"
+}
