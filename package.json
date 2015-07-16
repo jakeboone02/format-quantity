@@ -1,6 +1,6 @@
 {
   "name": "format-quantity",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Format a number as an integer plus fraction, as seen in recipe ingredient lists",
   "repository": {
     "type": "git",

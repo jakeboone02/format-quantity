@@ -1,7 +1,7 @@
 {
   "name": "format-quantity",
   "main": "index.js",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/jakeboone02/format-quantity",
   "authors": [
     "Jake Boone <jakeboone02@gmail.com>"
