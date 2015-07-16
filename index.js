@@ -1,8 +1,18 @@
-function closeEnough (a, b) {
-  return Math.abs(a - b) < 0.009;
-}
+(function (global, factory) {
+    if (typeof exports === "object" && typeof module !== "undefined" && module.exports) {
+      module.exports = factory();
+    } else if (typeof define === "function" && define.amd) {
+      define(factory);
+    } else {
+      global.formatQuantity = factory();
+    }
+}(this, function() {
 
-module.exports = function(sInQty) {
+var closeEnough = function(a, b) {
+  return Math.abs(a - b) < 0.009;
+};
+
+var formatQuantity = function(sInQty) {
 
   sQty = sInQty;
 
@@ -73,4 +83,7 @@ module.exports = function(sInQty) {
   }
 
   return sQty + "";
-}
+};
+
+return formatQuantity;
+}));

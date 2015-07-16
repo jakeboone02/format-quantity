@@ -2,13 +2,14 @@
  * Crude test suite
  */
 
-var fq = require("./");
+var fq = this.formatQuantity !== undefined ? this.formatQuantity : require("./");
+
 var testCount = 0;
 var passCount = 0;
 
 function Tester(attempt) {
   this.attempt = attempt;
-};
+}
 
 Tester.prototype.is = function(test) {
   var passes = this.attempt === test;
@@ -18,7 +19,7 @@ Tester.prototype.is = function(test) {
   }
 
   console.log(!!passes ? "pass" : "FAIL: '" + this.attempt + "' is not '" + test + "'");
-}
+};
 
 function assert(attempt) {
   testCount++;
@@ -64,4 +65,6 @@ assert(fq(1.52)).is("1.52");
 // Report results
 console.log(passCount + " of " + testCount + " tests passed.");
 
-process.exit(testCount - passCount ? 1 : 0);
+if (typeof process !== "undefined") {
+  process.exit(testCount - passCount ? 1 : 0);
+}
