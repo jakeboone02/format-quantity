@@ -4,7 +4,7 @@
 
 ##### npm
 
-https://www.npmjs.com/package/format-quantity
+[format-quantity](https://www.npmjs.com/package/format-quantity)
 
 ```
 npm i --save format-quantity
