@@ -7,8 +7,9 @@
     "url": "https://github.com/jakeboone02/format-quantity"
   },
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./test.js"
   },
   "keywords": [
     "recipe",
