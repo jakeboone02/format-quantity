@@ -8,13 +8,25 @@
   }
 }(this, function () {
 
+  /**
+   * Determines if two numbers are close enough to consider
+   * them equal for our purposes
+   * @param {number} a first number
+   * @param {number} b second number
+   */
   var closeEnough = function (a, b) {
     return Math.abs(a - b) < 0.009;
   };
 
+  /**
+   * Formats a number (or string that appears to be a number)
+   * as one would see it written in imperial measurements, e.g.
+   * "1 1/2" instead of "1.5".
+   * @param {number|string} sInQty The quantity
+   */
   var formatQuantity = function (sInQty) {
 
-    sQty = sInQty;
+    var sQty = sInQty;
 
     // bomb out if not a number
     if (isNaN(sQty)) {
