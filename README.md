@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/format-quantity.svg)](//npmjs.com/package/format-quantity)
+
 # format-quantity
 
 Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5".
@@ -7,8 +9,6 @@ For the inverse operation, converting a string (which may include mixed numbers 
 ### Installation
 
 ##### npm
-
-[format-quantity](https://www.npmjs.com/package/format-quantity)
 
 ```
 npm i --save format-quantity
