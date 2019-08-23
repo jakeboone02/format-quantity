@@ -1,6 +1,6 @@
 {
   "name": "format-quantity",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Format a number as an integer plus fraction, as seen in recipe ingredient lists",
   "repository": {
     "type": "git",
@@ -10,7 +10,9 @@
   "module": "dist/format-quantity.esm.js",
   "browser": "dist/format-quantity.umd.js",
   "types": "dist/format-quantity.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
