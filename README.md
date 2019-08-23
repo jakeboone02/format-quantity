@@ -1,4 +1,5 @@
 [![npm version](https://badge.fury.io/js/format-quantity.svg)](//npmjs.com/package/format-quantity)
+[![Travis (.org)](https://img.shields.io/travis/jakeboone02/format-quantity)](https://travis-ci.org/jakeboone02/format-quantity)
 
 # format-quantity
 
