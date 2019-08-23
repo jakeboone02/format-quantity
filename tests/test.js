@@ -60,7 +60,7 @@ assert(fq(1.33)).is('1 1/3');
 assert(fq(1.3333333333333333)).is('1 1/3');
 assert(fq(1.34)).is('1.34');
 assert(fq(1.66)).is('1 2/3');
-assert(fq(1.666)).is('1 2/3');
+assert(fq(1.667)).is('1 2/3');
 assert(fq(1.6666666666666666)).is('1 2/3');
 assert(fq(1.67)).is('1.67');
 // Halves
