@@ -12,20 +12,22 @@ const closeEnough = (a: number, b: number) => Math.abs(a - b) < 0.009;
 function formatQuantity(qty: string | number) {
   const dQty = typeof qty === 'string' ? parseFloat(qty) : qty;
 
-  // bomb out if not a number
+  // Bomb out if not a number
   if (isNaN(dQty) || dQty === null) {
     return '-1';
   }
 
+  // Return an empty string if the value is zero
   if (dQty === 0) {
     return '';
   }
 
-  const iFloor = Math.floor(dQty);
-  const sFloor = iFloor === 0.0 ? '' : `${iFloor} `;
-  const dDecimal = dQty - iFloor;
+  const dQtyAbs = Math.abs(dQty);
+  const iFloor = Math.floor(dQtyAbs);
+  const sFloor = iFloor === 0.0 ? '' : `${dQty < 0 ? '-' : ''}${iFloor} `;
+  const dDecimal = dQtyAbs - iFloor;
 
-  // Handle integers first.  Just return the given value.
+  // Handle integers first.  Just return the given value as a string.
   if (dDecimal === 0) {
     return `${dQty}`;
   }

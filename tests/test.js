@@ -2,27 +2,27 @@
  * Crude test suite
  */
 
-var fq =
+const fq =
   this.formatQuantity !== undefined ? this.formatQuantity : require('..');
 
-var testCount = 0;
-var passCount = 0;
+let testCount = 0;
+let passCount = 0;
 
-function Tester(attempt) {
-  this.attempt = attempt;
-}
-
-Tester.prototype.is = function(test) {
-  var passes = this.attempt === test;
-
-  if (!!passes) {
-    passCount++;
+class Tester {
+  constructor(attempt) {
+    this.attempt = attempt;
   }
 
-  console.log(
-    !!passes ? 'pass' : "FAIL: '" + this.attempt + "' is not '" + test + "'"
-  );
-};
+  is(test) {
+    const passes = this.attempt === test;
+    if (passes) {
+      passCount++;
+    }
+    console.log(
+      passes ? 'pass' : "FAIL: '" + this.attempt + "' is not '" + test + "'"
+    );
+  }
+}
 
 function assert(attempt) {
   testCount++;
@@ -35,12 +35,16 @@ assert(fq('NaN')).is('-1');
 assert(fq(0)).is('');
 // Integers
 assert(fq(1)).is('1');
+assert(fq(-1)).is('-1');
 assert(fq(100)).is('100');
 // Most decimal values should be returned as-is
 assert(fq(1.1)).is('1.1');
+assert(fq(-1.1)).is('-1.1');
 // Quarters
 assert(fq(1.25)).is('1 1/4');
+assert(fq(-1.25)).is('-1 1/4');
 assert(fq(1.75)).is('1 3/4');
+assert(fq(-1.75)).is('-1 3/4');
 // Fifths
 assert(fq(0.2)).is('1/5');
 assert(fq(1.2)).is('1 1/5');
