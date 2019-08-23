@@ -25,7 +25,7 @@ yarn add format-quantity
 
 In the browser, available as a global function `formatQuantity`.
 
-```
+```html
 <script src="path/to/format-quantity.umd.js"></script>
 <script>
   console.log(formatQuantity(10.5));  // "10 1/2"
@@ -34,7 +34,7 @@ In the browser, available as a global function `formatQuantity`.
 
 ### Usage
 
-```
+```js
 import formatQuantity from "format-quantity";
 
 console.log( formatQuantity(1.5) );   // "1 1/2"
