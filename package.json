@@ -9,7 +9,7 @@
   "main": "dist/format-quantity.cjs.js",
   "module": "dist/format-quantity.esm.js",
   "browser": "dist/format-quantity.umd.js",
-  "types": "index.d.ts",
+  "types": "dist/format-quantity.d.ts",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/jakeboone02/format-quantity",
   "devDependencies": {
-    "rollup": "^1.20.0"
+    "rollup": "^1.20.0",
+    "rollup-plugin-typescript2": "^0.23.0",
+    "typescript": "^3.5.3"
   }
 }
