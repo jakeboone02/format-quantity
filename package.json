@@ -10,6 +10,7 @@
   "module": "dist/format-quantity.esm.js",
   "browser": "dist/format-quantity.umd.js",
   "types": "dist/format-quantity.d.ts",
+  "files": ["dist"],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
