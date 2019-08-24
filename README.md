@@ -30,17 +30,17 @@ In the browser, available as a global function `formatQuantity`.
 ```html
 <script src="path/to/format-quantity.umd.js"></script>
 <script>
-  console.log(formatQuantity(10.5));  // "10 1/2"
+  console.log(formatQuantity(10.5)); // "10 1/2"
 </script>
 ```
 
 ## Usage
 
 ```js
-import formatQuantity from "format-quantity";
+import formatQuantity from 'format-quantity';
 
-console.log( formatQuantity(1.5) );   // "1 1/2"
-console.log( formatQuantity(2.66) );  // "2 2/3"
+console.log(formatQuantity(1.5)); // "1 1/2"
+console.log(formatQuantity(2.66)); // "2 2/3"
 ```
 
-The return value will be the string `"-1"` if the provided argument is not a number or a string that evaluates to a number using `parseFloat`.  The return value will be an empty string (`""`) if the provided argument is `0` or `"0"` (this is done to fit the primary use case of recipe ingredients).
+The return value will be `null` if the provided argument is not a number or a string that evaluates to a number using `parseFloat`. The return value will be an empty string (`""`) if the provided argument is `0` or `"0"` (this is done to fit the primary use case of recipe ingredients).

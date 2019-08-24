@@ -30,7 +30,7 @@ function assert(attempt) {
 }
 
 // NaN
-assert(fq('NaN')).is('-1');
+assert(fq('NaN')).is(null);
 // Zero should return blank string
 assert(fq(0)).is('');
 // Integers

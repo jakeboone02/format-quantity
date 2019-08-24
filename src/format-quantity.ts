@@ -14,7 +14,7 @@ function formatQuantity(qty: string | number) {
 
   // Bomb out if not a number
   if (isNaN(dQty) || dQty === null) {
-    return '-1';
+    return null;
   }
 
   // Return an empty string if the value is zero
