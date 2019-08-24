@@ -35,33 +35,33 @@ function formatQuantity(qty: string | number) {
   // Handle infinitely repeating decimals next, since
   // we'll never get an exact match for a switch case:
   if (closeEnough(dDecimal, 0.33)) {
-    return sFloor + '1/3';
+    return `${sFloor}1/3`;
   } else if (closeEnough(dDecimal, 0.66)) {
-    return sFloor + '2/3';
+    return `${sFloor}2/3`;
   } else if (closeEnough(dDecimal, 0.2)) {
-    return sFloor + '1/5';
+    return `${sFloor}1/5`;
   } else if (closeEnough(dDecimal, 0.4)) {
-    return sFloor + '2/5';
+    return `${sFloor}2/5`;
   } else if (closeEnough(dDecimal, 0.6)) {
-    return sFloor + '3/5';
+    return `${sFloor}3/5`;
   } else if (closeEnough(dDecimal, 0.8)) {
-    return sFloor + '4/5';
+    return `${sFloor}4/5`;
   } else {
     switch (dDecimal) {
       case 0.125:
-        return sFloor + '1/8';
+        return `${sFloor}1/8`;
       case 0.25:
-        return sFloor + '1/4';
+        return `${sFloor}1/4`;
       case 0.375:
-        return sFloor + '3/8';
+        return `${sFloor}3/8`;
       case 0.5:
-        return sFloor + '1/2';
+        return `${sFloor}1/2`;
       case 0.625:
-        return sFloor + '5/8';
+        return `${sFloor}5/8`;
       case 0.75:
-        return sFloor + '3/4';
+        return `${sFloor}3/4`;
       case 0.875:
-        return sFloor + '7/8';
+        return `${sFloor}7/8`;
     }
   }
 
