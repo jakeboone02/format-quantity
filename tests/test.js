@@ -19,7 +19,9 @@ class Tester {
       passCount++;
     }
     console.log(
-      passes ? 'pass' : "FAIL: '" + this.attempt + "' is not '" + test + "'"
+      passes
+        ? 'pass - ' + this.attempt
+        : "FAIL: '" + this.attempt + "' is not '" + test + "'"
     );
   }
 }
