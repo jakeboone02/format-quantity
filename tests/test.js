@@ -20,8 +20,8 @@ class Tester {
     }
     console.log(
       passes
-        ? 'pass - ' + this.attempt
-        : "FAIL: '" + this.attempt + "' is not '" + test + "'"
+        ? `pass - ${this.attempt}`
+        : `FAIL: '${this.attempt}' is not '${test}'`
     );
   }
 }
@@ -71,7 +71,7 @@ assert(fq(1.5)).is('1 1/2');
 assert(fq(1.52)).is('1.52');
 
 // Report results
-console.log(passCount + ' of ' + testCount + ' tests passed.');
+console.log(`${passCount} of ${testCount} tests passed.`);
 
 if (typeof process !== 'undefined') {
   process.exit(testCount - passCount ? 1 : 0);
