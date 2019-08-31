@@ -7,9 +7,10 @@ const closeEnough = (a: number, b: number) => Math.abs(a - b) < 0.009;
 /**
  * Formats a number (or string that appears to be a number)
  * as one would see it written in imperial measurements, e.g.
- * "1 1/2" instead of "1.5".
+ * "1 1/2" instead of "1.5".  To use vulgar fractions, e.g. "½",
+ * pass `true` as the second argument.
  */
-function formatQuantity(qty: string | number) {
+function formatQuantity(qty: string | number, useVulgarFractions?: boolean) {
   const dQty = typeof qty === 'string' ? parseFloat(qty) : qty;
 
   // Bomb out if not a number
@@ -32,36 +33,38 @@ function formatQuantity(qty: string | number) {
     return `${dQty}`;
   }
 
+  const sFloorFinal = useVulgarFractions ? sFloor.trim() : sFloor;
+
   // Handle infinitely repeating decimals next, since
   // we'll never get an exact match for a switch case:
   if (closeEnough(dDecimal, 0.33)) {
-    return `${sFloor}1/3`;
+    return `${sFloorFinal}${useVulgarFractions ? '\u2153' : '1/3'}`;
   } else if (closeEnough(dDecimal, 0.66)) {
-    return `${sFloor}2/3`;
+    return `${sFloorFinal}${useVulgarFractions ? '\u2154' : '2/3'}`;
   } else if (closeEnough(dDecimal, 0.2)) {
-    return `${sFloor}1/5`;
+    return `${sFloorFinal}${useVulgarFractions ? '\u2155' : '1/5'}`;
   } else if (closeEnough(dDecimal, 0.4)) {
-    return `${sFloor}2/5`;
+    return `${sFloorFinal}${useVulgarFractions ? '\u2156' : '2/5'}`;
   } else if (closeEnough(dDecimal, 0.6)) {
-    return `${sFloor}3/5`;
+    return `${sFloorFinal}${useVulgarFractions ? '\u2157' : '3/5'}`;
   } else if (closeEnough(dDecimal, 0.8)) {
-    return `${sFloor}4/5`;
+    return `${sFloorFinal}${useVulgarFractions ? '\u2158' : '4/5'}`;
   } else {
     switch (dDecimal) {
       case 0.125:
-        return `${sFloor}1/8`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u215B' : '1/8'}`;
       case 0.25:
-        return `${sFloor}1/4`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u00BC' : '1/4'}`;
       case 0.375:
-        return `${sFloor}3/8`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u215C' : '3/8'}`;
       case 0.5:
-        return `${sFloor}1/2`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u00BD' : '1/2'}`;
       case 0.625:
-        return `${sFloor}5/8`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u215D' : '5/8'}`;
       case 0.75:
-        return `${sFloor}3/4`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u00BE' : '3/4'}`;
       case 0.875:
-        return `${sFloor}7/8`;
+        return `${sFloorFinal}${useVulgarFractions ? '\u215E' : '7/8'}`;
     }
   }
 
