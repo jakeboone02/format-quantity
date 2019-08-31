@@ -1,3 +1,7 @@
+## 0.6.0 (2019-08-31)
+
+- Added ability to produce unicode vulgar fractions (pass `true` as the second argument)
+
 ## 0.5.0 (2019-08-24)
 
 ### Breaking change
