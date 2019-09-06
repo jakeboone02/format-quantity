@@ -38,33 +38,33 @@ function formatQuantity(qty: string | number, useVulgarFractions?: boolean) {
   // Handle infinitely repeating decimals next, since
   // we'll never get an exact match for a switch case:
   if (closeEnough(dDecimal, 0.33)) {
-    return `${sFloorFinal}${useVulgarFractions ? '\u2153' : '1/3'}`;
+    return `${sFloorFinal}${useVulgarFractions ? '⅓' : '1/3'}`;
   } else if (closeEnough(dDecimal, 0.66)) {
-    return `${sFloorFinal}${useVulgarFractions ? '\u2154' : '2/3'}`;
+    return `${sFloorFinal}${useVulgarFractions ? '⅔' : '2/3'}`;
   } else if (closeEnough(dDecimal, 0.2)) {
-    return `${sFloorFinal}${useVulgarFractions ? '\u2155' : '1/5'}`;
+    return `${sFloorFinal}${useVulgarFractions ? '⅕' : '1/5'}`;
   } else if (closeEnough(dDecimal, 0.4)) {
-    return `${sFloorFinal}${useVulgarFractions ? '\u2156' : '2/5'}`;
+    return `${sFloorFinal}${useVulgarFractions ? '⅖' : '2/5'}`;
   } else if (closeEnough(dDecimal, 0.6)) {
-    return `${sFloorFinal}${useVulgarFractions ? '\u2157' : '3/5'}`;
+    return `${sFloorFinal}${useVulgarFractions ? '⅗' : '3/5'}`;
   } else if (closeEnough(dDecimal, 0.8)) {
-    return `${sFloorFinal}${useVulgarFractions ? '\u2158' : '4/5'}`;
+    return `${sFloorFinal}${useVulgarFractions ? '⅘' : '4/5'}`;
   } else {
     switch (dDecimal) {
       case 0.125:
-        return `${sFloorFinal}${useVulgarFractions ? '\u215B' : '1/8'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '⅛' : '1/8'}`;
       case 0.25:
-        return `${sFloorFinal}${useVulgarFractions ? '\u00BC' : '1/4'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '¼' : '1/4'}`;
       case 0.375:
-        return `${sFloorFinal}${useVulgarFractions ? '\u215C' : '3/8'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '⅜' : '3/8'}`;
       case 0.5:
-        return `${sFloorFinal}${useVulgarFractions ? '\u00BD' : '1/2'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '½' : '1/2'}`;
       case 0.625:
-        return `${sFloorFinal}${useVulgarFractions ? '\u215D' : '5/8'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '⅝' : '5/8'}`;
       case 0.75:
-        return `${sFloorFinal}${useVulgarFractions ? '\u00BE' : '3/4'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '¾' : '3/4'}`;
       case 0.875:
-        return `${sFloorFinal}${useVulgarFractions ? '\u215E' : '7/8'}`;
+        return `${sFloorFinal}${useVulgarFractions ? '⅞' : '7/8'}`;
     }
   }
 
