@@ -5,7 +5,7 @@ export default {
   input: 'src/format-quantity.ts',
   output: [
     { file: pkg.browser, format: 'umd', name: 'formatQuantity' },
-    { file: pkg.main, format: 'cjs' },
+    { file: pkg.main, format: 'cjs', exports: 'default' },
     { file: pkg.module, format: 'es' },
   ],
   plugins: [
