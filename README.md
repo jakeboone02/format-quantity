@@ -1,7 +1,7 @@
 # format-quantity
 
 [![npm version](https://badge.fury.io/js/format-quantity.svg)](//npmjs.com/package/format-quantity)
-[![Travis (.org)](https://img.shields.io/travis/jakeboone02/format-quantity)](https://travis-ci.org/jakeboone02/format-quantity)
+![workflow status](https://github.com/jakeboone02/format-quantity/workflows/Continuous%20Integration/badge.svg)
 [![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=master)](https://codecov.io/github/jakeboone02/format-quantity?branch=master)
 [![downloads](https://img.shields.io/npm/dm/format-quantity.svg)](http://npm-stat.com/charts.html?package=format-quantity&from=2015-08-01)
 [![MIT License](https://img.shields.io/npm/l/format-quantity.svg)](http://opensource.org/licenses/MIT)
