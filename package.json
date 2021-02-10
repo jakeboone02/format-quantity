@@ -34,7 +34,7 @@
     "build": "tsdx build --format cjs,esm,system,umd",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "npm run build"
   },
   "prettier": {
     "printWidth": 80,
