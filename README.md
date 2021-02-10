@@ -29,7 +29,7 @@ yarn add format-quantity
 In the browser, available as a global function `formatQuantity`.
 
 ```html
-<script src="path/to/format-quantity.umd.js"></script>
+<script src="https://unpkg.com/format-quantity"></script>
 <script>
   console.log(formatQuantity(10.5)); // "10 1/2"
 </script>

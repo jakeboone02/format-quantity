@@ -1,4 +1,4 @@
-import formatQuantity from './format-quantity';
+import formatQuantity from '.';
 
 it('works', () => {
   // NaN
