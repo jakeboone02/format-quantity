@@ -34,9 +34,7 @@
     "build": "tsdx build --format cjs,esm,system,umd --name format-quantity",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "prepare": "tsdx build"
   },
   "husky": {
     "hooks": {
@@ -51,21 +49,9 @@
     "arrowParens": "avoid",
     "tabWidth": 2
   },
-  "size-limit": [
-    {
-      "path": "dist/format-quantity.cjs.production.min.js",
-      "limit": "1 KB"
-    },
-    {
-      "path": "dist/format-quantity.esm.js",
-      "limit": "1 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.9.2",
     "husky": "^5.0.9",
     "np": "^7.3.0",
-    "size-limit": "^4.9.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
     "typescript": "^4.1.3"
