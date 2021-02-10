@@ -14,13 +14,11 @@ For the inverse operation, converting a string (which may include mixed numbers 
 
 ### npm
 
-```
+```shell
+# npm
 npm i format-quantity
-```
 
-or
-
-```
+# yarn
 yarn add format-quantity
 ```
 

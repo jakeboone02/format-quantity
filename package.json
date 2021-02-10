@@ -36,11 +36,6 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -50,7 +45,6 @@
     "tabWidth": 2
   },
   "devDependencies": {
-    "husky": "^5.0.9",
     "np": "^7.3.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
