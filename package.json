@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "tsdx watch --format cjs,esm,system,umd",
-    "build": "tsdx build --format cjs,esm,system,umd --name format-quantity",
+    "build": "tsdx build --format cjs,esm,system,umd",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build"
