@@ -2,8 +2,7 @@
  * Crude test suite
  */
 
-const fq =
-  this.formatQuantity !== undefined ? this.formatQuantity : require('..');
+const fq = this.formatQuantity || require('..');
 
 let testCount = 0;
 let passCount = 0;
