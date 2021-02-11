@@ -1,3 +1,7 @@
+## 1.0.0 (2021-02-11)
+
+- New build system ([tsdx](https://tsdx.io/))
+
 ## 0.6.0 (2019-08-31)
 
 - Added ability to produce unicode vulgar fractions (pass `true` as the second argument)
