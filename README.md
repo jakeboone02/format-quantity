@@ -8,7 +8,7 @@
 
 Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5". To use unicode vulgar fractions like "⅞", pass `true` as the second argument.
 
-For the inverse operation, converting a string (which may include mixed numbers or vulgar fractions) to a number, check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity).
+For the inverse operation, converting a string (which may include mixed numbers or vulgar fractions) to a number, check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity) or, if you're interested in parsing recipe ingredient strings, try [parse-ingredient](https://www.npmjs.com/package/parse-ingredient).
 
 ## Installation
 
