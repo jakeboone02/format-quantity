@@ -3,6 +3,13 @@
   "name": "format-quantity",
   "author": "Jake Boone <jakeboone02@gmail.com>",
   "description": "Number formatter for imperial measurements with support for vulgar fractions",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/format-quantity.cjs.js",
+  "module": "./dist/format-quantity.es.js",
+  "unpkg": "./dist/format-quantity.umd.js",
+  "typings": "dist/index.d.ts",
   "license": "MIT",
   "keywords": [
     "recipe",
@@ -20,36 +27,25 @@
     "type": "git",
     "url": "https://github.com/jakeboone02/format-quantity"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "module": "dist/format-quantity.esm.js",
-  "unpkg": "dist/format-quantity.umd.production.min.js",
-  "files": [
-    "dist"
-  ],
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch --format cjs,esm,system,umd",
-    "build": "tsdx build --format cjs,esm,system,umd",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "npm run build",
+    "start": "vite",
+    "build": "vite build && tsc",
+    "test": "jest --coverage",
     "publish:npm": "np"
   },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "arrowParens": "avoid",
-    "tabWidth": 2
-  },
   "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.1",
+    "gh-pages": "^3.1.0",
+    "jest": "^27.5.1",
     "np": "^7.3.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.1.0",
-    "typescript": "^4.1.3"
+    "prettier": "^2.6.0",
+    "typescript": "^4.1.5",
+    "vite": "^2.8.6"
   }
 }
