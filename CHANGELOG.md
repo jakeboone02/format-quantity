@@ -1,3 +1,8 @@
+## 1.0.2 (2022-04-16)
+
+- Update dependencies
+- Migrate from tsdx to Vite
+
 ## 1.0.1 (2021-02-15)
 
 - Added description to package.json

@@ -15,7 +15,7 @@ export interface FormatQuantityOptions {
    */
   tolerance?: number;
   /**
-   * Output the unicode fraction slash character (⁄) instead of the "solidus"
+   * Output the fraction slash character (⁄) instead of the "solidus"
    * slash (/) for fractions. Overridden by the `vulgarFractions` option.
    */
   fractionSlash?: boolean;
@@ -70,9 +70,9 @@ export const vulgarToPlainMap: {
 /**
  * Formats a number (or string that appears to be a number)
  * as one would see it written in imperial measurements, e.g.
- * "1 1/2" instead of "1.5". To use unicode vulgar fraction
- * characters like "½", pass `true` or `{vulgarFractions: true}`
- * as the second argument.
+ * "1 1/2" instead of "1.5". To use vulgar fraction characters
+ * like "½", pass `true` as the second argument. For other options
+ * see the [documentation](https://jakeboone02.github.io/format-quantity/).
  */
 function formatQuantity(
   qty: string | number,
