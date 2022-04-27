@@ -17,7 +17,9 @@
     "quantity",
     "number",
     "format",
-    "string"
+    "string",
+    "fractions",
+    "imperial"
   ],
   "bugs": {
     "url": "https://github.com/jakeboone02/format-quantity/issues"
