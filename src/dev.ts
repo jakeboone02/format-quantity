@@ -1,3 +1,9 @@
-import { formatQuantity } from './formatQuantity';
+import * as FormatQuantity from '.';
 
-(window as any).formatQuantity = formatQuantity;
+declare global {
+  var formatQuantity: typeof FormatQuantity.formatQuantity;
+  var vulgarToPlainMap: typeof FormatQuantity.vulgarToPlainMap;
+}
+
+globalThis.formatQuantity = FormatQuantity.formatQuantity;
+globalThis.vulgarToPlainMap = FormatQuantity.vulgarToPlainMap;
