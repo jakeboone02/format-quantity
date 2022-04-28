@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "outDir": "dist",
     "emitDeclarationOnly": true,
-    "lib": ["ESNext"]
+    "lib": ["ESNext", "DOM"]
   },
-  "include": ["./src/index.ts"]
+  "include": ["src"]
 }

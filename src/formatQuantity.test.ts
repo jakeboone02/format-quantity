@@ -1,4 +1,4 @@
-import formatQuantity from '.';
+import { formatQuantity } from './formatQuantity';
 
 it('returns null for NaN and non-numeric strings', () => {
   expect(formatQuantity(NaN)).toBe(null);
@@ -118,7 +118,7 @@ it('handles fractionSlash option', () => {
 });
 it('handles tolerance option', () => {
   // Revert to default tolerance if null
-  expect(formatQuantity(1.3, { tolerance: null })).toBe('1.3');
+  expect(formatQuantity(1.3, { tolerance: null as any })).toBe('1.3');
   // Normally returns "1.3" but tolerance is increased
   expect(formatQuantity(1.3, { tolerance: 0.1 })).toBe('1 1/3');
   // Normally returns "1 1/7" but tolerance is decreased

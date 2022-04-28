@@ -1,5 +1,3 @@
-import formatQuantity from '.';
+import { formatQuantity } from './formatQuantity';
 
-const app = document.querySelector<HTMLDivElement>('#app')!;
-
-app.innerText = JSON.stringify(formatQuantity(1.5, true));
+(window as any).formatQuantity = formatQuantity;

@@ -24,19 +24,19 @@ yarn add format-quantity
 
 ### Browser
 
-In the browser, available as a global function `formatQuantity`.
+In the browser, all exports including the `formatQuantity` function are available on the global object `FormatQuantity`.
 
 ```html
 <script src="https://unpkg.com/format-quantity"></script>
 <script>
-  console.log(formatQuantity(10.5)); // "10 1/2"
+  console.log(FormatQuantity.formatQuantity(10.5)); // "10 1/2"
 </script>
 ```
 
 ## Usage
 
 ```js
-import formatQuantity from 'format-quantity';
+import { formatQuantity } from 'format-quantity';
 
 formatQuantity(1.5); // "1 1/2"
 formatQuantity(2.66); // "2 2/3"
@@ -78,7 +78,7 @@ A lower tolerance increases the likelihood that `formatQuantity` will return a d
 formatQuantity(0.333, { tolerance: 0.00001 }); // "0.333"
 // High tolerance - matches "1/3" even for "3/10"
 formatQuantity(0.3, { tolerance: 0.1 }); // "1/3"
-// Inappropriately high tolerance - incorrect merely because thirds get evaluated before halves
+// Way too high tolerance - incorrect result because thirds get evaluated before halves
 formatQuantity(0.5, { tolerance: 0.5 }); // "1/3"
 ```
 
@@ -99,6 +99,6 @@ formatQuantity(3.875, { fractionSlash: true, vulgarFractions: true }); // "3⅞"
 
 | Name                    | Type        | Description                                                                                                                                                 |
 | ----------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `FormatQuantityOptions` | `interface` | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |
 | `vulgarToPlainMap`      | `object`    | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
+| `FormatQuantityOptions` | `interface` | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |
 | `VulgarFraction`        | `type`      | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |

@@ -3,10 +3,140 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Format Quantity Demo</title>
+    <title>Format Quantity Test Page</title>
+    <style>
+      body {
+        margin: 1rem;
+        font-family: arial, sans-serif;
+      }
+      h2 {
+        margin-top: 0;
+      }
+      h4 {
+        margin-bottom: 0.8rem;
+      }
+      pre {
+        border: 1px solid darkgray;
+        padding: 0.75rem;
+        border-radius: 5px;
+        background-color: lightgray;
+      }
+      .links {
+        display: flex;
+        column-gap: 1rem;
+      }
+      .option-grid {
+        display: grid;
+        grid-template-columns: 10rem 14rem;
+        column-gap: 0.5rem;
+        row-gap: 0.25rem;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <h2>Format Quantity Test Page</h2>
+    <div class="links">
+      <a href="https://jakeboone02.github.io/format-quantity/">docs</a>
+      <a href="https://github.com/jakeboone02/format-quantity">github</a>
+      <a href="https://www.npmjs.com/package/format-quantity">npm</a>
+    </div>
+    <h4>Input</h4>
+    <input id="input" type="number" value="1.5" style="width: auto" />
+    <h4>Options</h4>
+    <div class="option-grid">
+      <div>Vulgar fractions</div>
+      <div>
+        <input type="checkbox" id="vulgarFractions" />
+      </div>
+      <div>Fraction slash</div>
+      <div>
+        <input type="checkbox" id="fractionSlash" />
+      </div>
+      <div>Tolerance</div>
+      <div>
+        <input type="number" id="tolerance" value="0.009" style="width: auto" />
+      </div>
+      <div>
+        <button type="button" id="default">Reset options</button>
+      </div>
+    </div>
+    <h4>Code</h4>
+    <pre id="code">Loading...</pre>
+    <h4>Result</h4>
+    <pre id="result">Loading...</pre>
     <script type="module" src="/src/dev.ts"></script>
+    <script>
+      const getInput = () => {
+        /**
+         * @type HTMLInputElement
+         */
+        const inputBox = document.querySelector('#input');
+        return inputBox.value;
+      };
+
+      const getOptions = () => {
+        /**
+         * @type HTMLInputElement
+         */
+        const vulgarFractionsEl = document.querySelector('#vulgarFractions');
+        /**
+         * @type HTMLInputElement
+         */
+        const toleranceEl = document.querySelector('#tolerance');
+        /**
+         * @type HTMLInputElement
+         */
+        const fractionSlashEl = document.querySelector('#fractionSlash');
+        const vulgarFractions = vulgarFractionsEl.checked;
+        const tolerance = parseFloat(toleranceEl.value);
+        const fractionSlash = fractionSlashEl.checked;
+        return { vulgarFractions, tolerance, fractionSlash };
+      };
+
+      const refresh = () => {
+        const input = getInput();
+        const optionsArr = [];
+        const options = getOptions();
+        if (options.vulgarFractions) {
+          optionsArr.push('vulgarFractions: true');
+        }
+        if (options.tolerance !== 0.009) {
+          optionsArr.push(`tolerance: ${parseFloat(options.tolerance)}`);
+        }
+        if (options.fractionSlash) {
+          optionsArr.push('fractionSlash: true');
+        }
+        let optionsStr = '';
+        if (optionsArr.length > 0) {
+          optionsStr = `, { ${optionsArr.join(', ')} }`;
+        }
+        document.querySelector(
+          '#code'
+        ).innerText = `formatQuantity(${input}${optionsStr})`;
+        document.querySelector('#result').innerText = JSON.stringify(
+          formatQuantity(input, options)
+        );
+      };
+
+      document.querySelector('#input').addEventListener('change', refresh);
+      document.querySelector('#input').addEventListener('keyup', refresh);
+      document
+        .querySelector('#vulgarFractions')
+        .addEventListener('change', refresh);
+      document.querySelector('#tolerance').addEventListener('change', refresh);
+      document.querySelector('#tolerance').addEventListener('keyup', refresh);
+      document
+        .querySelector('#fractionSlash')
+        .addEventListener('change', refresh);
+
+      document.querySelector('#default').addEventListener('click', () => {
+        document.querySelector('#vulgarFractions').checked = false;
+        document.querySelector('#tolerance').value = 0.009;
+        document.querySelector('#fractionSlash').checked = false;
+        refresh();
+      });
+
+      setTimeout(refresh, 500);
+    </script>
   </body>
 </html>

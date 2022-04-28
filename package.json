@@ -29,12 +29,11 @@
     "type": "git",
     "url": "https://github.com/jakeboone02/format-quantity"
   },
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
     "start": "vite",
-    "build": "vite build && tsc",
+    "build": "yarn build:main && yarn build:types",
+    "build:main": "vite build",
+    "build:types": "tsc --project ./tsconfig.build.json",
     "test": "jest --coverage",
     "watch": "jest --watch",
     "publish:npm": "np"
