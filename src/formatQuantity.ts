@@ -1,5 +1,20 @@
-import { vulgarToPlainMap } from './constants';
-import type { FormatQuantityOptions, VulgarFraction } from './types';
+import {
+  defaultTolerance,
+  fractionDecimalMatches,
+  vulgarToPlainMap,
+} from './constants';
+import type {
+  FormatQuantity,
+  FormatQuantityOptions,
+  VulgarFraction,
+} from './types';
+
+/**
+ * Determines if two numbers are close enough to consider
+ * them equal for the purposes of this package.
+ */
+const closeEnough = (n1: number, n2: number, tolerance: number) =>
+  Math.abs(n1 - n2) < tolerance;
 
 /**
  * Formats a number (or string that appears to be a number)
@@ -8,10 +23,7 @@ import type { FormatQuantityOptions, VulgarFraction } from './types';
  * like "½", pass `true` as the second argument. For other options
  * see the [documentation](https://jakeboone02.github.io/format-quantity/).
  */
-export function formatQuantity(
-  qty: string | number,
-  options?: boolean | FormatQuantityOptions
-) {
+export const formatQuantity: FormatQuantity = (qty, options) => {
   const dQty = typeof qty === 'string' ? parseFloat(qty) : qty;
 
   // Return `null` if input is not number-like
@@ -46,55 +58,11 @@ export function formatQuantity(
       ? vulgarToPlainMap[vulgarFraction].replace('/', '⁄')
       : vulgarToPlainMap[vulgarFraction];
 
-  /**
-   * Determines if a number is close enough to dDecimal to consider
-   * them equal for the purposes of this package.
-   */
-  const closeEnough = (n: number) =>
-    Math.abs(dDecimal - n) < (opts.tolerance ?? 0.009);
-
-  // Handle infinitely repeating decimals and floating point math quirks with
-  // `closeEnough` since we'll never get an exact match for a switch case
-  if (closeEnough(0.33)) {
-    return `${sFloorFinal}${getFraction('⅓')}`;
-  } else if (closeEnough(0.66)) {
-    return `${sFloorFinal}${getFraction('⅔')}`;
-  } else if (closeEnough(0.2)) {
-    return `${sFloorFinal}${getFraction('⅕')}`;
-  } else if (closeEnough(0.4)) {
-    return `${sFloorFinal}${getFraction('⅖')}`;
-  } else if (closeEnough(0.6)) {
-    return `${sFloorFinal}${getFraction('⅗')}`;
-  } else if (closeEnough(0.8)) {
-    return `${sFloorFinal}${getFraction('⅘')}`;
-  } else if (closeEnough(0.166)) {
-    return `${sFloorFinal}${getFraction('⅙')}`;
-  } else if (closeEnough(0.833)) {
-    return `${sFloorFinal}${getFraction('⅚')}`;
-  } else if (closeEnough(0.143)) {
-    return `${sFloorFinal}${getFraction('⅐')}`;
-  } else if (closeEnough(0.111)) {
-    return `${sFloorFinal}${getFraction('⅑')}`;
-  } else if (closeEnough(0.1)) {
-    return `${sFloorFinal}${getFraction('⅒')}`;
-  } else {
-    switch (dDecimal) {
-      case 0.125:
-        return `${sFloorFinal}${getFraction('⅛')}`;
-      case 0.25:
-        return `${sFloorFinal}${getFraction('¼')}`;
-      case 0.375:
-        return `${sFloorFinal}${getFraction('⅜')}`;
-      case 0.5:
-        return `${sFloorFinal}${getFraction('½')}`;
-      case 0.625:
-        return `${sFloorFinal}${getFraction('⅝')}`;
-      case 0.75:
-        return `${sFloorFinal}${getFraction('¾')}`;
-      case 0.875:
-        return `${sFloorFinal}${getFraction('⅞')}`;
+  for (const [num, vf] of fractionDecimalMatches) {
+    if (closeEnough(dDecimal, num, opts.tolerance ?? defaultTolerance)) {
+      return `${sFloorFinal}${getFraction(vf)}`;
     }
   }
 
   return `${dQty}`;
-}
+};

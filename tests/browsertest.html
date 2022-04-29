@@ -14,16 +14,7 @@
   <body>
     <h3>Results:</h3>
     <div id="log"></div>
-    <script>
-      (function() {
-        var old = console.log;
-        var logger = document.getElementById('log');
-        console.log = function(message) {
-          logger.innerHTML += message + '<br>';
-        };
-      })();
-    </script>
-    <script src="../dist/format-quantity.umd.development.js"></script>
+    <script src="../dist/format-quantity.umd.js"></script>
     <script src="browsertest.js"></script>
   </body>
 </html>

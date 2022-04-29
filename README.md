@@ -97,8 +97,10 @@ formatQuantity(3.875, { fractionSlash: true, vulgarFractions: true }); // "3⅞"
 
 ## Other exports
 
-| Name                    | Type        | Description                                                                                                                                                 |
-| ----------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `vulgarToPlainMap`      | `object`    | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
-| `FormatQuantityOptions` | `interface` | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |
-| `VulgarFraction`        | `type`      | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
+| Name                     | Type                         | Description                                                                                                                                                 |
+| ------------------------ | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `defaultTolerance`       | `number`                     | `0.009`                                                                                                                                                     |
+| `fractionDecimalMatches` | `[number, VulgarFraction][]` | List of fractions and the decimal values that are close enough to match them (inputs are evaluated against the decimal values in the order of this array)   |
+| `vulgarToPlainMap`       | `object`                     | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
+| `FormatQuantityOptions`  | `interface`                  | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |
+| `VulgarFraction`         | `type`                       | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |

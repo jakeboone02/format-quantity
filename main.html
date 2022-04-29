@@ -21,9 +21,22 @@
         border-radius: 5px;
         background-color: lightgray;
       }
+      .header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+      .header h2 {
+        margin: 0;
+        padding: 0;
+      }
       .links {
         display: flex;
         column-gap: 1rem;
+      }
+      .main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
       .option-grid {
         display: grid;
@@ -34,36 +47,52 @@
     </style>
   </head>
   <body>
-    <h2>Format Quantity Test Page</h2>
-    <div class="links">
-      <a href="https://jakeboone02.github.io/format-quantity/">docs</a>
-      <a href="https://github.com/jakeboone02/format-quantity">github</a>
-      <a href="https://www.npmjs.com/package/format-quantity">npm</a>
-    </div>
-    <h4>Input</h4>
-    <input id="input" type="number" value="1.5" style="width: auto" />
-    <h4>Options</h4>
-    <div class="option-grid">
-      <div>Vulgar fractions</div>
-      <div>
-        <input type="checkbox" id="vulgarFractions" />
-      </div>
-      <div>Fraction slash</div>
-      <div>
-        <input type="checkbox" id="fractionSlash" />
-      </div>
-      <div>Tolerance</div>
-      <div>
-        <input type="number" id="tolerance" value="0.009" style="width: auto" />
-      </div>
-      <div>
-        <button type="button" id="default">Reset options</button>
+    <div class="header">
+      <h2>Format Quantity Test Page</h2>
+      <div class="links">
+        <a href="https://jakeboone02.github.io/format-quantity/">docs</a>
+        <a href="https://github.com/jakeboone02/format-quantity">github</a>
+        <a href="https://www.npmjs.com/package/format-quantity">npm</a>
       </div>
     </div>
-    <h4>Code</h4>
-    <pre id="code">Loading...</pre>
-    <h4>Result</h4>
-    <pre id="result">Loading...</pre>
+    <div class="main">
+      <div>
+        <h4>Input</h4>
+        <input id="input" type="number" value="1.5" style="width: auto" />
+        <h4>Options</h4>
+        <div class="option-grid">
+          <div>Vulgar fractions</div>
+          <div>
+            <input type="checkbox" id="vulgarFractions" />
+          </div>
+          <div>Fraction slash</div>
+          <div>
+            <input type="checkbox" id="fractionSlash" />
+          </div>
+          <div>Tolerance</div>
+          <div>
+            <input
+              type="number"
+              id="tolerance"
+              value="0.009"
+              style="width: auto"
+            />
+          </div>
+          <div>
+            <button type="button" id="default">Reset options</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Call</h4>
+        <pre id="call">Loading...</pre>
+        <h4>Result</h4>
+        <pre id="result">Loading...</pre>
+      </div>
+    </div>
+    <hr />
+    <h4>Tests</h4>
+    <pre id="tests">Loading...</pre>
     <script type="module" src="/src/dev.ts"></script>
     <script>
       const getInput = () => {
@@ -111,11 +140,47 @@
           optionsStr = `, { ${optionsArr.join(', ')} }`;
         }
         document.querySelector(
-          '#code'
+          '#call'
         ).innerText = `formatQuantity(${input}${optionsStr})`;
         document.querySelector('#result').innerText = JSON.stringify(
           formatQuantity(input, options)
         );
+      };
+
+      // Tests
+      const testsEl = document.querySelector('#tests');
+      const appendToResults = str => {
+        testsEl.innerHTML += `${str}<br>`;
+      };
+      const runTests = () => {
+        testsEl.innerHTML = '';
+        formatQuantityTests.forEach(([description, expects], i) => {
+          if (i > 0) appendToResults('');
+          appendToResults(description);
+          appendToResults(
+            `${''.padEnd(2)} ${`call`.padEnd(69)} ${`expect`.padEnd(
+              10
+            )} ${`actual`.padEnd(10)}`
+          );
+          appendToResults(
+            `${''.padStart(2, '-')} ${''.padStart(69, '-')} ${''.padStart(
+              10,
+              '-'
+            )} ${''.padStart(10, '-')}`
+          );
+          expects.forEach(([quantity, result, options]) => {
+            const actual = formatQuantity(quantity, options);
+            appendToResults(
+              `${(actual === result ? '✓' : '❌').padEnd(
+                2
+              )} ${`formatQuantity(${JSON.stringify(quantity)}${
+                options ? `, ${JSON.stringify(options)}` : ''
+              })`.padEnd(69)} ${`${JSON.stringify(result)}`.padEnd(
+                10
+              )} ${`${JSON.stringify(actual)}`.padEnd(10)}`
+            );
+          });
+        });
       };
 
       document.querySelector('#input').addEventListener('change', refresh);
@@ -137,6 +202,7 @@
       });
 
       setTimeout(refresh, 500);
+      setTimeout(runTests, 500);
     </script>
   </body>
 </html>

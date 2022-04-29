@@ -2,7 +2,10 @@
  * Crude test suite
  */
 
-const fq = this.formatQuantity || require('..');
+const { formatQuantity } = FormatQuantity;
+
+const logEl = document.querySelector('#log');
+const log = message => (logEl.innerHTML += message + '<br>');
 
 let testCount = 0;
 let passCount = 0;
@@ -17,60 +20,76 @@ class Tester {
     if (passes) {
       passCount++;
     }
-    console.log(
+    log(
       passes
-        ? `pass - ${this.attempt}`
+        ? `pass: ${
+            typeof this.attempt === 'string'
+              ? `'${this.attempt}'`
+              : this.attempt
+          }`
         : `FAIL: '${this.attempt}' is not '${test}'`
     );
   }
 }
 
-function assert(attempt) {
+const assert = attempt => {
   testCount++;
   return new Tester(attempt);
-}
+};
 
-// NaN
-assert(fq('NaN')).is(null);
-// Zero should return blank string
-assert(fq(0)).is('');
-// Integers
-assert(fq(1)).is('1');
-assert(fq(-1)).is('-1');
-assert(fq(100)).is('100');
-// Most decimal values should be returned as-is
-assert(fq(1.1)).is('1.1');
-assert(fq(-1.1)).is('-1.1');
-// Quarters
-assert(fq(1.25)).is('1 1/4');
-assert(fq(-1.25)).is('-1 1/4');
-assert(fq(1.75)).is('1 3/4');
-assert(fq(-1.75)).is('-1 3/4');
-// Fifths
-assert(fq(0.2)).is('1/5');
-assert(fq(1.2)).is('1 1/5');
-assert(fq(0.4)).is('2/5');
-assert(fq(1.4)).is('1 2/5');
-assert(fq(0.6)).is('3/5');
-assert(fq(1.6)).is('1 3/5');
-assert(fq(0.8)).is('4/5');
-assert(fq(1.8)).is('1 4/5');
-// Thirds
-assert(fq(1.32)).is('1.32');
-assert(fq(1.33)).is('1 1/3');
-assert(fq(1.3333333333333333)).is('1 1/3');
-assert(fq(1.34)).is('1.34');
-assert(fq(1.66)).is('1 2/3');
-assert(fq(1.667)).is('1 2/3');
-assert(fq(1.6666666666666666)).is('1 2/3');
-assert(fq(1.67)).is('1.67');
-// Halves
-assert(fq(1.51)).is('1.51');
-assert(fq(1.5)).is('1 1/2');
-assert(fq(1.52)).is('1.52');
+[
+  // NaN
+  ['NaN', null],
+  // Zero should return blank string
+  [0, ''],
+  // Integers
+  [1, '1'],
+  [-1, '-1'],
+  [100, '100'],
+  // Most decimal values should be returned as-is
+  [1.123, '1.123'],
+  [-1.123, '-1.123'],
+  // Quarters
+  [1.25, '1 1/4'],
+  [-1.25, '-1 1/4'],
+  [1.75, '1 3/4'],
+  [-1.75, '-1 3/4'],
+  // Fifths
+  [0.2, '1/5'],
+  [1.2, '1 1/5'],
+  [0.4, '2/5'],
+  [1.4, '1 2/5'],
+  [0.6, '3/5'],
+  [1.6, '1 3/5'],
+  [0.8, '4/5'],
+  [1.8, '1 4/5'],
+  // Thirds
+  [1.32, '1.32'],
+  [1.33, '1 1/3'],
+  [1.3333333333333333, '1 1/3'],
+  [1.34, '1.34'],
+  [1.66, '1 2/3'],
+  [1.667, '1 2/3'],
+  [1.6666666666666666, '1 2/3'],
+  [1.67, '1.67'],
+  // Halves
+  [1.51, '1.51'],
+  [1.5, '1 1/2'],
+  [1.5, '1½', true],
+  [1.52, '1.52'],
+].forEach(([test, result, options]) =>
+  assert(formatQuantity(test, options)).is(result)
+);
 
 // Report results
-console.log(`${passCount} of ${testCount} tests passed.`);
+log('');
+log(`Total : ${testCount} tests`);
+log(`Passed: ${passCount} (${(passCount * 100) / testCount}%)`);
+log(
+  `Failed: ${testCount - passCount} (${
+    ((testCount - passCount) * 100) / testCount
+  }%)`
+);
 
 if (typeof process !== 'undefined') {
   process.exit(testCount - passCount ? 1 : 0);

@@ -16,10 +16,16 @@ export interface FormatQuantityOptions {
   tolerance?: number;
   /**
    * Output the fraction slash character (⁄) instead of the "solidus"
-   * slash (/) for fractions. Overridden by the `vulgarFractions` option.
+   * slash (/) for fractions. Results appear like "1⁄2" instead of "1/2".
+   * Overridden by the `vulgarFractions` option.
    */
   fractionSlash?: boolean;
 }
+
+export type FormatQuantity = (
+  qty: string | number,
+  options?: boolean | FormatQuantityOptions
+) => string | null;
 
 export type VulgarFraction =
   | '¼' // '\u00bc' | 0.25
@@ -40,3 +46,15 @@ export type VulgarFraction =
   | '⅜' // '\u215c' | 0.375
   | '⅝' // '\u215d' | 0.625
   | '⅞'; // '\u215e' | 0.875
+
+export type FormatQuantityTests = [
+  string,
+  (
+    | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>]
+    | [
+        Parameters<FormatQuantity>[0],
+        ReturnType<FormatQuantity>,
+        Parameters<FormatQuantity>[1]
+      ]
+  )[]
+][];

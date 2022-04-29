@@ -1,0 +1,8 @@
+{
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "tests.js",
+    "constants.ts",
+    "formatQuantityTests"
+  ]
+}
