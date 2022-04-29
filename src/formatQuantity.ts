@@ -38,7 +38,7 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
 
   const dQtyAbs = Math.abs(dQty);
   const iFloor = Math.floor(dQtyAbs);
-  const sFloor = iFloor === 0.0 ? '' : `${dQty < 0 ? '-' : ''}${iFloor} `;
+  const sFloor = `${dQty < 0 ? '-' : ''}${iFloor === 0 ? '' : `${iFloor} `}`;
   const dDecimal = dQtyAbs - iFloor;
 
   // For integers just return the given value as a string

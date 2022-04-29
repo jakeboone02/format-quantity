@@ -23,8 +23,20 @@ export const formatQuantityTests: FormatQuantityTests = [
       [1, '1'],
       [1 + 1, '2'],
       [1, '1', true],
-      [-1, '-1'],
       [100, '100'],
+    ],
+  ],
+  [
+    'handles negative values',
+    [
+      [-1, '-1'],
+      [1 - 3, '-2'],
+      [-1, '-1', true],
+      [-1.5, '-1 1/2'],
+      [-1.5, '-1½', true],
+      [-0.5, '-1/2'],
+      [-0.5, '-½', true],
+      [-0.5, '-1⁄2', { fractionSlash: true }],
     ],
   ],
   [
