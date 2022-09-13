@@ -1,13 +1,33 @@
-import type { VulgarFraction } from './types';
+import type { SimpleFraction, VulgarFraction } from './types';
 
 export const defaultTolerance = 0.009;
 
+export const vulgarFractions = [
+  '¼',
+  '½',
+  '¾',
+  '⅐',
+  '⅑',
+  '⅒',
+  '⅓',
+  '⅔',
+  '⅕',
+  '⅖',
+  '⅗',
+  '⅘',
+  '⅙',
+  '⅚',
+  '⅛',
+  '⅜',
+  '⅝',
+  '⅞',
+];
+
 /**
- * A map of vulgar fractions to their traditional ASCII equivalents.
+ * A map of vulgar or simple fractions to their traditional ASCII equivalents.
+ * Simple fractions map to themselves.
  */
-export const vulgarToPlainMap: {
-  [vf in VulgarFraction]: `${number}/${number}`;
-} = {
+export const vulgarToPlainMap: Record<string, SimpleFraction> = {
   '¼': '1/4',
   '½': '1/2',
   '¾': '3/4',
@@ -26,9 +46,20 @@ export const vulgarToPlainMap: {
   '⅜': '3/8',
   '⅝': '5/8',
   '⅞': '7/8',
+  '1/16': '1/16',
+  '3/16': '3/16',
+  '5/16': '5/16',
+  '7/16': '7/16',
+  '9/16': '9/16',
+  '11/16': '11/16',
+  '13/16': '13/16',
+  '15/16': '15/16',
 };
 
-export const fractionDecimalMatches: [number, VulgarFraction][] = [
+export const fractionDecimalMatches: [
+  number,
+  VulgarFraction | SimpleFraction
+][] = [
   [0.33, '⅓'],
   [0.66, '⅔'],
   [0.2, '⅕'],
@@ -47,4 +78,12 @@ export const fractionDecimalMatches: [number, VulgarFraction][] = [
   [0.625, '⅝'],
   [0.75, '¾'],
   [0.875, '⅞'],
+  [0.0625, '1/16'],
+  [0.1875, '3/16'],
+  [0.3125, '5/16'],
+  [0.4375, '7/16'],
+  [0.5625, '9/16'],
+  [0.6875, '11/16'],
+  [0.8125, '13/16'],
+  [0.9375, '15/16'],
 ];

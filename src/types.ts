@@ -27,6 +27,13 @@ export type FormatQuantity = (
   options?: boolean | FormatQuantityOptions
 ) => string | null;
 
+type NumChar = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+export type SimpleFraction =
+  | `${NumChar}/${NumChar}`
+  | `${NumChar}/${NumChar}${NumChar}`
+  | `${NumChar}${NumChar}/${NumChar}${NumChar}`;
+
 export type VulgarFraction =
   | '¼' // '\u00bc' | 0.25
   | '½' // '\u00bd' | 0.5

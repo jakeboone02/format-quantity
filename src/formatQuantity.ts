@@ -1,11 +1,13 @@
 import {
   defaultTolerance,
   fractionDecimalMatches,
+  vulgarFractions,
   vulgarToPlainMap,
 } from './constants';
 import type {
   FormatQuantity,
   FormatQuantityOptions,
+  SimpleFraction,
   VulgarFraction,
 } from './types';
 
@@ -15,6 +17,16 @@ import type {
  */
 const closeEnough = (n1: number, n2: number, tolerance: number) =>
   Math.abs(n1 - n2) < tolerance;
+
+const getFraction = (
+  fraction: VulgarFraction | SimpleFraction,
+  opts: FormatQuantityOptions
+) =>
+  opts.vulgarFractions
+    ? fraction
+    : opts.fractionSlash
+    ? vulgarToPlainMap[fraction].replace('/', '⁄')
+    : vulgarToPlainMap[fraction];
 
 /**
  * Formats a number (or string that appears to be a number)
@@ -49,18 +61,11 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
   const opts: FormatQuantityOptions =
     typeof options === 'boolean' ? { vulgarFractions: options } : options ?? {};
 
-  const sFloorFinal = opts.vulgarFractions ? sFloor.trim() : sFloor;
-
-  const getFraction = (vulgarFraction: VulgarFraction) =>
-    opts.vulgarFractions
-      ? vulgarFraction
-      : opts.fractionSlash
-      ? vulgarToPlainMap[vulgarFraction].replace('/', '⁄')
-      : vulgarToPlainMap[vulgarFraction];
-
   for (const [num, vf] of fractionDecimalMatches) {
     if (closeEnough(dDecimal, num, opts.tolerance ?? defaultTolerance)) {
-      return `${sFloorFinal}${getFraction(vf)}`;
+      const fraction = getFraction(vf, opts);
+      const int = vulgarFractions.includes(fraction) ? sFloor.trim() : sFloor;
+      return `${int}${fraction}`;
     }
   }
 
