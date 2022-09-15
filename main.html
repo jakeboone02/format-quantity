@@ -74,7 +74,7 @@
             <input
               type="number"
               id="tolerance"
-              value="0.009"
+              value="0.0075"
               style="width: auto"
             />
           </div>
@@ -91,7 +91,7 @@
       </div>
     </div>
     <hr />
-    <h4>Tests</h4>
+    <h4>Tests (default tolerance)</h4>
     <pre id="tests">Loading...</pre>
     <script type="module" src="/src/dev.ts"></script>
     <script>
@@ -129,7 +129,7 @@
         if (options.vulgarFractions) {
           optionsArr.push('vulgarFractions: true');
         }
-        if (options.tolerance !== 0.009) {
+        if (options.tolerance !== defaultTolerance) {
           optionsArr.push(`tolerance: ${parseFloat(options.tolerance)}`);
         }
         if (options.fractionSlash) {
@@ -196,10 +196,15 @@
 
       document.querySelector('#default').addEventListener('click', () => {
         document.querySelector('#vulgarFractions').checked = false;
-        document.querySelector('#tolerance').value = 0.009;
+        document.querySelector('#tolerance').value = defaultTolerance;
         document.querySelector('#fractionSlash').checked = false;
         refresh();
       });
+
+      setTimeout(
+        () => (document.querySelector('#tolerance').value = defaultTolerance),
+        250
+      );
 
       setTimeout(refresh, 500);
       setTimeout(runTests, 500);
