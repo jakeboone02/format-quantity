@@ -63,6 +63,8 @@ formatQuantity(3.875, { vulgarFractions: true }); // "3⅞"
 formatQuantity(3.875, true); // "3⅞"
 ```
 
+Note: `formatQuantity` supports sixteenths, but no vulgar fraction characters exist for that denomination. Therefore the `vulgarFractions` option has no effect if the fraction portion of the final string is an odd numerator over a denominator of `16`.
+
 ### `tolerance`
 
 | Type     | Default |
@@ -99,7 +101,7 @@ formatQuantity(3.875, { fractionSlash: true, vulgarFractions: true }); // "3⅞"
 
 | Name                     | Type                         | Description                                                                                                                                                 |
 | ------------------------ | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `defaultTolerance`       | `number`                     | `0.009`                                                                                                                                                     |
+| `defaultTolerance`       | `number`                     | `0.0075`                                                                                                                                                    |
 | `fractionDecimalMatches` | `[number, VulgarFraction][]` | List of fractions and the decimal values that are close enough to match them (inputs are evaluated against the decimal values in the order of this array)   |
 | `vulgarToPlainMap`       | `object`                     | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
 | `FormatQuantityOptions`  | `interface`                  | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |

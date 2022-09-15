@@ -49,7 +49,7 @@ export const formatQuantityTests: FormatQuantityTests = [
   [
     'handles halves',
     [
-      [1.51, '1.51'],
+      [1.49, '1.49'],
       [1.5, '1 1/2'],
       [1 + 1 / 2, '1 1/2'],
       [1.50001, '1 1/2'],
@@ -61,6 +61,7 @@ export const formatQuantityTests: FormatQuantityTests = [
   [
     'handles thirds',
     [
+      [1.32, '1.32'],
       [1.33, '1 1/3'],
       [1 + 1 / 3, '1 1/3'],
       [1.33, '1⅓', true],
@@ -77,14 +78,18 @@ export const formatQuantityTests: FormatQuantityTests = [
   [
     'handles quarters',
     [
+      [1.24, '1.24'],
       [1.25, '1 1/4'],
       [1 + 1 / 4, '1 1/4'],
       [1.25, '1¼', true],
       [-1.25, '-1 1/4'],
+      [1.26, '1.26'],
+      [1.74, '1.74'],
       [1.75, '1 3/4'],
       [1 + 3 / 4, '1 3/4'],
       [1.75, '1¾', true],
       [-1.75, '-1 3/4'],
+      [1.76, '1.76'],
     ],
   ],
   [

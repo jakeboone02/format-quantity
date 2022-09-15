@@ -1,6 +1,6 @@
 import type { SimpleFraction, VulgarFraction } from './types';
 
-export const defaultTolerance = 0.009;
+export const defaultTolerance = 0.0075;
 
 export const vulgarFractions = [
   '¼',
