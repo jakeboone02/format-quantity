@@ -11,7 +11,7 @@ export interface FormatQuantityOptions {
    * will return "2/3". The smaller this number, the higher the likelihood that
    * the function will return a decimal instead of a fraction or mixed number.
    *
-   * @default 0.009
+   * @default 0.0075
    */
   tolerance?: number;
   /**

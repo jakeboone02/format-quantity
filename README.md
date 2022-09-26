@@ -67,9 +67,9 @@ Note: `formatQuantity` supports sixteenths, but no vulgar fraction characters ex
 
 ### `tolerance`
 
-| Type     | Default |
-| -------- | ------: |
-| `number` | `0.009` |
+| Type     |  Default |
+| -------- | -------: |
+| `number` | `0.0075` |
 
 This option determines how close the decimal portion of a number has to be to the actual quotient of a fraction to be considered a match. For example, consider the fraction 1⁄3: `1 ÷ 3 = 0.3333...` repeating forever. The number `0.333` (333 thousandths) is not equivalent to 1⁄3, but it's very close. So even though `0.333 !== (1 / 3)`, `formatQuantity(0.333)` will return `"1/3"` the same as `formatQuantity(1/3)`.
 
