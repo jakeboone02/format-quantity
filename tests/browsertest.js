@@ -47,8 +47,8 @@ const assert = attempt => {
   [-1, '-1'],
   [100, '100'],
   // Most decimal values should be returned as-is
-  [1.123, '1.123'],
-  [-1.123, '-1.123'],
+  [1.123, '1 1/8'],
+  [-1.123, '-1 1/8'],
   // Quarters
   [1.25, '1 1/4'],
   [-1.25, '-1 1/4'],

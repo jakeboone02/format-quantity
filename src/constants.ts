@@ -25,7 +25,7 @@ export const vulgarFractions = [
 
 /**
  * A map of vulgar or simple fractions to their traditional ASCII equivalents.
- * Simple fractions map to themselves.
+ * Simple fractions (i.e., sixteenths) map to themselves.
  */
 export const vulgarToPlainMap: Record<string, SimpleFraction> = {
   '¼': '1/4',

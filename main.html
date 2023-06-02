@@ -170,14 +170,16 @@
           );
           expects.forEach(([quantity, result, options]) => {
             const actual = formatQuantity(quantity, options);
+            const opts = typeof options === 'undefined' ? '' : options;
+            const optionString = opts === '' ? '' : `, ${JSON.stringify(opts)}`;
             appendToResults(
               `${(actual === result ? '✓' : '❌').padEnd(
                 2
-              )} ${`formatQuantity(${JSON.stringify(quantity)}${
-                options ? `, ${JSON.stringify(options)}` : ''
-              })`.padEnd(69)} ${`${JSON.stringify(result)}`.padEnd(
-                10
-              )} ${`${JSON.stringify(actual)}`.padEnd(10)}`
+              )} ${`formatQuantity(${JSON.stringify(
+                quantity
+              )}${optionString})`.padEnd(69)} ${`${JSON.stringify(
+                result
+              )}`.padEnd(10)} ${`${JSON.stringify(actual)}`.padEnd(10)}`
             );
           });
         });

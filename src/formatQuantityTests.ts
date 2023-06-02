@@ -198,7 +198,13 @@ export const formatQuantityTests: FormatQuantityTests = [
       [1.9375, '1 15⁄16', { fractionSlash: true /* tolerance: 0.001 */ }],
     ],
   ],
-  ['handles empty options object', [[1.5, '1 1/2', {}]]],
+  [
+    'handles options as null and empty object',
+    [
+      [1.5, '1 1/2', null as any],
+      [1.5, '1 1/2', {}],
+    ],
+  ],
   [
     'handles vulgarFractions option',
     [

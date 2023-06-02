@@ -19,14 +19,21 @@ const closeEnough = (n1: number, n2: number, tolerance: number) =>
   Math.abs(n1 - n2) < tolerance;
 
 const getFraction = (
-  fraction: VulgarFraction | SimpleFraction,
-  opts: FormatQuantityOptions
-) =>
-  opts.vulgarFractions
-    ? fraction
-    : opts.fractionSlash
-    ? vulgarToPlainMap[fraction].replace('/', '⁄')
-    : vulgarToPlainMap[fraction];
+  vulgarFraction: VulgarFraction | SimpleFraction,
+  { fractionSlash, vulgarFractions }: FormatQuantityOptions
+) => {
+  if (vulgarFractions) {
+    return vulgarFraction;
+  }
+
+  const plainFraction = vulgarToPlainMap[vulgarFraction];
+
+  if (fractionSlash) {
+    return plainFraction.replace('/', '⁄');
+  }
+
+  return plainFraction;
+};
 
 /**
  * Formats a number (or string that appears to be a number)
@@ -35,7 +42,7 @@ const getFraction = (
  * like "½", pass `true` as the second argument. For other options
  * see the [documentation](https://jakeboone02.github.io/format-quantity/).
  */
-export const formatQuantity: FormatQuantity = (qty, options) => {
+export const formatQuantity: FormatQuantity = (qty, options = false) => {
   const dQty = typeof qty === 'string' ? parseFloat(qty) : qty;
 
   // Return `null` if input is not number-like
