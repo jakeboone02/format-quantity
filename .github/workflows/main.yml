@@ -25,12 +25,12 @@ jobs:
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
 
-      - name: Test
-        run: yarn test --ci --maxWorkers=2
-
       - name: Build
         run: yarn build
 
+      - name: Test
+        run: yarn test --ci --maxWorkers=2
+
       - name: Upload coverage to Codecov
-        if: matrix.os == 'ubuntu-latest' && matrix.node == '16.x'
+        if: matrix.os == 'ubuntu-latest' && matrix.node == '18.x'
         uses: codecov/codecov-action@v1
