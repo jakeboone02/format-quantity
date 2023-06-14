@@ -1,6 +1,7 @@
 import {
   defaultTolerance,
   fractionDecimalMatches,
+  romanNumeralValueKey,
   vulgarFractions,
   vulgarToPlainMap,
 } from './constants';
@@ -36,6 +37,30 @@ const getFraction = (
 };
 
 /**
+ * Formats a number as Roman numerals. The number must be between
+ * 1 and 3999 (inclusive).
+ */
+export const formatRomanNumerals = (qty: number) => {
+  if (typeof qty !== 'number' || isNaN(qty)) {
+    return null;
+  }
+
+  if (qty < 1 || qty >= 4000) {
+    return '';
+  }
+
+  const floored = Math.floor(qty);
+
+  const digits = `${floored}`.split('');
+  let roman = '';
+  let i = 3;
+  while (i--) {
+    roman = `${romanNumeralValueKey[+digits.pop()! + i * 10] || ''}${roman}`;
+  }
+  return `${Array(+digits.join('') + 1).join('M')}${roman}`;
+};
+
+/**
  * Formats a number (or string that appears to be a number)
  * as one would see it written in imperial measurements, e.g.
  * "1 1/2" instead of "1.5". To use vulgar fraction characters
@@ -55,6 +80,13 @@ export const formatQuantity: FormatQuantity = (qty, options = false) => {
     return '';
   }
 
+  const opts: FormatQuantityOptions =
+    typeof options === 'boolean' ? { vulgarFractions: options } : options ?? {};
+
+  if (opts.romanNumerals) {
+    return formatRomanNumerals(dQty);
+  }
+
   const dQtyAbs = Math.abs(dQty);
   const iFloor = Math.floor(dQtyAbs);
   const sFloor = `${dQty < 0 ? '-' : ''}${iFloor === 0 ? '' : `${iFloor} `}`;
@@ -64,9 +96,6 @@ export const formatQuantity: FormatQuantity = (qty, options = false) => {
   if (dDecimal === 0) {
     return `${dQty}`;
   }
-
-  const opts: FormatQuantityOptions =
-    typeof options === 'boolean' ? { vulgarFractions: options } : options ?? {};
 
   for (const [num, vf] of fractionDecimalMatches) {
     if (closeEnough(dDecimal, num, opts.tolerance ?? defaultTolerance)) {

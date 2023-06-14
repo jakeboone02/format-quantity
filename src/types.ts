@@ -20,6 +20,11 @@ export interface FormatQuantityOptions {
    * Overridden by the `vulgarFractions` option.
    */
   fractionSlash?: boolean;
+  /**
+   * Output in Roman numerals. Provided alue must be between 1 and 3999.
+   * Decimal values will be ignored.
+   */
+  romanNumerals?: boolean;
 }
 
 export type FormatQuantity = (
@@ -27,12 +32,13 @@ export type FormatQuantity = (
   options?: boolean | FormatQuantityOptions
 ) => string | null;
 
-type NumChar = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type NonZeroNumChar = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type NumChar = '0' | NonZeroNumChar;
 
 export type SimpleFraction =
-  | `${NumChar}/${NumChar}`
-  | `${NumChar}/${NumChar}${NumChar}`
-  | `${NumChar}${NumChar}/${NumChar}${NumChar}`;
+  | `${NonZeroNumChar}/${NonZeroNumChar}`
+  | `${NonZeroNumChar}/${NonZeroNumChar}${NumChar}`
+  | `${NonZeroNumChar}${NumChar}/${NonZeroNumChar}${NumChar}`;
 
 export type VulgarFraction =
   | '¼' // '\u00bc' | 0.25
@@ -54,7 +60,7 @@ export type VulgarFraction =
   | '⅝' // '\u215d' | 0.625
   | '⅞'; // '\u215e' | 0.875
 
-export type FormatQuantityTests = [
+export type FormatQuantityTests = Record<
   string,
   (
     | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>]
@@ -64,4 +70,4 @@ export type FormatQuantityTests = [
         Parameters<FormatQuantity>[1]
       ]
   )[]
-][];
+>;

@@ -87,3 +87,10 @@ export const fractionDecimalMatches: [
   [0.8125, '13/16'],
   [0.9375, '15/16'],
 ];
+
+// prettier-ignore
+export const romanNumeralValueKey = [
+  "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+  "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+  "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX",
+];
