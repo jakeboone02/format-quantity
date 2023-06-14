@@ -154,8 +154,12 @@
       };
       const runTests = () => {
         testsEl.innerHTML = '';
-        formatQuantityTests.forEach(([description, expects], i) => {
+        let i = 0;
+        for (const [description, tests] of Object.entries(
+          formatQuantityTests
+        )) {
           if (i > 0) appendToResults('');
+          i++;
           appendToResults(description);
           appendToResults(
             `${''.padEnd(2)} ${`call`.padEnd(69)} ${`expect`.padEnd(
@@ -168,7 +172,7 @@
               '-'
             )} ${''.padStart(10, '-')}`
           );
-          expects.forEach(([quantity, result, options]) => {
+          for (const [quantity, result, options] of tests) {
             const actual = formatQuantity(quantity, options);
             const opts = typeof options === 'undefined' ? '' : options;
             const optionString = opts === '' ? '' : `, ${JSON.stringify(opts)}`;
@@ -181,8 +185,8 @@
                 result
               )}`.padEnd(10)} ${`${JSON.stringify(actual)}`.padEnd(10)}`
             );
-          });
-        });
+          }
+        }
       };
 
       document.querySelector('#input').addEventListener('change', refresh);

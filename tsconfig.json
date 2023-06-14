@@ -9,8 +9,7 @@
     "target": "esnext",
     "esModuleInterop": true,
     "baseUrl": ".",
-    "outDir": "dist",
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "lib": ["ESNext", "DOM"]
   },
   "include": ["src"]

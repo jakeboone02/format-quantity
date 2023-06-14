@@ -1,7 +1,6 @@
 import {
   defaultTolerance,
   fractionDecimalMatches,
-  romanNumeralValueKey,
   vulgarFractions,
   vulgarToPlainMap,
 } from './constants';
@@ -35,6 +34,13 @@ const getFraction = (
 
   return plainFraction;
 };
+
+// prettier-ignore
+const romanNumeralValueKey = [
+  "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+  "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+  "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX",
+] as const;
 
 /**
  * Formats a number as Roman numerals. The number must be between
