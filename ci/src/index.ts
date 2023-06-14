@@ -18,4 +18,4 @@ for (const num of numbers) {
   gridInnerHTML.push(...run.map(r => `<div>${JSON.stringify(r)}</div>`));
 }
 
-grid.innerHTML = gridInnerHTML.join('');
+grid.innerHTML += gridInnerHTML.join('');
