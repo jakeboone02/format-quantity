@@ -1,8 +1,8 @@
 # format-quantity
 
-[![npm version](https://badge.fury.io/js/format-quantity.svg)](//npmjs.com/package/format-quantity)
-![workflow status](https://github.com/jakeboone02/format-quantity/workflows/Continuous%20Integration/badge.svg)
-[![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=master)](https://codecov.io/github/jakeboone02/format-quantity?branch=master)
+[![npm][badge-npm]](https://www.npmjs.com/package/format-quantity)
+![workflow status](https://github.com/jakeboone02/format-quantity/actions/workflows/main.yml/badge.svg)
+[![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=main)](https://codecov.io/github/jakeboone02/format-quantity?branch=main)
 [![downloads](https://img.shields.io/npm/dm/format-quantity.svg)](http://npm-stat.com/charts.html?package=format-quantity&from=2015-08-01)
 [![MIT License](https://img.shields.io/npm/l/format-quantity.svg)](http://opensource.org/licenses/MIT)
 
@@ -129,3 +129,5 @@ formatQuantity(12.14, { romanNumerals: true, vulgarFractions: true }); // "XII"
 | `SimpleFraction`         | `type`                                               | String template type for valid (positive, no division by zero) ASCII fraction strings with either one or two digits in the numerator and denominator each   |
 | `VulgarFraction`         | `type`                                               | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
 | `Sixteenth`              | `type`                                               | Union type of all ASCII representations of odd-numbered sixteenth fractions less than one, (`"1/16"`, `"3/16"`, etc.)                                       |
+
+[badge-npm]: https://img.shields.io/npm/v/numeric-quantity.svg?cacheSeconds=3600&logo=npm
