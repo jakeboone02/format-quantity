@@ -44,6 +44,26 @@
         column-gap: 0.5rem;
         row-gap: 0.25rem;
       }
+      #tests {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: small;
+        display: grid;
+        grid-template-columns: 0.1fr 1fr 0.2fr 0.2fr;
+        gap: 0.5rem;
+      }
+      #tests > .desc {
+        font-weight: bold;
+        grid-column-start: 1;
+        grid-column-end: 5;
+        padding-top: 1rem;
+      }
+      #tests > .th {
+        border-bottom: 1px solid #cccccc;
+      }
+      #tests > .th,
+      #tests > .pass {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -78,6 +98,10 @@
               style="width: auto"
             />
           </div>
+          <div>Roman numerals</div>
+          <div>
+            <input type="checkbox" id="romanNumerals" />
+          </div>
           <div>
             <button type="button" id="default">Reset options</button>
           </div>
@@ -91,15 +115,18 @@
       </div>
     </div>
     <hr />
-    <h4>Tests (default tolerance)</h4>
-    <pre id="tests">Loading...</pre>
+    <h4>Tests</h4>
+    <p>
+      <em><small>Tests use the default tolerance.</small></em>
+    </p>
+    <div id="tests">Loading...</div>
     <script type="module" src="/src/dev.ts"></script>
     <script>
       const getInput = () => {
         /**
          * @type HTMLInputElement
          */
-        const inputBox = document.querySelector('#input');
+        const inputBox = document.getElementById('input');
         return inputBox.value;
       };
 
@@ -107,19 +134,24 @@
         /**
          * @type HTMLInputElement
          */
-        const vulgarFractionsEl = document.querySelector('#vulgarFractions');
+        const vulgarFractionsEl = document.getElementById('vulgarFractions');
         /**
          * @type HTMLInputElement
          */
-        const toleranceEl = document.querySelector('#tolerance');
+        const toleranceEl = document.getElementById('tolerance');
         /**
          * @type HTMLInputElement
          */
-        const fractionSlashEl = document.querySelector('#fractionSlash');
+        const fractionSlashEl = document.getElementById('fractionSlash');
+        /**
+         * @type HTMLInputElement
+         */
+        const romanNumeralsEl = document.getElementById('romanNumerals');
         const vulgarFractions = vulgarFractionsEl.checked;
         const tolerance = parseFloat(toleranceEl.value);
         const fractionSlash = fractionSlashEl.checked;
-        return { vulgarFractions, tolerance, fractionSlash };
+        const romanNumerals = romanNumeralsEl.checked;
+        return { vulgarFractions, tolerance, fractionSlash, romanNumerals };
       };
 
       const refresh = () => {
@@ -135,85 +167,78 @@
         if (options.fractionSlash) {
           optionsArr.push('fractionSlash: true');
         }
+        if (options.romanNumerals) {
+          optionsArr.push('romanNumerals: true');
+        }
         let optionsStr = '';
         if (optionsArr.length > 0) {
           optionsStr = `, { ${optionsArr.join(', ')} }`;
         }
-        document.querySelector(
-          '#call'
+        document.getElementById(
+          'call'
         ).innerText = `formatQuantity(${input}${optionsStr})`;
-        document.querySelector('#result').innerText = JSON.stringify(
+        document.getElementById('result').innerText = JSON.stringify(
           formatQuantity(input, options)
         );
       };
 
       // Tests
-      const testsEl = document.querySelector('#tests');
-      const appendToResults = str => {
-        testsEl.innerHTML += `${str}<br>`;
-      };
+      const testsEl = document.getElementById('tests');
+      const headerRow =
+        '<div class="th">pass?</div><div class="th">call</div><div class="th">expect</div><div class="th">actual</div>';
       const runTests = () => {
-        testsEl.innerHTML = '';
-        let i = 0;
+        let testResultHTML = '';
         for (const [description, tests] of Object.entries(
           formatQuantityTests
         )) {
-          if (i > 0) appendToResults('');
-          i++;
-          appendToResults(description);
-          appendToResults(
-            `${''.padEnd(2)} ${`call`.padEnd(69)} ${`expect`.padEnd(
-              10
-            )} ${`actual`.padEnd(10)}`
-          );
-          appendToResults(
-            `${''.padStart(2, '-')} ${''.padStart(69, '-')} ${''.padStart(
-              10,
-              '-'
-            )} ${''.padStart(10, '-')}`
-          );
+          testResultHTML += `<div class="desc">${description}</div>`;
+          testResultHTML += headerRow;
           for (const [quantity, result, options] of tests) {
             const actual = formatQuantity(quantity, options);
             const opts = typeof options === 'undefined' ? '' : options;
-            const optionString = opts === '' ? '' : `, ${JSON.stringify(opts)}`;
-            appendToResults(
-              `${(actual === result ? '✓' : '❌').padEnd(
-                2
-              )} ${`formatQuantity(${JSON.stringify(
-                quantity
-              )}${optionString})`.padEnd(69)} ${`${JSON.stringify(
-                result
-              )}`.padEnd(10)} ${`${JSON.stringify(actual)}`.padEnd(10)}`
-            );
+            const optionString =
+              opts === ''
+                ? ''
+                : `, ${JSON.stringify(opts).replace(/([,:])/g, '$1 ')}`;
+            testResultHTML += `<div class="pass">${
+              actual === result ? '✅' : '❌'
+            }</div><div>formatQuantity(${JSON.stringify(
+              quantity
+            )}${optionString})</div><div>${JSON.stringify(
+              result
+            )}</div><div>${JSON.stringify(actual)}</div>`;
           }
         }
+        testsEl.innerHTML = testResultHTML;
       };
 
-      document.querySelector('#input').addEventListener('change', refresh);
-      document.querySelector('#input').addEventListener('keyup', refresh);
-      document
-        .querySelector('#vulgarFractions')
-        .addEventListener('change', refresh);
-      document.querySelector('#tolerance').addEventListener('change', refresh);
-      document.querySelector('#tolerance').addEventListener('keyup', refresh);
-      document
-        .querySelector('#fractionSlash')
-        .addEventListener('change', refresh);
+      const inputIDs = ['input', 'tolerance'];
+      const booleanOptionIDs = [
+        'vulgarFractions',
+        'fractionSlash',
+        'romanNumerals',
+      ];
 
-      document.querySelector('#default').addEventListener('click', () => {
-        document.querySelector('#vulgarFractions').checked = false;
-        document.querySelector('#tolerance').value = defaultTolerance;
-        document.querySelector('#fractionSlash').checked = false;
+      for (const id of [...inputIDs, ...booleanOptionIDs]) {
+        document.getElementById(id).addEventListener('change', refresh);
+      }
+      for (const id of inputIDs) {
+        document.getElementById(id).addEventListener('keyup', refresh);
+      }
+
+      document.getElementById('default').addEventListener('click', () => {
+        for (const id of booleanOptionIDs) {
+          document.getElementById(id).checked = false;
+        }
+        document.getElementById('tolerance').value = defaultTolerance;
         refresh();
       });
 
-      setTimeout(
-        () => (document.querySelector('#tolerance').value = defaultTolerance),
-        250
-      );
-
-      setTimeout(refresh, 500);
-      setTimeout(runTests, 500);
+      setTimeout(() => {
+        document.getElementById('tolerance').value = defaultTolerance;
+        refresh();
+        runTests();
+      }, 250);
     </script>
   </body>
 </html>

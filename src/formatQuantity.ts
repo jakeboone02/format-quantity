@@ -1,13 +1,13 @@
 import {
-  defaultTolerance,
+  defaultOptions,
   fractionDecimalMatches,
-  vulgarFractions,
-  vulgarToPlainMap,
+  vulgarToAsciiMap,
 } from './constants';
 import type {
   FormatQuantity,
   FormatQuantityOptions,
   SimpleFraction,
+  Sixteenth,
   VulgarFraction,
 } from './types';
 
@@ -19,14 +19,16 @@ const closeEnough = (n1: number, n2: number, tolerance: number) =>
   Math.abs(n1 - n2) < tolerance;
 
 const getFraction = (
-  vulgarFraction: VulgarFraction | SimpleFraction,
+  vulgarFractionOrSixteenth: VulgarFraction | Sixteenth,
   { fractionSlash, vulgarFractions }: FormatQuantityOptions
 ) => {
   if (vulgarFractions) {
-    return vulgarFraction;
+    return vulgarFractionOrSixteenth;
   }
 
-  const plainFraction = vulgarToPlainMap[vulgarFraction];
+  const plainFraction: SimpleFraction =
+    vulgarToAsciiMap[vulgarFractionOrSixteenth as VulgarFraction] ??
+    vulgarFractionOrSixteenth;
 
   if (fractionSlash) {
     return plainFraction.replace('/', '⁄');
@@ -34,6 +36,13 @@ const getFraction = (
 
   return plainFraction;
 };
+
+const normalizeOptions = (
+  options: Parameters<FormatQuantity>[1]
+): Required<FormatQuantityOptions> => ({
+  ...defaultOptions,
+  ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
+});
 
 // prettier-ignore
 const romanNumeralValueKey = [
@@ -73,43 +82,53 @@ export const formatRomanNumerals = (qty: number) => {
  * like "½", pass `true` as the second argument. For other options
  * see the [documentation](https://jakeboone02.github.io/format-quantity/).
  */
-export const formatQuantity: FormatQuantity = (qty, options = false) => {
-  const dQty = typeof qty === 'string' ? parseFloat(qty) : qty;
+export const formatQuantity: FormatQuantity = (
+  qty,
+  options = defaultOptions
+) => {
+  // TODO: use numericQuantity instead of parseFloat?
+  const qtyAsNumber = typeof qty === 'string' ? parseFloat(qty) : qty;
 
   // Return `null` if input is not number-like
-  if (isNaN(dQty) || dQty === null) {
+  if (isNaN(qtyAsNumber) || qtyAsNumber === null) {
     return null;
   }
 
   // Return an empty string if the value is zero
-  if (dQty === 0) {
+  if (qtyAsNumber === 0) {
     return '';
   }
 
-  const opts: FormatQuantityOptions =
-    typeof options === 'boolean' ? { vulgarFractions: options } : options ?? {};
+  // The default options parameter in the function signature only takes effect
+  // if the parameter is `undefined`. The nullish coalescing operator below
+  // covers the `null` case.
+  const opts = normalizeOptions(options ?? defaultOptions);
 
   if (opts.romanNumerals) {
-    return formatRomanNumerals(dQty);
+    return formatRomanNumerals(qtyAsNumber);
   }
 
-  const dQtyAbs = Math.abs(dQty);
-  const iFloor = Math.floor(dQtyAbs);
-  const sFloor = `${dQty < 0 ? '-' : ''}${iFloor === 0 ? '' : `${iFloor} `}`;
-  const dDecimal = dQtyAbs - iFloor;
+  const absoluteValue = Math.abs(qtyAsNumber);
+  const flooredAbsVal = Math.floor(absoluteValue);
+  const flooredAbsValStr = `${qtyAsNumber < 0 ? '-' : ''}${
+    flooredAbsVal === 0 ? '' : `${flooredAbsVal} `
+  }`;
+  const decimalValue = absoluteValue - flooredAbsVal;
 
   // For integers just return the given value as a string
-  if (dDecimal === 0) {
-    return `${dQty}`;
+  if (decimalValue === 0) {
+    return `${qtyAsNumber}`;
   }
 
   for (const [num, vf] of fractionDecimalMatches) {
-    if (closeEnough(dDecimal, num, opts.tolerance ?? defaultTolerance)) {
+    if (closeEnough(decimalValue, num, opts.tolerance)) {
       const fraction = getFraction(vf, opts);
-      const int = vulgarFractions.includes(fraction) ? sFloor.trim() : sFloor;
+      const int = Object.hasOwn(vulgarToAsciiMap, fraction)
+        ? flooredAbsValStr.trim()
+        : flooredAbsValStr;
       return `${int}${fraction}`;
     }
   }
 
-  return `${dQty}`;
+  return `${qtyAsNumber}`;
 };

@@ -1,33 +1,24 @@
-import type { SimpleFraction, VulgarFraction } from './types';
+import type {
+  FormatQuantityOptions,
+  SimpleFraction,
+  Sixteenth,
+  VulgarFraction,
+} from './types';
 
-export const defaultTolerance = 0.0075;
+export const defaultTolerance = 0.0075 as const;
 
-export const vulgarFractions = [
-  '¼',
-  '½',
-  '¾',
-  '⅐',
-  '⅑',
-  '⅒',
-  '⅓',
-  '⅔',
-  '⅕',
-  '⅖',
-  '⅗',
-  '⅘',
-  '⅙',
-  '⅚',
-  '⅛',
-  '⅜',
-  '⅝',
-  '⅞',
-];
+export const defaultOptions = {
+  vulgarFractions: false,
+  tolerance: defaultTolerance,
+  fractionSlash: false,
+  romanNumerals: false,
+} satisfies Required<FormatQuantityOptions>;
 
 /**
- * A map of vulgar or simple fractions to their traditional ASCII equivalents.
- * Simple fractions (i.e., sixteenths) map to themselves.
+ * A map of vulgar or simple sixteenth fractions to their traditional ASCII
+ * equivalents. Sixteenths map to themselves.
  */
-export const vulgarToPlainMap: Record<string, SimpleFraction> = {
+export const vulgarToAsciiMap = {
   '¼': '1/4',
   '½': '1/2',
   '¾': '3/4',
@@ -46,20 +37,9 @@ export const vulgarToPlainMap: Record<string, SimpleFraction> = {
   '⅜': '3/8',
   '⅝': '5/8',
   '⅞': '7/8',
-  '1/16': '1/16',
-  '3/16': '3/16',
-  '5/16': '5/16',
-  '7/16': '7/16',
-  '9/16': '9/16',
-  '11/16': '11/16',
-  '13/16': '13/16',
-  '15/16': '15/16',
-};
+} satisfies Record<VulgarFraction, SimpleFraction>;
 
-export const fractionDecimalMatches: [
-  number,
-  VulgarFraction | SimpleFraction
-][] = [
+export const fractionDecimalMatches = [
   [0.33, '⅓'],
   [0.66, '⅔'],
   [0.2, '⅕'],
@@ -86,4 +66,4 @@ export const fractionDecimalMatches: [
   [0.6875, '11/16'],
   [0.8125, '13/16'],
   [0.9375, '15/16'],
-];
+] satisfies [number, VulgarFraction | Sixteenth][];

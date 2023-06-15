@@ -118,11 +118,14 @@ formatQuantity(12.14, { romanNumerals: true, vulgarFractions: true }); // "XII"
 
 ## Other exports
 
-| Name                     | Type                         | Description                                                                                                                                                 |
-| ------------------------ | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `defaultTolerance`       | `number`                     | `0.0075`                                                                                                                                                    |
-| `fractionDecimalMatches` | `[number, VulgarFraction][]` | List of fractions and the decimal values that are close enough to match them (inputs are evaluated against the decimal values in the order of this array)   |
-| `vulgarToPlainMap`       | `object`                     | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
-| `FormatQuantityOptions`  | `interface`                  | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |
-| `VulgarFraction`         | `type`                       | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
-| `formatRomanNumerals`    | `function`                   | Formats a number as Roman numerals. Used internally by `formatQuantity` when the `romanNumerals` option is `true`.                                          |
+| Name                     | Type                                                 | Description                                                                                                                                                 |
+| ------------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `defaultTolerance`       | `number`                                             | `0.0075`                                                                                                                                                    |
+| `defaultOptions`         | `type`                                               | Object representing the default options                                                                                                                     |
+| `fractionDecimalMatches` | <code>[number, VulgarFraction \| Sixteenth][]</code> | List of decimal values that are close enough to match the associated fraction (inputs are evaluated against the decimal values in the order of this array)  |
+| `vulgarToAsciiMap`       | `object`                                             | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
+| `formatRomanNumerals`    | `function`                                           | Formats a number as Roman numerals (used internally by `formatQuantity` when the `romanNumerals` option is `true`)                                          |
+| `FormatQuantityOptions`  | `interface`                                          | Shape of `formatQuantity`'s second parameter (if not a `boolean` value)                                                                                     |
+| `SimpleFraction`         | `type`                                               | String template type for valid (positive, no division by zero) ASCII fraction strings with either one or two digits in the numerator and denominator each   |
+| `VulgarFraction`         | `type`                                               | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
+| `Sixteenth`              | `type`                                               | Union type of all ASCII representations of odd-numbered sixteenth fractions less than one, (`"1/16"`, `"3/16"`, etc.)                                       |

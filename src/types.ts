@@ -40,6 +40,16 @@ export type SimpleFraction =
   | `${NonZeroNumChar}/${NonZeroNumChar}${NumChar}`
   | `${NonZeroNumChar}${NumChar}/${NonZeroNumChar}${NumChar}`;
 
+export type Sixteenth = `${
+  | '1'
+  | '3'
+  | '5'
+  | '7'
+  | '9'
+  | '11'
+  | '13'
+  | '15'}/16`;
+
 export type VulgarFraction =
   | '¼' // '\u00bc' | 0.25
   | '½' // '\u00bd' | 0.5

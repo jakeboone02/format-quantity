@@ -1,4 +1,4 @@
-import { FormatQuantityTests } from './types';
+import type { FormatQuantityTests } from './types';
 
 const romanNumerals = true;
 const fractionSlash = true;
@@ -171,7 +171,7 @@ export const formatQuantityTests: FormatQuantityTests = {
   'tolerance option': [
     [1.3, '1.3', { tolerance: null as any }],
     [1.3, '1 1/3', { tolerance: 0.1 }],
-    [1.1428, '1.1428', { tolerance: 0.000001 }],
+    [1.1499, '1.1499', { tolerance: 0.000001 }],
   ],
   'Roman numerals': [
     ['NaN', null, { romanNumerals }],
