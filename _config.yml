@@ -1,1 +1,6 @@
-theme: jekyll-theme-modernist
+remote_theme: pages-themes/hacker@v0.2.0
+plugins:
+  - jekyll-remote-theme
+title: format-quantity
+description: Formats a number as in imperial measurements, for example 1.5 becomes "1 1/2"
+show_downloads: false
