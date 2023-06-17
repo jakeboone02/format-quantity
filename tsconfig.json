@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
+    "types": ["bun-types", "jest"],
     "isolatedModules": true,
     "declaration": true,
     "sourceMap": true,
-    "strictNullChecks": true,
     "strict": true,
-    "module": "es6",
+    "module": "ESNext",
     "moduleResolution": "node",
     "target": "esnext",
     "esModuleInterop": true,
     "baseUrl": ".",
-    "outDir": "dist",
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "lib": ["ESNext", "DOM"]
   },
-  "include": ["src"]
+  "include": [".", "./src"]
 }

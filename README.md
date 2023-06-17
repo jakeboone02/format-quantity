@@ -1,39 +1,26 @@
 # format-quantity
 
-[![npm version](https://badge.fury.io/js/format-quantity.svg)](//npmjs.com/package/format-quantity)
-![workflow status](https://github.com/jakeboone02/format-quantity/workflows/Continuous%20Integration/badge.svg)
-[![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=master)](https://codecov.io/github/jakeboone02/format-quantity?branch=master)
+[![npm][badge-npm]](https://www.npmjs.com/package/format-quantity)
+![workflow status](https://github.com/jakeboone02/format-quantity/actions/workflows/main.yml/badge.svg)
+[![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=main)](https://codecov.io/github/jakeboone02/format-quantity?branch=main)
 [![downloads](https://img.shields.io/npm/dm/format-quantity.svg)](http://npm-stat.com/charts.html?package=format-quantity&from=2015-08-01)
 [![MIT License](https://img.shields.io/npm/l/format-quantity.svg)](http://opensource.org/licenses/MIT)
 
-Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5". To use vulgar fraction characters like "⅞", pass `true` as the second argument.
+Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5".
 
-For the inverse operation, converting a string (which may include mixed numbers or vulgar fractions) to a `number`, check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity) or, if you're interested in parsing recipe ingredient strings, try [parse-ingredient](https://www.npmjs.com/package/parse-ingredient).
+Features:
 
-## Installation
+- To use vulgar fraction characters like "⅞", pass `true` as the second argument (see other [options](#options), like Roman numerals, below).
+- The return value will be `null` if the first argument is neither a number nor a string that evaluates to a number using `parseFloat`.
+- The return value will be an empty string (`""`) if the first argument is `0` or `"0"`, which is done to fit the primary use case of formatting recipe ingredient quantities.
 
-### npm
-
-```shell
-# npm
-npm i format-quantity
-
-# yarn
-yarn add format-quantity
-```
-
-### Browser
-
-In the browser, all exports including the `formatQuantity` function are available on the global object `FormatQuantity`.
-
-```html
-<script src="https://unpkg.com/format-quantity"></script>
-<script>
-  console.log(FormatQuantity.formatQuantity(10.5)); // "10 1/2"
-</script>
-```
+> _For the inverse operation—converting a string to a `number`—check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity). It handles mixed numbers, vulgar fractions, comma/underscore separators, and Roman numerals._
+>
+> _If you're interested in parsing recipe ingredient strings, try [parse-ingredient](https://www.npmjs.com/package/parse-ingredient)._
 
 ## Usage
+
+### Installed
 
 ```js
 import { formatQuantity } from 'format-quantity';
@@ -43,7 +30,26 @@ formatQuantity(2.66); // "2 2/3"
 formatQuantity(3.875, true); // "3⅞"
 ```
 
-The return value will be `null` if the provided argument is not a number or a string that evaluates to a number using `parseFloat`. The return value will be an empty string (`""`) if the provided argument is `0` or `"0"` (this is done to fit the primary use case of recipe ingredient quantities).
+### CDN
+
+As an ES module:
+
+```html
+<script type="module">
+  import { formatQuantity } from 'https://cdn.jsdelivr.net/npm/format-quantity/+esm';
+
+  console.log(formatQuantity(10.5)); // "10 1/2"
+</script>
+```
+
+As UMD (all exports are properties of the global object `FormatQuantity`):
+
+```html
+<script src="https://unpkg.com/format-quantity"></script>
+<script>
+  console.log(FormatQuantity.formatQuantity(10.5)); // "10 1/2"
+</script>
+```
 
 ## Options
 
@@ -65,25 +71,6 @@ formatQuantity(3.875, true); // "3⅞"
 
 Note: `formatQuantity` supports sixteenths, but no vulgar fraction characters exist for that denomination. Therefore the `vulgarFractions` option has no effect if the fraction portion of the final string is an odd numerator over a denominator of `16`.
 
-### `tolerance`
-
-| Type     |  Default |
-| -------- | -------: |
-| `number` | `0.0075` |
-
-This option determines how close the decimal portion of a number has to be to the actual quotient of a fraction to be considered a match. For example, consider the fraction 1⁄3: `1 ÷ 3 = 0.3333...` repeating forever. The number `0.333` (333 thousandths) is not equivalent to 1⁄3, but it's very close. So even though `0.333 !== (1 / 3)`, `formatQuantity(0.333)` will return `"1/3"` the same as `formatQuantity(1/3)`.
-
-A lower tolerance increases the likelihood that `formatQuantity` will return a decimal representation instead of a fraction or mixed number since the matching algorithm will be stricter. An greater tolerance increases the likelihood that `formatQuantity` will return a fraction or mixed number, but at the risk of arbitrarily matching an incorrect fraction simply because it gets evaluated first (see [`src/index.ts`](src/index.ts) for the actual order of evaluation).
-
-```js
-// Low tolerance - returns a decimal since 0.333 is not close enough to 1/3
-formatQuantity(0.333, { tolerance: 0.00001 }); // "0.333"
-// High tolerance - matches "1/3" even for "3/10"
-formatQuantity(0.3, { tolerance: 0.1 }); // "1/3"
-// Way too high tolerance - incorrect result because thirds get evaluated before halves
-formatQuantity(0.5, { tolerance: 0.5 }); // "1/3"
-```
-
 ### `fractionSlash`
 
 | Type      | Default |
@@ -97,12 +84,52 @@ formatQuantity(3.875, { fractionSlash: true }); // "3 7⁄8"
 formatQuantity(3.875, { fractionSlash: true, vulgarFractions: true }); // "3⅞"
 ```
 
+### `tolerance`
+
+| Type     |  Default |
+| -------- | -------: |
+| `number` | `0.0075` |
+
+This option determines how close the decimal portion of a number has to be to the actual quotient of a fraction to be considered a match. For example, consider the fraction 1⁄3: $1 \div 3 = 0.\overline{333}$, repeating forever. The number `0.333` (exactly 333 thousandths) is not equivalent to 1⁄3, but it's very close. So even though $0.333 \neq 1 \div 3$, both `formatQuantity(0.333)` and `formatQuantity(1/3)` will return `"1/3"`.
+
+A lower tolerance increases the likelihood that `formatQuantity` will return a decimal representation instead of a fraction or mixed number since the matching algorithm will be stricter. An higher tolerance increases the likelihood that `formatQuantity` will return a fraction or mixed number, but at the risk of arbitrarily matching an incorrect fraction simply because it gets evaluated first (the export `fractionDecimalMatches` defines the order of evaluation).
+
+```js
+// Low tolerance - returns a decimal since 0.333 is not close enough to 1/3
+formatQuantity(0.333, { tolerance: 0.00001 }); // "0.333"
+// High tolerance - matches "1/3" even for 3/10
+formatQuantity(0.3, { tolerance: 0.1 }); // "1/3"
+// *Way* too high tolerance - incorrect result because thirds get evaluated before halves
+formatQuantity(0.5, { tolerance: 0.5 }); // "1/3"
+```
+
+### `romanNumerals`
+
+| Type      | Default |
+| --------- | ------: |
+| `boolean` | `false` |
+
+Coerces the number into an integer using `Math.floor`, then formats the value as Roman numerals. The algorithm uses strict, modern rules, so the number must be between 1 and 3999 (inclusive).
+
+When this option is `true`, all other options are ignored.
+
+```js
+formatQuantity(1214, { romanNumerals: true }); // "MCCXIV"
+formatQuantity(12.14, { romanNumerals: true, vulgarFractions: true }); // "XII"
+```
+
 ## Other exports
 
-| Name                     | Type                         | Description                                                                                                                                                 |
-| ------------------------ | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `defaultTolerance`       | `number`                     | `0.0075`                                                                                                                                                    |
-| `fractionDecimalMatches` | `[number, VulgarFraction][]` | List of fractions and the decimal values that are close enough to match them (inputs are evaluated against the decimal values in the order of this array)   |
-| `vulgarToPlainMap`       | `object`                     | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
-| `FormatQuantityOptions`  | `interface`                  | Shape of `formatQuantity`'s second parameter, if not a `boolean` value                                                                                      |
-| `VulgarFraction`         | `type`                       | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
+| Name                     | Type                                                 | Description                                                                                                                                                 |
+| ------------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `defaultTolerance`       | `number`                                             | `0.0075`                                                                                                                                                    |
+| `defaultOptions`         | `type`                                               | Object representing the default options                                                                                                                     |
+| `fractionDecimalMatches` | <code>[number, VulgarFraction \| Sixteenth][]</code> | List of decimal values that are close enough to match the associated fraction (inputs are evaluated against the decimal values in the order of this array)  |
+| `vulgarToAsciiMap`       | `object`                                             | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
+| `formatRomanNumerals`    | `function`                                           | Formats a number as Roman numerals (used internally by `formatQuantity` when the `romanNumerals` option is `true`)                                          |
+| `FormatQuantityOptions`  | `interface`                                          | Shape of `formatQuantity`'s second parameter (if not a `boolean` value)                                                                                     |
+| `SimpleFraction`         | `type`                                               | String template type for valid (positive, no division by zero) ASCII fraction strings with either one or two digits in the numerator and denominator each   |
+| `VulgarFraction`         | `type`                                               | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
+| `Sixteenth`              | `type`                                               | Union type of all ASCII representations of odd-numbered sixteenth fractions less than one, (`"1/16"`, `"3/16"`, etc.)                                       |
+
+[badge-npm]: https://img.shields.io/npm/v/numeric-quantity.svg?cacheSeconds=3600&logo=npm

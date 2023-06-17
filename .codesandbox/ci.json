@@ -1,3 +1,4 @@
 {
-  "sandboxes": ["format-quantity-ci-oxw19"]
+  "sandboxes": ["/ci"],
+  "node": "18"
 }
