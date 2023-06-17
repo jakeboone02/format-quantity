@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- N/A
+
+## [v2.1.0] - 2023-06-17
+
 ### Added
 
-- Ability to produce Roman numerals.
+- [#12] Ability to produce Roman numerals.
 
 ## [v2.0.1] - 2022-09-26
 
@@ -150,9 +154,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- Issue/PR links -->
 
+[#12]: https://github.com/jakeboone02/format-quantity/pull/12
+
 <!-- Release comparison links -->
 
-[unreleased]: https://github.com/jakeboone02/numeric-quantity/compare/v2.0.1...HEAD
+[unreleased]: https://github.com/jakeboone02/numeric-quantity/compare/v2.1.0...HEAD
+[v2.1.0]: https://github.com/jakeboone02/format-quantity/compare/v2.0.1...v2.1.0
 [v2.0.1]: https://github.com/jakeboone02/format-quantity/compare/v2.0.0...v2.0.1
 [v2.0.0]: https://github.com/jakeboone02/format-quantity/compare/v1.1.0...v2.0.0
 [v1.1.0]: https://github.com/jakeboone02/format-quantity/compare/v1.0.2...v1.1.0
