@@ -158,7 +158,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- Release comparison links -->
 
-[unreleased]: https://github.com/jakeboone02/numeric-quantity/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v2.1.0...HEAD
 [v2.1.0]: https://github.com/jakeboone02/format-quantity/compare/v2.0.1...v2.1.0
 [v2.0.1]: https://github.com/jakeboone02/format-quantity/compare/v2.0.0...v2.0.1
 [v2.0.0]: https://github.com/jakeboone02/format-quantity/compare/v1.1.0...v2.0.0
