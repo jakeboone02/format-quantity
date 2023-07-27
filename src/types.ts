@@ -21,25 +21,36 @@ export interface FormatQuantityOptions {
    */
   fractionSlash?: boolean;
   /**
-   * Output in Roman numerals. Provided alue must be between 1 and 3999.
-   * Decimal values will be ignored.
+   * Output in Roman numerals. Provided value must be between 1 and 3999, inclusive.
+   * Decimal values will be ignored (`Math.floor` is used to remove them). Overrides
+   * all other options.
    */
   romanNumerals?: boolean;
 }
 
+/** Function signature of {@link formatQuantity}. */
 export type FormatQuantity = (
   qty: string | number,
   options?: boolean | FormatQuantityOptions
 ) => string | null;
 
+/** Any numeric character except '0'. */
 type NonZeroNumChar = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+/** Any numeric character. */
 type NumChar = '0' | NonZeroNumChar;
 
+/**
+ * Fraction string with either one or two numeric characters in both the
+ * numerator and denominator.
+ */
 export type SimpleFraction =
   | `${NonZeroNumChar}/${NonZeroNumChar}`
   | `${NonZeroNumChar}/${NonZeroNumChar}${NumChar}`
   | `${NonZeroNumChar}${NumChar}/${NonZeroNumChar}${NumChar}`;
 
+/**
+ * Odd numerator sixteenth fraction strings.
+ */
 export type Sixteenth = `${
   | '1'
   | '3'
@@ -50,6 +61,9 @@ export type Sixteenth = `${
   | '13'
   | '15'}/16`;
 
+/**
+ * Unicode vulgar fraction code points.
+ */
 export type VulgarFraction =
   | '¼' // '\u00bc' | 0.25
   | '½' // '\u00bd' | 0.5
@@ -70,6 +84,7 @@ export type VulgarFraction =
   | '⅝' // '\u215d' | 0.625
   | '⅞'; // '\u215e' | 0.875
 
+/** @hidden */
 export type FormatQuantityTests = Record<
   string,
   (
@@ -77,7 +92,7 @@ export type FormatQuantityTests = Record<
     | [
         Parameters<FormatQuantity>[0],
         ReturnType<FormatQuantity>,
-        Parameters<FormatQuantity>[1]
+        Parameters<FormatQuantity>[1],
       ]
   )[]
 >;

@@ -1,0 +1,19 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "navigationLinks": {
+    "Docs": "https://jakeboone02.github.io/format-quantity/",
+    "GitHub": "https://github.com/jakeboone02/format-quantity/",
+    "Support": "https://github.com/sponsors/jakeboone02"
+  },
+  "plugin": ["typedoc-plugin-katex"],
+  "katex": {
+    "version": "0.11.1",
+    "options": {
+      "delimiters": [
+        { "left": "$$", "right": "$$", "display": true },
+        { "left": "$", "right": "$", "display": false }
+      ]
+    }
+  }
+}
