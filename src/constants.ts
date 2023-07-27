@@ -5,8 +5,15 @@ import type {
   VulgarFraction,
 } from './types';
 
+/**
+ * Default tolerance used by {@link formatQuantity} when determining if a number
+ * is close enough to a fraction value to be considered equivalent.
+ */
 export const defaultTolerance = 0.0075 as const;
 
+/**
+ * Default options for {@link formatQuantity}.
+ */
 export const defaultOptions = {
   vulgarFractions: false,
   tolerance: defaultTolerance,
@@ -15,8 +22,7 @@ export const defaultOptions = {
 } satisfies Required<FormatQuantityOptions>;
 
 /**
- * A map of vulgar or simple sixteenth fractions to their traditional ASCII
- * equivalents. Sixteenths map to themselves.
+ * Map of vulgar fractions to their traditional ASCII equivalents.
  */
 export const vulgarToAsciiMap = {
   '¼': '1/4',
@@ -39,6 +45,10 @@ export const vulgarToAsciiMap = {
   '⅞': '7/8',
 } satisfies Record<VulgarFraction, SimpleFraction>;
 
+/**
+ * Map of "close enough" decimal values to the {@link VulgarFraction} or
+ * {@link Sixteenth} fraction string matches.
+ */
 export const fractionDecimalMatches = [
   [0.33, '⅓'],
   [0.66, '⅔'],

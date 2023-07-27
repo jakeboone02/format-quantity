@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -123,29 +123,19 @@
     <script type="module" src="/src/dev.ts"></script>
     <script>
       const getInput = () => {
-        /**
-         * @type HTMLInputElement
-         */
+        /** @type HTMLInputElement */
         const inputBox = document.getElementById('input');
         return inputBox.value;
       };
 
       const getOptions = () => {
-        /**
-         * @type HTMLInputElement
-         */
+        /** @type HTMLInputElement */
         const vulgarFractionsEl = document.getElementById('vulgarFractions');
-        /**
-         * @type HTMLInputElement
-         */
+        /** @type HTMLInputElement */
         const toleranceEl = document.getElementById('tolerance');
-        /**
-         * @type HTMLInputElement
-         */
+        /** @type HTMLInputElement */
         const fractionSlashEl = document.getElementById('fractionSlash');
-        /**
-         * @type HTMLInputElement
-         */
+        /** @type HTMLInputElement */
         const romanNumeralsEl = document.getElementById('romanNumerals');
         const vulgarFractions = vulgarFractionsEl.checked;
         const tolerance = parseFloat(toleranceEl.value);

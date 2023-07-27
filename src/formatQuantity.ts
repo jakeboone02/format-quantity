@@ -53,7 +53,7 @@ const romanNumeralValueKey = [
 
 /**
  * Formats a number as Roman numerals. The number must be between
- * 1 and 3999 (inclusive).
+ * 1 and 3999, inclusive.
  */
 export const formatRomanNumerals = (qty: number) => {
   if (typeof qty !== 'number' || isNaN(qty)) {
@@ -80,7 +80,7 @@ export const formatRomanNumerals = (qty: number) => {
  * as one would see it written in imperial measurements, e.g.
  * "1 1/2" instead of "1.5". To use vulgar fraction characters
  * like "½", pass `true` as the second argument. For other options
- * see the [documentation](https://jakeboone02.github.io/format-quantity/).
+ * see {@link FormatQuantityOptions}.
  */
 export const formatQuantity: FormatQuantity = (
   qty,

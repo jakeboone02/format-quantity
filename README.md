@@ -1,5 +1,3 @@
-# format-quantity
-
 [![npm][badge-npm]](https://www.npmjs.com/package/format-quantity)
 ![workflow status](https://github.com/jakeboone02/format-quantity/actions/workflows/main.yml/badge.svg)
 [![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=main)](https://codecov.io/github/jakeboone02/format-quantity?branch=main)
@@ -8,11 +6,13 @@
 
 Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5".
 
+**[Full documentation](https://jakeboone02.github.io/format-quantity/)**
+
 Features:
 
-- To use vulgar fraction characters like "⅞", pass `true` as the second argument (see other [options](#options), like Roman numerals, below).
+- To use vulgar fraction characters like "⅞", pass `true` as the second argument. Other options like Roman numerals are described below.
 - The return value will be `null` if the first argument is neither a number nor a string that evaluates to a number using `parseFloat`.
-- The return value will be an empty string (`""`) if the first argument is `0` or `"0"`, which is done to fit the primary use case of formatting recipe ingredient quantities.
+- The return value will be an empty string (`""`) if the first argument is `0` or `"0"`, which fits the primary use case of formatting recipe ingredient quantities.
 
 > _For the inverse operation—converting a string to a `number`—check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity). It handles mixed numbers, vulgar fractions, comma/underscore separators, and Roman numerals._
 >
@@ -117,19 +117,5 @@ When this option is `true`, all other options are ignored.
 formatQuantity(1214, { romanNumerals: true }); // "MCCXIV"
 formatQuantity(12.14, { romanNumerals: true, vulgarFractions: true }); // "XII"
 ```
-
-## Other exports
-
-| Name                     | Type                                                 | Description                                                                                                                                                 |
-| ------------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `defaultTolerance`       | `number`                                             | `0.0075`                                                                                                                                                    |
-| `defaultOptions`         | `type`                                               | Object representing the default options                                                                                                                     |
-| `fractionDecimalMatches` | <code>[number, VulgarFraction \| Sixteenth][]</code> | List of decimal values that are close enough to match the associated fraction (inputs are evaluated against the decimal values in the order of this array)  |
-| `vulgarToAsciiMap`       | `object`                                             | Map of vulgar fraction characters to their equivalent ASCII strings (`"⅓"` to `"1/3"`, `"⅞"` to `"7/8"`, etc.)                                              |
-| `formatRomanNumerals`    | `function`                                           | Formats a number as Roman numerals (used internally by `formatQuantity` when the `romanNumerals` option is `true`)                                          |
-| `FormatQuantityOptions`  | `interface`                                          | Shape of `formatQuantity`'s second parameter (if not a `boolean` value)                                                                                     |
-| `SimpleFraction`         | `type`                                               | String template type for valid (positive, no division by zero) ASCII fraction strings with either one or two digits in the numerator and denominator each   |
-| `VulgarFraction`         | `type`                                               | The set of [vulgar fraction characters](https://en.wikipedia.org/wiki/Number_Forms) (`"\u00bc"`, `"\u00bd"`, `"\u00be"`, and `"\u2150"` through `"\u215e"`) |
-| `Sixteenth`              | `type`                                               | Union type of all ASCII representations of odd-numbered sixteenth fractions less than one, (`"1/16"`, `"3/16"`, etc.)                                       |
 
 [badge-npm]: https://img.shields.io/npm/v/numeric-quantity.svg?cacheSeconds=3600&logo=npm
