@@ -1,10 +1,11 @@
+import { describe, expect, test } from 'bun:test';
 import { formatQuantity, formatRomanNumerals } from './formatQuantity';
 import { formatQuantityTests } from './formatQuantityTests';
 
 for (const [description, expects] of Object.entries(formatQuantityTests)) {
   describe(description, () => {
     for (const [quantity, result, options] of expects) {
-      it(`${quantity}${
+      test(`${quantity}${
         typeof options === 'undefined'
           ? ''
           : ` with option ${JSON.stringify(options)}`
@@ -17,7 +18,7 @@ for (const [description, expects] of Object.entries(formatQuantityTests)) {
   });
 }
 
-it('returns null for NaN and strings (Roman)', () => {
+test('returns null for NaN and strings (Roman)', () => {
   expect(formatRomanNumerals(NaN)).toBe(null);
   expect(formatRomanNumerals('NaN' as any)).toBe(null);
 });
