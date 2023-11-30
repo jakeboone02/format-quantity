@@ -28,25 +28,30 @@ export interface FormatQuantityOptions {
   romanNumerals?: boolean;
 }
 
-/** Function signature of {@link formatQuantity}. */
-export type FormatQuantity = (
-  qty: string | number,
-  options?: boolean | FormatQuantityOptions
-) => string | null;
+/**
+ * Function signature of {@link formatQuantity}.
+ */
+export interface FormatQuantity {
+  (
+    qty: string | number,
+    options?: boolean | FormatQuantityOptions
+  ): string | null;
+}
 
-/** Any numeric character except '0'. */
-type NonZeroNumChar = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 /** Any numeric character. */
-type NumChar = '0' | NonZeroNumChar;
+type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+/** Any numeric character except '0'. */
+type NonZeroDigit = Exclude<Digit, '0'>;
 
 /**
  * Fraction string with either one or two numeric characters in both the
- * numerator and denominator.
+ * numerator and denominator (but not two characters in the numerator while
+ * the denominator only has one).
  */
 export type SimpleFraction =
-  | `${NonZeroNumChar}/${NonZeroNumChar}`
-  | `${NonZeroNumChar}/${NonZeroNumChar}${NumChar}`
-  | `${NonZeroNumChar}${NumChar}/${NonZeroNumChar}${NumChar}`;
+  | `${NonZeroDigit}/${NonZeroDigit}`
+  | `${NonZeroDigit}/${NonZeroDigit}${Digit}`
+  | `${NonZeroDigit}${Digit}/${NonZeroDigit}${Digit}`;
 
 /**
  * Odd numerator sixteenth fraction strings.

@@ -18,6 +18,9 @@ import type {
 const closeEnough = (n1: number, n2: number, tolerance: number) =>
   Math.abs(n1 - n2) < tolerance;
 
+/**
+ * Applies the `vulgarFractions` or `fractionSlash` options as necessary.
+ */
 const getFraction = (
   vulgarFractionOrSixteenth: VulgarFraction | Sixteenth,
   { fractionSlash, vulgarFractions }: FormatQuantityOptions
@@ -37,6 +40,9 @@ const getFraction = (
   return plainFraction;
 };
 
+/**
+ * Merges options object with default options, converting boolean to object if necessary.
+ */
 const normalizeOptions = (
   options: Parameters<FormatQuantity>[1]
 ): Required<FormatQuantityOptions> => ({
@@ -72,6 +78,7 @@ export const formatRomanNumerals = (qty: number) => {
   while (i--) {
     roman = `${romanNumeralValueKey[+digits.pop()! + i * 10] || ''}${roman}`;
   }
+
   return `${Array(+digits.join('') + 1).join('M')}${roman}`;
 };
 
@@ -89,12 +96,12 @@ export const formatQuantity: FormatQuantity = (
   // TODO: use numericQuantity instead of parseFloat?
   const qtyAsNumber = typeof qty === 'string' ? parseFloat(qty) : qty;
 
-  // Return `null` if input is not number-like
+  // Return `null` if input is not number-like.
   if (isNaN(qtyAsNumber) || qtyAsNumber === null) {
     return null;
   }
 
-  // Return an empty string if the value is zero
+  // Return an empty string if the value is zero.
   if (qtyAsNumber === 0) {
     return '';
   }
@@ -115,7 +122,7 @@ export const formatQuantity: FormatQuantity = (
   }`;
   const decimalValue = absoluteValue - flooredAbsVal;
 
-  // For integers just return the given value as a string
+  // For integers just return the given value as a string.
   if (decimalValue === 0) {
     return `${qtyAsNumber}`;
   }
@@ -123,9 +130,10 @@ export const formatQuantity: FormatQuantity = (
   for (const [num, vf] of fractionDecimalMatches) {
     if (closeEnough(decimalValue, num, opts.tolerance)) {
       const fraction = getFraction(vf, opts);
-      const int = Object.hasOwn(vulgarToAsciiMap, fraction)
-        ? flooredAbsValStr.trim()
-        : flooredAbsValStr;
+      const int =
+        fraction in vulgarToAsciiMap
+          ? flooredAbsValStr.trim()
+          : flooredAbsValStr;
       return `${int}${fraction}`;
     }
   }
