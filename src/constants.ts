@@ -19,7 +19,7 @@ export const defaultOptions = {
   tolerance: defaultTolerance,
   fractionSlash: false,
   romanNumerals: false,
-} satisfies Required<FormatQuantityOptions>;
+} as const satisfies Required<FormatQuantityOptions>;
 
 /**
  * Map of vulgar fractions to their traditional ASCII equivalents.
@@ -43,7 +43,7 @@ export const vulgarToAsciiMap = {
   '⅜': '3/8',
   '⅝': '5/8',
   '⅞': '7/8',
-} satisfies Record<VulgarFraction, SimpleFraction>;
+} as const satisfies Record<VulgarFraction, SimpleFraction>;
 
 /**
  * Map of "close enough" decimal values to the {@link VulgarFraction} or
