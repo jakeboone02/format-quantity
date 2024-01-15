@@ -39,9 +39,9 @@ export interface FormatQuantity {
 }
 
 /** Any numeric character. */
-type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 /** Any numeric character except '0'. */
-type NonZeroDigit = Exclude<Digit, '0'>;
+export type NonZeroDigit = Exclude<Digit, '0'>;
 
 /**
  * Fraction string with either one or two numeric characters in both the
