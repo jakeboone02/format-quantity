@@ -8,7 +8,7 @@ export default defineConfig(options => {
       'format-quantity': 'src/index.ts',
     },
     sourcemap: true,
-    format: 'esm',
+    dts: true,
     ...options,
   };
 
@@ -21,7 +21,7 @@ export default defineConfig(options => {
     // ESM, standard bundler dev, embedded `process` references
     {
       ...commonOptions,
-      dts: true,
+      format: 'esm',
       clean: true,
     },
     // ESM, Webpack 4 support. Target ES2017 syntax to compile away optional chaining and spreads
@@ -32,6 +32,7 @@ export default defineConfig(options => {
       },
       // ESBuild outputs `'.mjs'` by default for the 'esm' format. Force '.js'
       outExtension: () => ({ js: '.js' }),
+      format: 'esm',
       target: 'es2017',
     },
     // ESM for use in browsers. Minified, with `process` compiled away
@@ -42,6 +43,7 @@ export default defineConfig(options => {
         'format-quantity.production': 'src/index.ts',
       },
       outExtension: () => ({ js: '.mjs' }),
+      format: 'esm',
     },
     // CJS development
     {
@@ -79,6 +81,7 @@ if (process.env.NODE_ENV === 'production') {
     {
       ...commonOptions,
       ...productionOptions,
+      dts: false,
       format: 'iife',
       globalName: 'FormatQuantity',
       outExtension: () => ({ js: '.umd.min.js' }),
