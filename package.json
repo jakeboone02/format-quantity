@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0",
+  "version": "3.0.0",
   "name": "format-quantity",
   "author": "Jake Boone <jakeboone02@gmail.com>",
   "description": "Number formatter for imperial measurements with support for vulgar fractions",
