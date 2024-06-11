@@ -164,9 +164,8 @@
         if (optionsArr.length > 0) {
           optionsStr = `, { ${optionsArr.join(', ')} }`;
         }
-        document.getElementById(
-          'call'
-        ).innerText = `formatQuantity(${input}${optionsStr})`;
+        document.getElementById('call').innerText =
+          `formatQuantity(${input}${optionsStr})`;
         document.getElementById('result').innerText = JSON.stringify(
           formatQuantity(input, options)
         );
