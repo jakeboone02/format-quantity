@@ -12,7 +12,7 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/types/index.d.mts",
+        "types": "./dist/types-esm/index.d.mts",
         "default": "./dist/format-quantity.mjs"
       },
       "require": {
