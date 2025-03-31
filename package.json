@@ -12,16 +12,16 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/format-quantity.d.mts",
+        "types": "./dist/types/index.d.mts",
         "default": "./dist/format-quantity.mjs"
       },
       "require": {
-        "types": "./dist/cjs/format-quantity.cjs.development.d.ts",
+        "types": "./dist/types/index.d.ts",
         "default": "./dist/cjs/index.js"
       }
     }
   },
-  "types": "./dist/cjs/format-quantity.cjs.production.d.ts",
+  "types": "./dist/types/index.d.ts",
   "unpkg": "./dist/format-quantity.umd.min.js",
   "license": "MIT",
   "keywords": [
@@ -45,28 +45,27 @@
     "url": "https://github.com/jakeboone02/format-quantity"
   },
   "scripts": {
-    "start": "bun --hot ./server.ts",
-    "build": "tsup",
+    "start": "bun --hot main.html",
+    "build": "bun --bun x tsup",
     "docs": "typedoc",
     "test": "bun test",
     "watch": "bun test --watch",
+    "lint": "bunx oxlint@latest --format=github",
     "publish:npm": "np",
+    "codesandbox-ci": "bash .codesandbox/ci.sh",
     "pretty-print": "prettier --write '*.{html,ts,json}' 'src/*.*'"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.6",
-    "@types/node": "^20.14.10",
-    "@types/web": "^0.0.151",
-    "np": "^10.0.6",
-    "open": "^10.1.0",
-    "prettier": "3.3.2",
-    "tsup": "^8.1.0",
-    "typedoc": "^0.26.3",
-    "typedoc-plugin-katex": "^0.1.2",
-    "typescript": "^5.5.3"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "@jakeboone02/generate-dts": "0.1.1",
+    "@types/bun": "^1.2.8",
+    "@types/node": "^22.13.14",
+    "@types/web": "^0.0.214",
+    "np": "^10.2.0",
+    "prettier": "3.5.3",
+    "prettier-plugin-organize-imports": "4.1.0",
+    "tsup": "^8.4.0",
+    "typedoc": "^0.28.1",
+    "typescript": "^5.8.2"
   },
   "engines": {
     "node": ">=16"

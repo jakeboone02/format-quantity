@@ -66,10 +66,12 @@ const assert = attempt => {
   // Thirds
   [1.32, '1.32'],
   [1.33, '1 1/3'],
+  // oxlint-disable-next-line eslint/no-loss-of-precision
   [1.3333333333333333, '1 1/3'],
   [1.34, '1.34'],
   [1.66, '1 2/3'],
   [1.667, '1 2/3'],
+  // oxlint-disable-next-line eslint/no-loss-of-precision
   [1.6666666666666666, '1 2/3'],
   [1.67, '1.67'],
   // Halves

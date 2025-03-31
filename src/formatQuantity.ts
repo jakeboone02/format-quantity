@@ -61,7 +61,7 @@ const romanNumeralValueKey = [
  * Formats a number as Roman numerals. The number must be between
  * 1 and 3999, inclusive.
  */
-export const formatRomanNumerals = (qty: number) => {
+export const formatRomanNumerals = (qty: number): string | null => {
   if (typeof qty !== 'number' || isNaN(qty)) {
     return null;
   }
