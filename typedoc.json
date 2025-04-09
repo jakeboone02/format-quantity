@@ -7,7 +7,7 @@
     "GitHub": "https://github.com/jakeboone02/format-quantity/",
     "Support": "https://github.com/sponsors/jakeboone02"
   },
-  "plugin": ["typedoc-plugin-katex", "./typedoc-plugin-ga.mjs"],
+  "plugin": ["./typedoc-plugin-katex.mjs", "./typedoc-plugin-ga.mjs"],
   "katex": {
     "version": "0.11.1",
     "options": {
