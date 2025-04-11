@@ -14,17 +14,17 @@ export const defaultTolerance = 0.0075 as const;
 /**
  * Default options for {@link formatQuantity}.
  */
-export const defaultOptions = {
+export const defaultOptions: Required<FormatQuantityOptions> = {
   vulgarFractions: false,
   tolerance: defaultTolerance,
   fractionSlash: false,
   romanNumerals: false,
-} as const satisfies Required<FormatQuantityOptions>;
+} as const;
 
 /**
  * Map of vulgar fractions to their traditional ASCII equivalents.
  */
-export const vulgarToAsciiMap = {
+export const vulgarToAsciiMap: Record<VulgarFraction, SimpleFraction> = {
   '¼': '1/4',
   '½': '1/2',
   '¾': '3/4',
@@ -43,13 +43,13 @@ export const vulgarToAsciiMap = {
   '⅜': '3/8',
   '⅝': '5/8',
   '⅞': '7/8',
-} as const satisfies Record<VulgarFraction, SimpleFraction>;
+} as const;
 
 /**
  * Map of "close enough" decimal values to the {@link VulgarFraction} or
  * {@link Sixteenth} fraction string matches.
  */
-export const fractionDecimalMatches = [
+export const fractionDecimalMatches: [number, VulgarFraction | Sixteenth][] = [
   [0.33, '⅓'],
   [0.66, '⅔'],
   [0.2, '⅕'],
@@ -76,4 +76,4 @@ export const fractionDecimalMatches = [
   [0.6875, '11/16'],
   [0.8125, '13/16'],
   [0.9375, '15/16'],
-] satisfies [number, VulgarFraction | Sixteenth][];
+] as const;
