@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "bun --hot main.html",
-    "build": "bun --bun x tsup",
+    "build": "bun --bun x tsdown",
     "docs:plugins": "bun build ./node_modules/typedoc-plugin-katex/src/index.tsx --outdir=. --target=node --external=typedoc --entry-naming=typedoc-plugin-katex.mjs",
     "docs": "typedoc",
     "test": "bun test",
@@ -58,16 +58,16 @@
   },
   "devDependencies": {
     "@jakeboone02/generate-dts": "0.1.2",
-    "@types/bun": "^1.2.9",
-    "@types/node": "^22.14.0",
-    "@types/web": "^0.0.216",
+    "@types/bun": "^1.2.21",
+    "@types/node": "^24.3.0",
+    "@types/web": "^0.0.265",
     "np": "^10.2.0",
-    "prettier": "3.5.3",
-    "prettier-plugin-organize-imports": "4.1.0",
-    "tsup": "^8.4.0",
-    "typedoc": "^0.28.2",
+    "prettier": "3.6.2",
+    "prettier-plugin-organize-imports": "4.2.0",
+    "tsdown": "^0.14.2",
+    "typedoc": "^0.28.12",
     "typedoc-plugin-katex": "^0.1.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "engines": {
     "node": ">=16"
