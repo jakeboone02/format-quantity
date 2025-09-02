@@ -8,14 +8,15 @@ const config: ReturnType<typeof defineConfig> = defineConfig(options => {
     entry: {
       'format-quantity': 'src/index.ts',
     },
-    sourcemap: true,
     dts: false,
+    platform: 'neutral',
+    sourcemap: true,
     ...options,
   };
 
   const productionOptions: Options = {
     minify: true,
-    replaceNodeEnv: true,
+    define: { NODE_ENV: 'production' },
   };
 
   const opts: Options[] = [
@@ -39,7 +40,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(options => {
         'format-quantity.legacy-esm': 'src/index.ts',
       },
       // ESBuild outputs `'.mjs'` by default for the 'esm' format. Force '.js'
-      outExtension: () => ({ js: '.js' }),
+      outExtensions: () => ({ js: '.js' }),
       format: 'esm',
       target: 'es2017',
     },
@@ -50,7 +51,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(options => {
       entry: {
         'format-quantity.production': 'src/index.ts',
       },
-      outExtension: () => ({ js: '.mjs' }),
+      outExtensions: () => ({ js: '.mjs' }),
       format: 'esm',
     },
     // CJS development
@@ -92,7 +93,7 @@ if (process.env.NODE_ENV === 'production') {
       dts: false,
       format: 'iife',
       globalName: 'FormatQuantity',
-      outExtension: () => ({ js: '.umd.min.js' }),
+      outExtensions: () => ({ js: '.umd.min.js' }),
     },
   ];
 
