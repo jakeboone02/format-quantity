@@ -20,13 +20,11 @@ export const numbers = [
   1.8,
   1.32,
   1.33,
-  // oxlint-disable-next-line eslint/no-loss-of-precision
   1.3333333333333333,
   1.34,
   1.66,
   1.667,
-  // oxlint-disable-next-line eslint/no-loss-of-precision
-  1.6666666666666666,
+  1.6666666666666666, // oxlint-disable-line eslint/no-loss-of-precision
   1.67,
   1.51,
   1.5,
