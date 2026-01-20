@@ -1,8 +1,8 @@
 [![npm][badge-npm]](https://www.npmjs.com/package/format-quantity)
 ![workflow status](https://github.com/jakeboone02/format-quantity/actions/workflows/main.yml/badge.svg)
 [![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=main)](https://codecov.io/github/jakeboone02/format-quantity?branch=main)
-[![downloads](https://img.shields.io/npm/dm/format-quantity.svg)](http://npm-stat.com/charts.html?package=format-quantity&from=2015-08-01)
-[![MIT License](https://img.shields.io/npm/l/format-quantity.svg)](http://opensource.org/licenses/MIT)
+[![downloads](https://img.shields.io/npm/dm/format-quantity.svg)](https://npm-stat.com/charts.html?package=format-quantity&from=2015-08-01)
+[![MIT License](https://img.shields.io/npm/l/format-quantity.svg)](https://opensource.org/licenses/MIT)
 
 Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5".
 
