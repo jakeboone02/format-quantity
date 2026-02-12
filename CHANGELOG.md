@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- N/A
+### Added
+
+- New `separator` option to customize the string between whole number and fraction parts.
+
+### Fixed
+
+- `fractionSlash` option now uses proper Unicode superscript/subscript digits (e.g. `⁷⁄₈` instead of `7⁄8`).
 
 ## [v3.0.0] - 2024-01-15
 

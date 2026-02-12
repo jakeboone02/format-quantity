@@ -1,5 +1,5 @@
 import type {
-  FormatQuantityOptions,
+  ResolvedFormatQuantityOptions,
   SimpleFraction,
   Sixteenth,
   VulgarFraction,
@@ -14,7 +14,7 @@ export const defaultTolerance = 0.0075 as const;
 /**
  * Default options for {@link formatQuantity}.
  */
-export const defaultOptions: Required<FormatQuantityOptions> = {
+export const defaultOptions: ResolvedFormatQuantityOptions = {
   vulgarFractions: false,
   tolerance: defaultTolerance,
   fractionSlash: false,

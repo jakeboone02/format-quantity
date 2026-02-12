@@ -77,11 +77,25 @@ Note: `formatQuantity` supports sixteenths, but no vulgar fraction characters ex
 | --------- | ------: |
 | `boolean` | `false` |
 
-Uses the [fraction slash character](<https://en.wikipedia.org/wiki/Slash_(punctuation)#Fractions>) (`"\u2044"`) to separate the numerator and denominator instead of the regular "solidus" slash (`"\u002f"`). This option is ignored if the `vulgarFractions` option is also `true`.
+Uses the [fraction slash character](<https://en.wikipedia.org/wiki/Slash_(punctuation)#Fractions>) (`"\u2044"`) to separate the numerator and denominator instead of the regular "solidus" slash (`"\u002f"`), with Unicode superscript numerator and subscript denominator digits. This option is ignored if the `vulgarFractions` option is also `true`.
 
 ```js
-formatQuantity(3.875, { fractionSlash: true }); // "3 7⁄8"
+formatQuantity(3.875, { fractionSlash: true }); // "3 ⁷⁄₈"
 formatQuantity(3.875, { fractionSlash: true, vulgarFractions: true }); // "3⅞"
+```
+
+### `separator`
+
+| Type     | Default |
+| -------- | ------: |
+| `string` |     N/A |
+
+Overrides the string placed between the whole number and the fraction. When not specified, the default is `" "` (a space) for ASCII and fraction-slash fractions, and `""` (no space) for vulgar fractions. Common alternatives include a hyphen (`"-"`) and a no-break space (`"\u00a0"`).
+
+```js
+formatQuantity(1.5, { separator: '-' }); // "1-1/2"
+formatQuantity(1.5, { separator: ' ', vulgarFractions: true }); // "1 ½"
+formatQuantity(1.5, { separator: '\u00a0' }); // "1\u00a01/2" (no-break space)
 ```
 
 ### `tolerance`

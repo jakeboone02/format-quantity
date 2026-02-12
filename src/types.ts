@@ -26,7 +26,24 @@ export interface FormatQuantityOptions {
    * all other options.
    */
   romanNumerals?: boolean;
+  /**
+   * String to place between the whole number and fraction parts. When not specified,
+   * defaults to `" "` for ASCII and fraction-slash fractions, and `""` for vulgar
+   * fractions (preserving the standard typographic convention of no space before
+   * vulgar fraction characters).
+   */
+  separator?: string;
 }
+
+/**
+ * {@link FormatQuantityOptions} with all properties resolved to their
+ * default values, except {@link FormatQuantityOptions.separator | separator}
+ * which remains optional so that unset vs explicitly-set can be distinguished.
+ */
+export type ResolvedFormatQuantityOptions = Required<
+  Omit<FormatQuantityOptions, 'separator'>
+> &
+  Pick<FormatQuantityOptions, 'separator'>;
 
 /**
  * Function signature of {@link formatQuantity}.
