@@ -1,3 +1,4 @@
+import { numericQuantity } from 'numeric-quantity';
 import {
   defaultOptions,
   fractionDecimalMatches,
@@ -109,8 +110,10 @@ export const formatQuantity: FormatQuantity = (
   qty,
   options = defaultOptions
 ) => {
-  // TODO: use numericQuantity instead of parseFloat?
-  const qtyAsNumber = typeof qty === 'string' ? parseFloat(qty) : qty;
+  const qtyAsNumber =
+    typeof qty === 'string'
+      ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })
+      : qty;
 
   // Return `null` if input is not number-like.
   if (isNaN(qtyAsNumber) || qtyAsNumber === null) {

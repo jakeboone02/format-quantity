@@ -11,7 +11,8 @@ Formats a number (or string that appears to be a number) as one would see it wri
 Features:
 
 - To use vulgar fraction characters like "⅞", pass `true` as the second argument. Other options like Roman numerals are described below.
-- The return value will be `null` if the first argument is neither a number nor a string that evaluates to a number using `parseFloat`.
+- String inputs are parsed with [`numeric-quantity`](https://www.npmjs.com/package/numeric-quantity), so mixed numbers (`"1 1/2"`), vulgar fractions (`"½"`), bare fractions (`"1/3"`), and comma/underscore-separated numbers (`"1,000"`) are all accepted in addition to plain decimal strings.
+- The return value will be `null` if the first argument is not a recognized numeric format.
 - The return value will be an empty string (`""`) if the first argument is `0` or `"0"`, which fits the primary use case of formatting recipe ingredient quantities.
 
 > _For the inverse operation—converting a string to a `number`—check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity). It handles mixed numbers, vulgar fractions, comma/underscore separators, and Roman numerals._

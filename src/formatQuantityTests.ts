@@ -155,6 +155,31 @@ export const formatQuantityTests: FormatQuantityTests = {
     [1.9375, '1 15/16', { vulgarFractions }],
     [1.9375, '1 ¹⁵⁄₁₆', { fractionSlash }],
   ],
+  'string inputs: mixed numbers': [
+    ['1 1/2', '1 1/2'],
+    ['2 3/4', '2 3/4'],
+    ['1 1/2', '1½', true],
+    ['10 1/3', '10 1/3'],
+  ],
+  'string inputs: vulgar fraction strings': [
+    ['½', '1/2'],
+    ['½', '½', true],
+    ['1½', '1 1/2'],
+    ['1½', '1½', true],
+    ['1⅓', '1 1/3'],
+    ['⅞', '7/8'],
+  ],
+  'string inputs: bare fraction strings': [
+    ['1/2', '1/2'],
+    ['3/4', '3/4'],
+    ['1/3', '1/3'],
+  ],
+  'string inputs: comma/underscore-separated': [
+    ['1,000', '1000'],
+    ['1,000.5', '1000 1/2'],
+    ['1_000', '1000'],
+    ['1_000.5', '1000 1/2'],
+  ],
   'empty or invalid options': [
     [1.5, '1 1/2', 42 as any],
     [1.5, '1 1/2', 'string' as any],

@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- New `separator` option to customize the string between whole number and fraction parts.
+- [#19] New `separator` option to customize the string between whole number and fraction parts.
+- [#19] String inputs are now parsed with [`numeric-quantity`](https://www.npmjs.com/package/numeric-quantity), enabling support for mixed numbers (`"1 1/2"`), vulgar fractions (`"½"`), bare fractions (`"1/3"`), and comma/underscore-separated numbers (`"1,000"`).
 
 ### Fixed
 
@@ -171,6 +172,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- Issue/PR links -->
 
 [#12]: https://github.com/jakeboone02/format-quantity/pull/12
+[#19]: https://github.com/jakeboone02/format-quantity/pull/19
 
 <!-- Release comparison links -->
 
