@@ -12,16 +12,16 @@
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./dist/types-esm/index.d.mts",
+        "types": "./dist/format-quantity.d.mts",
         "default": "./dist/format-quantity.mjs"
       },
       "require": {
-        "types": "./dist/types/index.d.ts",
+        "types": "./dist/cjs/index.d.ts",
         "default": "./dist/cjs/index.js"
       }
     }
   },
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/format-quantity.legacy-esm.d.ts",
   "unpkg": "./dist/format-quantity.umd.min.js",
   "license": "MIT",
   "keywords": [
@@ -57,17 +57,16 @@
     "pretty-print": "prettier --write '*.{html,ts,json}' 'src/*.*'"
   },
   "devDependencies": {
-    "@jakeboone02/generate-dts": "0.1.2",
-    "@types/bun": "^1.3.6",
-    "@types/node": "^24.10.9",
-    "@types/web": "^0.0.319",
-    "@typescript/native-preview": "^7.0.0-dev.20260120.1",
-    "np": "^10.3.0",
-    "oxlint": "^1.41.0",
-    "oxlint-tsgolint": "^0.11.1",
-    "prettier": "3.8.0",
+    "@types/bun": "^1.3.9",
+    "@types/node": "^25.2.3",
+    "@types/web": "^0.0.332",
+    "@typescript/native-preview": "^7.0.0-dev.20260212.1",
+    "np": "^11.0.2",
+    "oxlint": "^1.47.0",
+    "oxlint-tsgolint": "^0.12.1",
+    "prettier": "3.8.1",
     "prettier-plugin-organize-imports": "4.3.0",
-    "tsdown": "^0.14.2",
+    "tsdown": "^0.20.3",
     "typedoc": "^0.28.16",
     "typedoc-plugin-katex": "^0.1.2",
     "typescript": "^5.9.3"
