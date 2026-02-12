@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+N/A
+
+## [v3.1.0] - 2026-02-12
+
 ### Added
 
 - [#19] New `separator` option to customize the string between whole number and fraction parts.
@@ -14,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `fractionSlash` option now uses proper Unicode superscript/subscript digits (e.g. `⁷⁄₈` instead of `7⁄8`).
+- [#19] `fractionSlash` option now uses proper Unicode superscript/subscript digits (e.g. `⁷⁄₈` instead of `7⁄8`).
 
 ## [v3.0.0] - 2024-01-15
 
@@ -176,7 +180,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Release comparison links -->
 
-[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v3.1.0...HEAD
+[v3.1.0]: https://github.com/jakeboone02/format-quantity/compare/v3.0.0...v3.1.0
 [v3.0.0]: https://github.com/jakeboone02/format-quantity/compare/v2.1.0...v3.0.0
 [v2.1.0]: https://github.com/jakeboone02/format-quantity/compare/v2.0.1...v2.1.0
 [v2.0.1]: https://github.com/jakeboone02/format-quantity/compare/v2.0.0...v2.0.1
