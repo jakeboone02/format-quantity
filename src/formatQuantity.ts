@@ -1,3 +1,4 @@
+import { numericQuantity } from 'numeric-quantity';
 import {
   defaultOptions,
   fractionDecimalMatches,
@@ -6,6 +7,7 @@ import {
 import type {
   FormatQuantity,
   FormatQuantityOptions,
+  ResolvedFormatQuantityOptions,
   SimpleFraction,
   Sixteenth,
   VulgarFraction,
@@ -17,6 +19,20 @@ import type {
  */
 const closeEnough = (n1: number, n2: number, tolerance: number) =>
   Math.abs(n1 - n2) < tolerance;
+
+const superscriptDigits = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+const subscriptDigits = '₀₁₂₃₄₅₆₇₈₉';
+
+const toSuperscript = (s: string) => {
+  let r = '';
+  for (let i = 0; i < s.length; i++) r += superscriptDigits[+s[i]];
+  return r;
+};
+const toSubscript = (s: string) => {
+  let r = '';
+  for (let i = 0; i < s.length; i++) r += subscriptDigits[+s[i]];
+  return r;
+};
 
 /**
  * Applies the `vulgarFractions` or `fractionSlash` options as necessary.
@@ -34,7 +50,8 @@ const getFraction = (
     vulgarFractionOrSixteenth;
 
   if (fractionSlash) {
-    return plainFraction.replace('/', '⁄');
+    const [num, den] = plainFraction.split('/');
+    return `${toSuperscript(num)}⁄${toSubscript(den)}`;
   }
 
   return plainFraction;
@@ -45,7 +62,7 @@ const getFraction = (
  */
 const normalizeOptions = (
   options: Parameters<FormatQuantity>[1]
-): Required<FormatQuantityOptions> => ({
+): ResolvedFormatQuantityOptions => ({
   ...defaultOptions,
   ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
 });
@@ -93,8 +110,10 @@ export const formatQuantity: FormatQuantity = (
   qty,
   options = defaultOptions
 ) => {
-  // TODO: use numericQuantity instead of parseFloat?
-  const qtyAsNumber = typeof qty === 'string' ? parseFloat(qty) : qty;
+  const qtyAsNumber =
+    typeof qty === 'string'
+      ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })
+      : qty;
 
   // Return `null` if input is not number-like.
   if (isNaN(qtyAsNumber) || qtyAsNumber === null) {
@@ -102,6 +121,8 @@ export const formatQuantity: FormatQuantity = (
   }
 
   // Return an empty string if the value is zero.
+  // TODO: Consider a `zeroDisplay` option (e.g. `{ zeroDisplay: "0" }`) so
+  // callers outside the recipe-ingredient use case can get "0" instead of "".
   if (qtyAsNumber === 0) {
     return '';
   }
@@ -117,9 +138,8 @@ export const formatQuantity: FormatQuantity = (
 
   const absoluteValue = Math.abs(qtyAsNumber);
   const flooredAbsVal = Math.floor(absoluteValue);
-  const flooredAbsValStr = `${qtyAsNumber < 0 ? '-' : ''}${
-    flooredAbsVal === 0 ? '' : `${flooredAbsVal} `
-  }`;
+  const sign = qtyAsNumber < 0 ? '-' : '';
+  const wholeStr = flooredAbsVal === 0 ? '' : `${flooredAbsVal}`;
   const decimalValue = absoluteValue - flooredAbsVal;
 
   // For integers just return the given value as a string.
@@ -130,11 +150,11 @@ export const formatQuantity: FormatQuantity = (
   for (const [num, vf] of fractionDecimalMatches) {
     if (closeEnough(decimalValue, num, opts.tolerance)) {
       const fraction = getFraction(vf, opts);
-      const int =
-        fraction in vulgarToAsciiMap
-          ? flooredAbsValStr.trim()
-          : flooredAbsValStr;
-      return `${int}${fraction}`;
+      const isVulgar = fraction in vulgarToAsciiMap;
+      const sep = wholeStr
+        ? (opts.separator ?? (isVulgar ? '' : ' '))
+        : '';
+      return `${sign}${wholeStr}${sep}${fraction}`;
     }
   }
 

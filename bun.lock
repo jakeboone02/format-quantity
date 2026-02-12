@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "format-quantity",
+      "dependencies": {
+        "numeric-quantity": "^3.2.0",
+      },
       "devDependencies": {
         "@types/bun": "^1.3.9",
         "@types/node": "^25.2.3",
@@ -537,6 +540,8 @@
     "npm-run-path": ["npm-run-path@6.0.0", "", { "dependencies": { "path-key": "^4.0.0", "unicorn-magic": "^0.3.0" } }, "sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA=="],
 
     "number-is-nan": ["number-is-nan@1.0.1", "", {}, "sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ=="],
+
+    "numeric-quantity": ["numeric-quantity@3.2.0", "", {}, "sha512-4ocEhptko1r2Ey0aCAN0mi3KJnTspHkh6TYYDP3Xtsmli80GqztkXeH5GJ3r6hbFPCnelARHbAeYVHYRhvLDBA=="],
 
     "object-assign": ["object-assign@4.1.1", "", {}, "sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg=="],
 
