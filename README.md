@@ -133,4 +133,4 @@ formatQuantity(1214, { romanNumerals: true }); // "MCCXIV"
 formatQuantity(12.14, { romanNumerals: true, vulgarFractions: true }); // "XII"
 ```
 
-[badge-npm]: https://img.shields.io/npm/v/numeric-quantity.svg?cacheSeconds=3600&logo=npm
+[badge-npm]: https://img.shields.io/npm/v/format-quantity.svg?cacheSeconds=3600&logo=npm
