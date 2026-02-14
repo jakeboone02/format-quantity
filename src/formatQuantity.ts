@@ -151,9 +151,7 @@ export const formatQuantity: FormatQuantity = (
     if (closeEnough(decimalValue, num, opts.tolerance)) {
       const fraction = getFraction(vf, opts);
       const isVulgar = fraction in vulgarToAsciiMap;
-      const sep = wholeStr
-        ? (opts.separator ?? (isVulgar ? '' : ' '))
-        : '';
+      const sep = wholeStr ? (opts.separator ?? (isVulgar ? '' : ' ')) : '';
       return `${sign}${wholeStr}${sep}${fraction}`;
     }
   }
