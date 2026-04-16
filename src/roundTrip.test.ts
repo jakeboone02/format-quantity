@@ -127,8 +127,7 @@ describe('Round trip A: number → string → number', () => {
     }
 
     test('whole + fraction slash: 1 ¹⁄₂', () => expectNumberRoundTrip(1.5, fs));
-    test('whole + fraction slash: 2 ³⁄₈', () =>
-      expectNumberRoundTrip(2.375, fs));
+    test('whole + fraction slash: 2 ³⁄₈', () => expectNumberRoundTrip(2.375, fs));
   });
 
   describe('A4: custom separator (non-breaking space)', () => {
@@ -256,21 +255,7 @@ describe('Round trip B: string → number → string', () => {
 
   describe('B2: vulgar fraction strings', () => {
     const vf = { vulgarFractions: true } satisfies FormatQuantityOptions;
-    const cases = [
-      '½',
-      '1½',
-      '⅓',
-      '2⅕',
-      '⅞',
-      '¼',
-      '¾',
-      '⅔',
-      '⅛',
-      '⅜',
-      '⅝',
-      '1⅓',
-      '10⅓',
-    ];
+    const cases = ['½', '1½', '⅓', '2⅕', '⅞', '¼', '¾', '⅔', '⅛', '⅜', '⅝', '1⅓', '10⅓'];
 
     for (const s of cases) {
       test(`"${s}"`, () => expectStringRoundTrip(s, vf));
@@ -279,17 +264,7 @@ describe('Round trip B: string → number → string', () => {
 
   describe('B3: fraction slash strings', () => {
     const fs = { fractionSlash: true } satisfies FormatQuantityOptions;
-    const cases = [
-      '¹⁄₂',
-      '1 ¹⁄₂',
-      '³⁄₈',
-      '1 ¹¹⁄₁₆',
-      '¹⁄₃',
-      '²⁄₃',
-      '¹⁄₄',
-      '³⁄₄',
-      '2 ³⁄₈',
-    ];
+    const cases = ['¹⁄₂', '1 ¹⁄₂', '³⁄₈', '1 ¹¹⁄₁₆', '¹⁄₃', '²⁄₃', '¹⁄₄', '³⁄₄', '2 ³⁄₈'];
 
     for (const s of cases) {
       test(`"${s}"`, () => expectStringRoundTrip(s, fs));

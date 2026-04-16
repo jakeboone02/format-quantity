@@ -76,10 +76,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 `
           ),
-          writeFile(
-            'dist/cjs/index.d.ts',
-            `export * from './format-quantity.cjs.development.js';`
-          ),
+          writeFile('dist/cjs/index.d.ts', `export * from './format-quantity.cjs.development.js';`),
         ]);
       },
     },

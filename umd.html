@@ -23,9 +23,7 @@
     <script src="https://unpkg.com/format-quantity"></script>
     <script>
       for (const div of document.querySelectorAll('#app>div')) {
-        const input = parseFloat(
-          div.attributes.getNamedItem('data-input').value
-        );
+        const input = parseFloat(div.attributes.getNamedItem('data-input').value);
         div.innerText = `FormatQuantity.formatQuantity(${input}) === "${FormatQuantity.formatQuantity(
           input
         )}"`;

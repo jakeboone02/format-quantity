@@ -1,9 +1,5 @@
 import { numericQuantity } from 'numeric-quantity';
-import {
-  defaultOptions,
-  fractionDecimalMatches,
-  vulgarToAsciiMap,
-} from './constants';
+import { defaultOptions, fractionDecimalMatches, vulgarToAsciiMap } from './constants';
 import type {
   FormatQuantity,
   FormatQuantityOptions,
@@ -17,8 +13,7 @@ import type {
  * Determines if two numbers are close enough to consider
  * them equal for the purposes of this package.
  */
-const closeEnough = (n1: number, n2: number, tolerance: number) =>
-  Math.abs(n1 - n2) < tolerance;
+const closeEnough = (n1: number, n2: number, tolerance: number) => Math.abs(n1 - n2) < tolerance;
 
 const superscriptDigits = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 const subscriptDigits = '₀₁₂₃₄₅₆₇₈₉';
@@ -46,8 +41,7 @@ const getFraction = (
   }
 
   const plainFraction: SimpleFraction =
-    vulgarToAsciiMap[vulgarFractionOrSixteenth as VulgarFraction] ??
-    vulgarFractionOrSixteenth;
+    vulgarToAsciiMap[vulgarFractionOrSixteenth as VulgarFraction] ?? vulgarFractionOrSixteenth;
 
   if (fractionSlash) {
     const [num, den] = plainFraction.split('/');
@@ -106,10 +100,7 @@ export const formatRomanNumerals = (qty: number): string | null => {
  * like "½", pass `true` as the second argument. For other options
  * see {@link FormatQuantityOptions}.
  */
-export const formatQuantity: FormatQuantity = (
-  qty,
-  options = defaultOptions
-) => {
+export const formatQuantity: FormatQuantity = (qty, options = defaultOptions) => {
   const qtyAsNumber =
     typeof qty === 'string'
       ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })

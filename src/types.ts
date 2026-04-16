@@ -40,19 +40,14 @@ export interface FormatQuantityOptions {
  * default values, except {@link FormatQuantityOptions.separator | separator}
  * which remains optional so that unset vs explicitly-set can be distinguished.
  */
-export type ResolvedFormatQuantityOptions = Required<
-  Omit<FormatQuantityOptions, 'separator'>
-> &
+export type ResolvedFormatQuantityOptions = Required<Omit<FormatQuantityOptions, 'separator'>> &
   Pick<FormatQuantityOptions, 'separator'>;
 
 /**
  * Function signature of {@link formatQuantity}.
  */
 export interface FormatQuantity {
-  (
-    qty: string | number,
-    options?: boolean | FormatQuantityOptions
-  ): string | null;
+  (qty: string | number, options?: boolean | FormatQuantityOptions): string | null;
 }
 
 /** Any numeric character. */
@@ -73,15 +68,7 @@ export type SimpleFraction =
 /**
  * Odd numerator sixteenth fraction strings.
  */
-export type Sixteenth = `${
-  | '1'
-  | '3'
-  | '5'
-  | '7'
-  | '9'
-  | '11'
-  | '13'
-  | '15'}/16`;
+export type Sixteenth = `${'1' | '3' | '5' | '7' | '9' | '11' | '13' | '15'}/16`;
 
 /**
  * Unicode vulgar fraction code points.
@@ -111,10 +98,6 @@ export type FormatQuantityTests = Record<
   string,
   (
     | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>]
-    | [
-        Parameters<FormatQuantity>[0],
-        ReturnType<FormatQuantity>,
-        Parameters<FormatQuantity>[1],
-      ]
+    | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>, Parameters<FormatQuantity>[1]]
   )[]
 >;

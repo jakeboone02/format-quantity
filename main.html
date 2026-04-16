@@ -91,12 +91,7 @@
           </div>
           <div>Tolerance</div>
           <div>
-            <input
-              type="number"
-              id="tolerance"
-              value="0.0075"
-              style="width: auto"
-            />
+            <input type="number" id="tolerance" value="0.0075" style="width: auto" />
           </div>
           <div>Roman numerals</div>
           <div>
@@ -164,8 +159,7 @@
         if (optionsArr.length > 0) {
           optionsStr = `, { ${optionsArr.join(', ')} }`;
         }
-        document.getElementById('call').innerText =
-          `formatQuantity(${input}${optionsStr})`;
+        document.getElementById('call').innerText = `formatQuantity(${input}${optionsStr})`;
         document.getElementById('result').innerText = JSON.stringify(
           formatQuantity(input, options)
         );
@@ -177,18 +171,14 @@
         '<div class="th">pass?</div><div class="th">call</div><div class="th">expect</div><div class="th">actual</div>';
       const runTests = () => {
         let testResultHTML = '';
-        for (const [description, tests] of Object.entries(
-          formatQuantityTests
-        )) {
+        for (const [description, tests] of Object.entries(formatQuantityTests)) {
           testResultHTML += `<div class="desc">${description}</div>`;
           testResultHTML += headerRow;
           for (const [quantity, result, options] of tests) {
             const actual = formatQuantity(quantity, options);
             const opts = typeof options === 'undefined' ? '' : options;
             const optionString =
-              opts === ''
-                ? ''
-                : `, ${JSON.stringify(opts).replace(/([,:])/g, '$1 ')}`;
+              opts === '' ? '' : `, ${JSON.stringify(opts).replace(/([,:])/g, '$1 ')}`;
             testResultHTML += `<div class="pass">${
               actual === result ? '✅' : '❌'
             }</div><div>formatQuantity(${JSON.stringify(
@@ -202,11 +192,7 @@
       };
 
       const inputIDs = ['input', 'tolerance'];
-      const booleanOptionIDs = [
-        'vulgarFractions',
-        'fractionSlash',
-        'romanNumerals',
-      ];
+      const booleanOptionIDs = ['vulgarFractions', 'fractionSlash', 'romanNumerals'];
 
       for (const id of [...inputIDs, ...booleanOptionIDs]) {
         document.getElementById(id).addEventListener('change', refresh);

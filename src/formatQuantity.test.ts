@@ -6,12 +6,8 @@ for (const [description, expects] of Object.entries(formatQuantityTests)) {
   describe(description, () => {
     for (const [quantity, result, options] of expects) {
       test(`${quantity}${
-        typeof options === 'undefined'
-          ? ''
-          : ` with option ${JSON.stringify(options)}`
-      } should evaluate to ${
-        typeof result === 'string' ? JSON.stringify(result) : result
-      }`, () => {
+        typeof options === 'undefined' ? '' : ` with option ${JSON.stringify(options)}`
+      } should evaluate to ${typeof result === 'string' ? JSON.stringify(result) : result}`, () => {
         expect(formatQuantity(quantity, options)).toBe(result);
       });
     }

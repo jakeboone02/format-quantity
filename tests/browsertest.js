@@ -22,11 +22,7 @@ class Tester {
     }
     log(
       passes
-        ? `pass: ${
-            typeof this.attempt === 'string'
-              ? `'${this.attempt}'`
-              : this.attempt
-          }`
+        ? `pass: ${typeof this.attempt === 'string' ? `'${this.attempt}'` : this.attempt}`
         : `FAIL: '${this.attempt}' is not '${test}'`
     );
   }
@@ -77,19 +73,13 @@ const assert = attempt => {
   [1.5, '1 1/2'],
   [1.5, '1½', true],
   [1.52, '1.52'],
-].forEach(([test, result, options]) =>
-  assert(formatQuantity(test, options)).is(result)
-);
+].forEach(([test, result, options]) => assert(formatQuantity(test, options)).is(result));
 
 // Report results
 log('');
 log(`Total : ${testCount} tests`);
 log(`Passed: ${passCount} (${(passCount * 100) / testCount}%)`);
-log(
-  `Failed: ${testCount - passCount} (${
-    ((testCount - passCount) * 100) / testCount
-  }%)`
-);
+log(`Failed: ${testCount - passCount} (${((testCount - passCount) * 100) / testCount}%)`);
 
 if (typeof process !== 'undefined') {
   process.exit(testCount - passCount ? 1 : 0);
