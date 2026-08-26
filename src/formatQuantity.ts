@@ -59,6 +59,11 @@ const normalizeOptions = (
 ): ResolvedFormatQuantityOptions => ({
   ...defaultOptions,
   ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
+  // Anything but a positive number is invalid for `tolerance`,
+  // so we only override the default if a valid number is provided.
+  ...(typeof options === 'object' && typeof options.tolerance === 'number' && options.tolerance >= 0
+    ? { tolerance: options.tolerance }
+    : {}),
 });
 
 // oxfmt-ignore
