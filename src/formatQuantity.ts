@@ -9,12 +9,6 @@ import type {
   VulgarFraction,
 } from './types';
 
-/**
- * Determines if two numbers are close enough to consider
- * them equal for the purposes of this package.
- */
-const closeEnough = (n1: number, n2: number, tolerance: number) => Math.abs(n1 - n2) < tolerance;
-
 const superscriptDigits = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 const subscriptDigits = '₀₁₂₃₄₅₆₇₈₉';
 
@@ -135,7 +129,7 @@ export const formatQuantity: FormatQuantity = (qty, options = defaultOptions) =>
   const absoluteValue = Math.abs(qtyAsNumber);
   const flooredAbsVal = Math.floor(absoluteValue);
   const sign = qtyAsNumber < 0 ? '-' : '';
-  const wholeStr = flooredAbsVal === 0 ? '' : `${flooredAbsVal}`;
+  const wholeStr = `${flooredAbsVal || ''}`;
   const decimalValue = absoluteValue - flooredAbsVal;
 
   // For integers just return the given value as a string.
@@ -143,13 +137,27 @@ export const formatQuantity: FormatQuantity = (qty, options = defaultOptions) =>
     return `${qtyAsNumber}`;
   }
 
+  let closestMatch: VulgarFraction | Sixteenth | null = null;
+  let closestMatchDiff = Infinity;
   for (const [num, vf] of fractionDecimalMatches) {
-    if (closeEnough(decimalValue, num, opts.tolerance)) {
-      const fraction = getFraction(vf, opts);
-      const isVulgar = fraction in vulgarToAsciiMap;
-      const sep = wholeStr ? (opts.separator ?? (isVulgar ? '' : ' ')) : '';
-      return `${sign}${wholeStr}${sep}${fraction}`;
+    const diff = Math.abs(decimalValue - num);
+    if (diff < opts.tolerance || diff === 0) {
+      if (diff === 0) {
+        closestMatch = vf;
+        break;
+      }
+      if (diff < closestMatchDiff) {
+        closestMatch = vf;
+        closestMatchDiff = diff;
+      }
     }
+  }
+
+  if (closestMatch) {
+    const fraction = getFraction(closestMatch, opts);
+    const isVulgar = fraction in vulgarToAsciiMap;
+    const sep = wholeStr ? (opts.separator ?? (isVulgar ? '' : ' ')) : '';
+    return `${sign}${wholeStr}${sep}${fraction}`;
   }
 
   return `${qtyAsNumber}`;

@@ -224,7 +224,8 @@ export const formatQuantityTests: FormatQuantityTests = {
   ],
   'tolerance option': [
     [1.3, '1.3', { tolerance: null as any }],
-    [1.3, '1 1/3', { tolerance: 0.1 }],
+    // could be '1 1/3' with this tolerance, but '1 5/16' is closer
+    [1.3, '1 5/16', { tolerance: 0.1 }],
     [1.1499, '1.1499', { tolerance: 0.000001 }],
   ],
   'Roman numerals': [

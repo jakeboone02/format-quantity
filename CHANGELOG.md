@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Tolerance window logic is refined. Closest match now wins instead of first match based on an arbitrary sort order.
 - Invalid `tolerance` values will be ignored.
 - All non-string and non-numeric inputs result in `null`.
 - "Close enough" values on which tolerances are based are now more precise on account of being calculated instead of rounded literals (`1 / 3` vs `1.33`).
