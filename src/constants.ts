@@ -14,17 +14,17 @@ export const defaultTolerance = 0.0075 as const;
 /**
  * Default options for {@link formatQuantity}.
  */
-export const defaultOptions: ResolvedFormatQuantityOptions = {
+export const defaultOptions: ResolvedFormatQuantityOptions = Object.freeze({
   vulgarFractions: false,
   tolerance: defaultTolerance,
   fractionSlash: false,
   romanNumerals: false,
-} as const;
+});
 
 /**
  * Map of vulgar fractions to their traditional ASCII equivalents.
  */
-export const vulgarToAsciiMap: Record<VulgarFraction, SimpleFraction> = {
+export const vulgarToAsciiMap: Record<VulgarFraction, SimpleFraction> = Object.freeze({
   '¼': '1/4',
   '½': '1/2',
   '¾': '3/4',
@@ -43,38 +43,39 @@ export const vulgarToAsciiMap: Record<VulgarFraction, SimpleFraction> = {
   '⅜': '3/8',
   '⅝': '5/8',
   '⅞': '7/8',
-} as const;
+});
 
 /**
  * Map of "close enough" values to the {@link VulgarFraction} or {@link Sixteenth} fraction
  * string matches. The value +/- the `tolerance` option (or {@link defaultTolerance} if not
  * specified) is considered close enough to match the fraction.
  */
-export const fractionDecimalMatches: [number, VulgarFraction | Sixteenth][] = [
-  [1 / 16, '1/16'],
-  [1 / 10, '⅒'],
-  [1 / 9, '⅑'],
-  [1 / 8, '⅛'],
-  [1 / 7, '⅐'],
-  [1 / 6, '⅙'],
-  [3 / 16, '3/16'],
-  [1 / 5, '⅕'],
-  [1 / 4, '¼'],
-  [5 / 16, '5/16'],
-  [1 / 3, '⅓'],
-  [3 / 8, '⅜'],
-  [2 / 5, '⅖'],
-  [7 / 16, '7/16'],
-  [1 / 2, '½'],
-  [9 / 16, '9/16'],
-  [3 / 5, '⅗'],
-  [5 / 8, '⅝'],
-  [2 / 3, '⅔'],
-  [11 / 16, '11/16'],
-  [3 / 4, '¾'],
-  [4 / 5, '⅘'],
-  [13 / 16, '13/16'],
-  [5 / 6, '⅚'],
-  [7 / 8, '⅞'],
-  [15 / 16, '15/16'],
-] as const;
+export const fractionDecimalMatches: readonly (readonly [number, VulgarFraction | Sixteenth])[] =
+  Object.freeze([
+    [1 / 16, '1/16'],
+    [1 / 10, '⅒'],
+    [1 / 9, '⅑'],
+    [1 / 8, '⅛'],
+    [1 / 7, '⅐'],
+    [1 / 6, '⅙'],
+    [3 / 16, '3/16'],
+    [1 / 5, '⅕'],
+    [1 / 4, '¼'],
+    [5 / 16, '5/16'],
+    [1 / 3, '⅓'],
+    [3 / 8, '⅜'],
+    [2 / 5, '⅖'],
+    [7 / 16, '7/16'],
+    [1 / 2, '½'],
+    [9 / 16, '9/16'],
+    [3 / 5, '⅗'],
+    [5 / 8, '⅝'],
+    [2 / 3, '⅔'],
+    [11 / 16, '11/16'],
+    [3 / 4, '¾'],
+    [4 / 5, '⅘'],
+    [13 / 16, '13/16'],
+    [5 / 6, '⅚'],
+    [7 / 8, '⅞'],
+    [15 / 16, '15/16'],
+  ]);
