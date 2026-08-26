@@ -1,4 +1,12 @@
-import type { FormatQuantityTests } from './types';
+import type { FormatQuantity } from './types';
+
+export type FormatQuantityTests = Record<
+  string,
+  (
+    | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>]
+    | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>, Parameters<FormatQuantity>[1]]
+  )[]
+>;
 
 const romanNumerals = true;
 const fractionSlash = true;

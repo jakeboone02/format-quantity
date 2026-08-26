@@ -92,12 +92,3 @@ export type VulgarFraction =
   | '⅜' // '\u215c' | 0.375
   | '⅝' // '\u215d' | 0.625
   | '⅞'; // '\u215e' | 0.875
-
-/** @hidden */
-export type FormatQuantityTests = Record<
-  string,
-  (
-    | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>]
-    | [Parameters<FormatQuantity>[0], ReturnType<FormatQuantity>, Parameters<FormatQuantity>[1]]
-  )[]
->;

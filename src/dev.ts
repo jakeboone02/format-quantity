@@ -1,6 +1,6 @@
 import * as FormatQuantity from '.';
+import type { FormatQuantityTests } from './formatQuantityTests';
 import { formatQuantityTests } from './formatQuantityTests';
-import type { FormatQuantityTests } from './types';
 
 declare global {
   var formatQuantity: typeof FormatQuantity.formatQuantity;
