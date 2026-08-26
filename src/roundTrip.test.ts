@@ -1,9 +1,20 @@
 import { describe, expect, test } from 'bun:test';
+import type { NumericQuantityOptions } from 'numeric-quantity';
 import { numericQuantity } from 'numeric-quantity';
 import { formatQuantity } from './formatQuantity';
 import type { FormatQuantityOptions } from './types';
 
-const nqOpts = { round: false } as const;
+type NqNOptsNumeric = NumericQuantityOptions & {
+  bigIntOnOverflow: false;
+  round: false;
+  verbose: false;
+};
+
+const nqOpts = {
+  round: false,
+  verbose: false,
+  bigIntOnOverflow: false,
+} satisfies NqNOptsNumeric;
 
 /**
  * Helper: number → formatQuantity → numericQuantity → assert ≈ original.
@@ -25,7 +36,7 @@ const expectNumberRoundTrip = (
 const expectStringRoundTrip = (
   s: string,
   fqOpts?: FormatQuantityOptions,
-  nqExtra?: Parameters<typeof numericQuantity>[1]
+  nqExtra?: NqNOptsNumeric
 ) => {
   const num = numericQuantity(s, { ...nqOpts, ...nqExtra });
   expect(num).not.toBeNaN();
@@ -289,7 +300,7 @@ describe('Round trip B: string → number → string', () => {
     const cases = ['I', 'IV', 'XIV', 'MCCXIV', 'MMMCMXCIX'];
 
     for (const s of cases) {
-      test(`"${s}"`, () => expectStringRoundTrip(s, rn, rnNq));
+      test(`"${s}"`, () => expectStringRoundTrip(s, rn, { ...nqOpts, ...rnNq }));
     }
   });
 
