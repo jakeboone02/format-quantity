@@ -46,34 +46,35 @@ export const vulgarToAsciiMap: Record<VulgarFraction, SimpleFraction> = {
 } as const;
 
 /**
- * Map of "close enough" decimal values to the {@link VulgarFraction} or
- * {@link Sixteenth} fraction string matches.
+ * Map of "close enough" values to the {@link VulgarFraction} or {@link Sixteenth} fraction
+ * string matches. The value +/- the `tolerance` option (or {@link defaultTolerance} if not
+ * specified) is considered close enough to match the fraction.
  */
 export const fractionDecimalMatches: [number, VulgarFraction | Sixteenth][] = [
-  [0.33, '⅓'],
-  [0.66, '⅔'],
-  [0.2, '⅕'],
-  [0.4, '⅖'],
-  [0.6, '⅗'],
-  [0.8, '⅘'],
-  [0.166, '⅙'],
-  [0.833, '⅚'],
-  [0.143, '⅐'],
-  [0.111, '⅑'],
-  [0.1, '⅒'],
-  [0.125, '⅛'],
-  [0.25, '¼'],
-  [0.375, '⅜'],
-  [0.5, '½'],
-  [0.625, '⅝'],
-  [0.75, '¾'],
-  [0.875, '⅞'],
-  [0.0625, '1/16'],
-  [0.1875, '3/16'],
-  [0.3125, '5/16'],
-  [0.4375, '7/16'],
-  [0.5625, '9/16'],
-  [0.6875, '11/16'],
-  [0.8125, '13/16'],
-  [0.9375, '15/16'],
+  [1 / 3, '⅓'],
+  [2 / 3, '⅔'],
+  [1 / 5, '⅕'],
+  [2 / 5, '⅖'],
+  [3 / 5, '⅗'],
+  [4 / 5, '⅘'],
+  [1 / 6, '⅙'],
+  [5 / 6, '⅚'],
+  [1 / 7, '⅐'],
+  [1 / 9, '⅑'],
+  [1 / 10, '⅒'],
+  [1 / 8, '⅛'],
+  [1 / 4, '¼'],
+  [3 / 8, '⅜'],
+  [1 / 2, '½'],
+  [5 / 8, '⅝'],
+  [3 / 4, '¾'],
+  [7 / 8, '⅞'],
+  [1 / 16, '1/16'],
+  [3 / 16, '3/16'],
+  [5 / 16, '5/16'],
+  [7 / 16, '7/16'],
+  [9 / 16, '9/16'],
+  [11 / 16, '11/16'],
+  [13 / 16, '13/16'],
+  [15 / 16, '15/16'],
 ] as const;

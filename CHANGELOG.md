@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-N/A
+### Fixed
+
+- "Close enough" values on which tolerances are based are now more precise on account of being calculated instead of rounded literals (`1 / 3` vs `1.33`).
 
 ## [v3.1.0] - 2026-02-12
 
