@@ -5,9 +5,21 @@ const fractionSlash = true;
 const vulgarFractions = true;
 
 export const formatQuantityTests: FormatQuantityTests = {
-  'returns null for NaN and non-numeric strings': [
+  'returns null for NaN, non-numeric strings, invalid inputs': [
     [NaN, null],
     ['NaN', null],
+    // @ts-expect-error invalid input
+    [null, null],
+    // @ts-expect-error invalid input
+    [undefined, null],
+    // @ts-expect-error invalid input
+    [true, null],
+    // @ts-expect-error invalid input
+    [false, null],
+    // @ts-expect-error invalid input
+    [{}, null],
+    // @ts-expect-error invalid input
+    [[], null],
   ],
   'returns blank string for zero': [
     [0, ''],

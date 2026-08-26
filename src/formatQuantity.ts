@@ -102,7 +102,7 @@ export const formatRomanNumerals = (qty: number): string | null => {
  */
 export const formatQuantity: FormatQuantity = (qty, options = defaultOptions) => {
   const qtyAsNumber =
-    typeof qty === 'string'
+    typeof qty !== 'number'
       ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })
       : qty;
 
