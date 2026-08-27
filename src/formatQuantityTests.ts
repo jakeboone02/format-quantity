@@ -355,6 +355,22 @@ export const formatQuantityTests: FormatQuantityTests = {
     // 0.99 is nearer 15/16 (0.9375) than to any other anchor
     [1.99, '1 15/16', { tolerance: Infinity }],
   ],
+  'zeroFormat option': [
+    [0, '', { zeroFormat: '' }],
+    [0, '0', { zeroFormat: '0' }],
+    [0, 'zero', { zeroFormat: 'zero' }],
+    [0, 'n/a', { zeroFormat: 'n/a' }],
+    [0, 'none', { zeroFormat: 'none' }],
+    [0, '0', { zeroFormat: '0', tolerance: 0 }],
+    [0, 'zero', { zeroFormat: 'zero', tolerance: 0 }],
+    [0, '0', { zeroFormat: '0', romanNumerals }],
+    [0, 'zero', { zeroFormat: 'zero', romanNumerals }],
+    [-0, 'negative zero', { zeroFormat: 'negative zero' }],
+    // @ts-expect-error invalid option type
+    [0, '', { zeroFormat: 0 }],
+    // @ts-expect-error invalid option type
+    [0, '', { zeroFormat: null }],
+  ],
   'non-finite inputs are stringified as-is': [
     [Infinity, 'Infinity'],
     [-Infinity, '-Infinity'],

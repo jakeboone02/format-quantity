@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `tolerance` accepts `false` to disable fraction matching entirely, so every non-integer value is returned as a decimal.
+- `zeroFormat` option to specify a string to return when the input numerically evaluates to zero (`0`).
 
 ### Changed
 

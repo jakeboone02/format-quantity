@@ -54,11 +54,19 @@ const normalizeOptions = (
 ): ResolvedFormatQuantityOptions => {
   const opts: ResolvedFormatQuantityOptions = {
     ...defaultOptions,
-    ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
+    ...(typeof options === 'boolean'
+      ? { vulgarFractions: options }
+      : typeof options === 'object' && options !== null
+        ? options
+        : {}),
   };
 
   if (!isValidTolerance(opts.tolerance)) {
     opts.tolerance = defaultOptions.tolerance;
+  }
+
+  if (typeof opts.zeroFormat !== 'string') {
+    opts.zeroFormat = defaultOptions.zeroFormat;
   }
 
   return opts;
@@ -118,17 +126,12 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
     return null;
   }
 
-  // Return an empty string if the value is zero.
-  // TODO: Consider a `zeroDisplay` option (e.g. `{ zeroDisplay: "0" }`) so
-  // callers outside the recipe-ingredient use case can get "0" instead of "".
-  if (qtyAsNumber === 0) {
-    return '';
-  }
-
-  // The default options parameter in the function signature only takes effect
-  // if the parameter is `undefined`. The nullish coalescing operator below
-  // covers the `null` case.
   const opts = normalizeOptions(options);
+
+  // Return empty string (or configured `zeroFormat`) if the value is zero.
+  if (qtyAsNumber === 0) {
+    return opts.zeroFormat;
+  }
 
   if (opts.romanNumerals) {
     return formatRomanNumerals(qtyAsNumber);

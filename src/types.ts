@@ -39,6 +39,10 @@ export interface FormatQuantityOptions {
    * vulgar fraction characters).
    */
   separator?: string;
+  /**
+   * String to return when the input evaluates numerically to zero.
+   */
+  zeroFormat?: string;
 }
 
 /**

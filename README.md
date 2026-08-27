@@ -132,6 +132,20 @@ formatQuantity(1.5, { tolerance: false }); // "1.5"
 
 Any other value—a negative number, `NaN`, a numeric string, `null`, `undefined`—is ignored and the default is used instead.
 
+### `zeroFormat`
+
+| Type     | Default |
+| -------- | ------- |
+| `string` | `""`    |
+
+Specify the string to return when the input numerically evaluates to zero (`0`).
+
+```js
+formatQuantity(0, { zeroFormat: '' }); // "" (default)
+formatQuantity(0, { zeroFormat: '0' }); // "0"
+formatQuantity(0, { zeroFormat: 'N/A' }); // "N/A"
+```
+
 ### `romanNumerals`
 
 | Type      | Default |
