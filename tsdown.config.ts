@@ -87,7 +87,7 @@ if (process.env.NODE_ENV === 'production') {
       dts: false,
       format: 'iife',
       globalName: 'FormatQuantity',
-      outputOptions: { globals: { 'numeric-quantity': 'numericQuantity' } },
+      deps: { alwaysBundle: ['numeric-quantity'] },
       outExtensions: () => ({ js: '.umd.min.js' }),
     },
   ];
