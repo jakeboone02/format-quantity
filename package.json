@@ -44,7 +44,7 @@
   "homepage": "https://github.com/jakeboone02/format-quantity",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jakeboone02/format-quantity"
+    "url": "git+https://github.com/jakeboone02/format-quantity.git"
   },
   "scripts": {
     "start": "bun --hot main.html",
