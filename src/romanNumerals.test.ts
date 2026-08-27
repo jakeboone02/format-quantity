@@ -44,9 +44,11 @@ describe('formatRomanNumerals: range boundaries', () => {
     [[], null],
   ];
 
-  test.each(cases)('formatRomanNumerals(%s) → %s', (input, expected) => {
-    expect(formatRomanNumerals(input as number)).toBe(expected);
-  });
+  for (const [input, expected] of cases) {
+    test(`${String(input)} → ${expected}`, () => {
+      expect(formatRomanNumerals(input as number)).toBe(expected);
+    });
+  }
 });
 
 describe('formatRomanNumerals: place-value construction', () => {
@@ -72,9 +74,11 @@ describe('formatRomanNumerals: place-value construction', () => {
     [3888, 'MMMDCCCLXXXVIII'],
   ];
 
-  test.each(cases)('formatRomanNumerals(%s) → %s', (input, expected) => {
-    expect(formatRomanNumerals(input)).toBe(expected);
-  });
+  for (const [input, expected] of cases) {
+    test(`${input} → ${expected}`, () => {
+      expect(formatRomanNumerals(input)).toBe(expected);
+    });
+  }
 });
 
 describe('formatRomanNumerals: exhaustive 1–3999', () => {
