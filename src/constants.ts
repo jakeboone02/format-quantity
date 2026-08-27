@@ -20,6 +20,7 @@ export const defaultOptions: ResolvedFormatQuantityOptions = Object.freeze({
   fractionSlash: false,
   romanNumerals: false,
   zeroFormat: '',
+  allowTrailingInvalid: true,
 });
 
 /**

@@ -45,7 +45,7 @@ export const formatQuantityTests: FormatQuantityTests = {
     ['abc', null],
     ['--1', null],
   ],
-  'string inputs: trailing invalid characters are ignored': [
+  'string inputs: allow trailing invalid characters': [
     // `allowTrailingInvalid` is passed to `numericQuantity`, so a leading
     // numeric portion wins even when the rest of the string is garbage.
     ['1.5abc', '1 1/2'],
@@ -55,6 +55,10 @@ export const formatQuantityTests: FormatQuantityTests = {
     ['1½ tsp', '1 1/2'],
     // ...but there has to be a leading numeric portion.
     ['abc1.5', null],
+  ],
+  'string inputs: disallow trailing invalid characters': [
+    ['123abc', null, { allowTrailingInvalid: false }],
+    ['1.5', '1 1/2', { allowTrailingInvalid: false }],
   ],
   'returns blank string for zero': [
     [0, ''],

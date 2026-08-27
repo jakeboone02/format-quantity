@@ -116,17 +116,17 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
     return null;
   }
 
+  const opts = normalizeOptions(options);
+
   const qtyAsNumber =
     typeof qty !== 'number'
-      ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })
+      ? numericQuantity(qty, { round: false, allowTrailingInvalid: opts.allowTrailingInvalid })
       : qty;
 
   // Return `null` if input is not number-like.
   if (isNaN(qtyAsNumber)) {
     return null;
   }
-
-  const opts = normalizeOptions(options);
 
   // Return empty string (or configured `zeroFormat`) if the value is zero.
   if (qtyAsNumber === 0) {

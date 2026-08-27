@@ -146,6 +146,19 @@ formatQuantity(0, { zeroFormat: '0' }); // "0"
 formatQuantity(0, { zeroFormat: 'N/A' }); // "N/A"
 ```
 
+### `allowTrailingInvalid`
+
+| Type      | Default |
+| --------- | ------- |
+| `boolean` | `true`  |
+
+If input is a `string`, ignore trailing non-numeric input (à la `parseFloat`). Set to `false` for strict parsing — any invalid characters will result in `null`.
+
+```js
+formatQuantity('123abc', { allowTrailingInvalid: true }); // "123"
+formatQuantity('123abc', { allowTrailingInvalid: false }); // null
+```
+
 ### `romanNumerals`
 
 | Type      | Default |

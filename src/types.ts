@@ -2,6 +2,8 @@ export interface FormatQuantityOptions {
   /**
    * Output vulgar fractions, like "½" instead of "1/2", when appropriate.
    * Overrides the `fractionSlash` option.
+   *
+   * @default false
    */
   vulgarFractions?: boolean;
   /**
@@ -24,12 +26,16 @@ export interface FormatQuantityOptions {
    * Output the fraction slash character (⁄) instead of the "solidus"
    * slash (/) for fractions. Results appear like "1⁄2" instead of "1/2".
    * Overridden by the `vulgarFractions` option.
+   *
+   * @default false
    */
   fractionSlash?: boolean;
   /**
    * Output in Roman numerals. Provided value must be between 1 and 3999, inclusive.
    * Decimal values will be ignored (`Math.floor` is used to remove them). Overrides
    * all other options.
+   *
+   * @default false
    */
   romanNumerals?: boolean;
   /**
@@ -41,8 +47,16 @@ export interface FormatQuantityOptions {
   separator?: string;
   /**
    * String to return when the input evaluates numerically to zero.
+   *
+   * @default "" (empty string)
    */
   zeroFormat?: string;
+  /**
+   * If `qty` is a string, allow trailing invalid characters after the numeric portion.
+   *
+   * @default true
+   */
+  allowTrailingInvalid?: boolean;
 }
 
 /**

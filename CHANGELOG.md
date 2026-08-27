@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `tolerance` accepts `false` to disable fraction matching entirely, so every non-integer value is returned as a decimal.
 - `zeroFormat` option to specify a string to return when the input numerically evaluates to zero (`0`).
+- `allowTrailingInvalid` option (default `true`). When `false`, `null` is returned if non-numeric characters follow numeric characters.
 
 ### Changed
 
