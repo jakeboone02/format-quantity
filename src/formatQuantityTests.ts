@@ -231,10 +231,99 @@ export const formatQuantityTests: FormatQuantityTests = {
     [1.5, '1\u00a01/2', { separator: '\u00a0' }],
   ],
   'tolerance option': [
-    [1.3, '1.3', { tolerance: null as any }],
     // could be '1 1/3' with this tolerance, but '1 5/16' is closer
     [1.3, '1 5/16', { tolerance: 0.1 }],
     [1.1499, '1.1499', { tolerance: 0.000001 }],
+    // @ts-expect-error invalid option type
+    [1.3, '1.3', { tolerance: null }],
+  ],
+  'tolerance option: zero means exact quotients only': [
+    [1.5, '1 1/2', { tolerance: 0 }],
+    [0.5, '1/2', { tolerance: 0 }],
+    [-1.5, '-1 1/2', { tolerance: 0 }],
+    [1.5, '1½', { tolerance: 0, vulgarFractions }],
+    [1.25, '1 1/4', { tolerance: 0 }],
+    [1.0625, '1 1/16', { tolerance: 0 }],
+    [1 / 3, '1/3', { tolerance: 0 }],
+    // Near misses fall through to the decimal.
+    [1.51, '1.51', { tolerance: 0 }],
+    [1.50001, '1.50001', { tolerance: 0 }],
+    [1.333, '1.333', { tolerance: 0 }],
+    // Integers and zero are unaffected.
+    [3, '3', { tolerance: 0 }],
+    [0, '', { tolerance: 0 }],
+  ],
+  'tolerance option: false disables fraction matching': [
+    [1.5, '1.5', { tolerance: false }],
+    [0.5, '0.5', { tolerance: false }],
+    [-1.5, '-1.5', { tolerance: false }],
+    [1 / 3, '0.3333333333333333', { tolerance: false }],
+    [1.0625, '1.0625', { tolerance: false }],
+    // Other formatting options have nothing to apply to.
+    [1.5, '1.5', { tolerance: false, vulgarFractions }],
+    [1.5, '1.5', { tolerance: false, fractionSlash }],
+    [1.5, '1.5', { tolerance: false, separator: '-' }],
+    // Integers, zero, and Roman numerals are unaffected.
+    [3, '3', { tolerance: false }],
+    [0, '', { tolerance: false }],
+    [12, 'XII', { tolerance: false, romanNumerals }],
+    ['1 1/2', '1.5', { tolerance: false }],
+  ],
+  'tolerance option: invalid values resolve to the default': [
+    // 1.333 is within the default tolerance of 1/3, so anything that resolves
+    // to the default renders '1 1/3'.
+    [1.333, '1 1/3'],
+    [1.333, '1 1/3', {}],
+    // @ts-expect-error invalid option type
+    [1.333, '1 1/3', { tolerance: null }],
+    [1.333, '1 1/3', { tolerance: undefined }],
+    [1.333, '1 1/3', { tolerance: -1 }],
+    [1.333, '1 1/3', { tolerance: -0.0001 }],
+    // @ts-expect-error invalid option type
+    [1.333, '1 1/3', { tolerance: '0.5' }],
+    [1.333, '1 1/3', { tolerance: NaN }],
+    // @ts-expect-error invalid option type
+    [1.333, '1 1/3', { tolerance: true }],
+    // @ts-expect-error invalid option type
+    [1.333, '1 1/3', { tolerance: {} }],
+    // @ts-expect-error invalid option type
+    [1.333, '1 1/3', { tolerance: [] }],
+    // ...and the same values leave 1.3 (outside the default window) alone.
+    [1.3, '1.3'],
+    [1.3, '1.3', { tolerance: -1 }],
+    [1.3, '1.3', { tolerance: NaN }],
+    // @ts-expect-error invalid option type
+    [1.3, '1.3', { tolerance: '0.5' }],
+  ],
+  'tolerance option: infinite tolerance always matches the nearest anchor': [
+    [1.5, '1 1/2', { tolerance: Infinity }],
+    // 0.05 is nearer 1/16 (0.0625) than to any other anchor
+    [1.05, '1 1/16', { tolerance: Infinity }],
+    // 0.99 is nearer 15/16 (0.9375) than to any other anchor
+    [1.99, '1 15/16', { tolerance: Infinity }],
+  ],
+  'non-finite inputs are stringified as-is': [
+    [Infinity, 'Infinity'],
+    [-Infinity, '-Infinity'],
+    ['1/0', 'Infinity'],
+    ['-1/0', '-Infinity'],
+    // The literal string "Infinity" is not a numeric format `numeric-quantity`
+    // recognizes, so it is rejected like any other non-numeric string.
+    ['Infinity', null],
+    ['-Infinity', null],
+    [Infinity, 'Infinity', true],
+    [Infinity, 'Infinity', { separator: '-' }],
+    [Infinity, 'Infinity', { tolerance: false }],
+  ],
+  'extreme magnitudes keep JavaScript exponential notation': [
+    [1e21, '1e+21'],
+    [-1e21, '-1e+21'],
+    [1e-7, '1e-7'],
+    [-1e-7, '-1e-7'],
+    [Number.MAX_VALUE, '1.7976931348623157e+308'],
+    [Number.MIN_VALUE, '5e-324'],
+    // Just below the exponential threshold, output stays positional.
+    [1e20, '100000000000000000000'],
   ],
   'Roman numerals': [
     ['NaN', null, { romanNumerals }],

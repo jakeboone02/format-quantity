@@ -39,22 +39,30 @@ const getFraction = (
 };
 
 /**
+ * Only `false` (matching disabled) or a non-negative number is a valid
+ * `tolerance`. Everything else—negative numbers, `NaN`, non-numbers,
+ * `null`, `undefined`—resolves to {@link defaultTolerance}.
+ */
+const isValidTolerance = (tolerance: unknown): tolerance is number | false =>
+  tolerance === false || (typeof tolerance === 'number' && tolerance >= 0);
+
+/**
  * Merges options object with default options, converting boolean to object if necessary.
  */
 const normalizeOptions = (
   options: Parameters<FormatQuantity>[1]
-): ResolvedFormatQuantityOptions => ({
-  ...defaultOptions,
-  ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
-  // Only a positive number is valid for `tolerance`, so we override anything
-  // else with the default.
-  ...(options !== null &&
-  typeof options === 'object' &&
-  typeof options.tolerance === 'number' &&
-  options.tolerance >= 0
-    ? {}
-    : { tolerance: defaultOptions.tolerance }),
-});
+): ResolvedFormatQuantityOptions => {
+  const opts: ResolvedFormatQuantityOptions = {
+    ...defaultOptions,
+    ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
+  };
+
+  if (!isValidTolerance(opts.tolerance)) {
+    opts.tolerance = defaultOptions.tolerance;
+  }
+
+  return opts;
+};
 
 // oxfmt-ignore
 const romanNumeralsByPlace = [
@@ -135,16 +143,20 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
 
   let closestMatch: VulgarFraction | Sixteenth | null = null;
   let closestMatchDiff = Infinity;
-  for (const [num, vf] of fractionDecimalMatches) {
-    const diff = Math.abs(decimalValue - num);
-    if (diff < opts.tolerance || diff === 0) {
-      if (diff === 0) {
-        closestMatch = vf;
-        break;
-      }
-      if (diff < closestMatchDiff) {
-        closestMatch = vf;
-        closestMatchDiff = diff;
+  // `tolerance: false` disables fraction matching entirely.
+  if (opts.tolerance !== false) {
+    for (const [num, vf] of fractionDecimalMatches) {
+      const diff = Math.abs(decimalValue - num);
+      // `diff === 0` keeps exact quotients matching even at `tolerance: 0`.
+      if (diff < opts.tolerance || diff === 0) {
+        if (diff === 0) {
+          closestMatch = vf;
+          break;
+        }
+        if (diff < closestMatchDiff) {
+          closestMatch = vf;
+          closestMatchDiff = diff;
+        }
       }
     }
   }

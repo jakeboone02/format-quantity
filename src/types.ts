@@ -11,9 +11,15 @@ export interface FormatQuantityOptions {
    * will return "2/3". The smaller this number, the higher the likelihood that
    * the function will return a decimal instead of a fraction or mixed number.
    *
+   * `0` means only exact quotients match. `false` disables fraction matching
+   * entirely, so decimal values are always returned as decimals.
+   *
+   * Any other value—negative, non-numeric, `NaN`, `null`, `undefined`—resolves
+   * to the default.
+   *
    * @default 0.0075
    */
-  tolerance?: number;
+  tolerance?: number | false;
   /**
    * Output the fraction slash character (⁄) instead of the "solidus"
    * slash (/) for fractions. Results appear like "1⁄2" instead of "1/2".

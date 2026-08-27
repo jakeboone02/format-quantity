@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Invalid `tolerance` values will be ignored.
 - All non-string and non-numeric inputs result in `null`.
 - "Close enough" values on which tolerances are based are now more precise on account of being calculated instead of rounded literals (`1 / 3` vs `1.33`).
+- Documentation for the `tolerance` option no longer describes the pre-existing first-match-wins behavior.
 
 ## [v3.1.0] - 2026-02-12
 
