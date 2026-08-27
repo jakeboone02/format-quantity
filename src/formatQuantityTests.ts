@@ -28,6 +28,33 @@ export const formatQuantityTests: FormatQuantityTests = {
     [{}, null],
     // @ts-expect-error invalid input
     [[], null],
+    // Would coerce to the numeric string "1", but arrays are still rejected.
+    // @ts-expect-error invalid input
+    [[1], null],
+    // @ts-expect-error invalid input
+    [['1 1/2'], null],
+    // @ts-expect-error invalid input
+    [1n, null],
+    // @ts-expect-error invalid input
+    [Symbol.iterator, null],
+    // @ts-expect-error invalid input
+    [new Date(0), null],
+    // Strings that are not a recognized numeric format.
+    ['', null],
+    [' ', null],
+    ['abc', null],
+    ['--1', null],
+  ],
+  'string inputs: trailing invalid characters are ignored': [
+    // `allowTrailingInvalid` is passed to `numericQuantity`, so a leading
+    // numeric portion wins even when the rest of the string is garbage.
+    ['1.5abc', '1 1/2'],
+    ['12 apples', '12'],
+    ['1/2/3', '1/2'],
+    ['2 3/4 cups', '2 3/4'],
+    ['1½ tsp', '1 1/2'],
+    // ...but there has to be a leading numeric portion.
+    ['abc1.5', null],
   ],
   'returns blank string for zero': [
     [0, ''],
@@ -230,6 +257,32 @@ export const formatQuantityTests: FormatQuantityTests = {
     [-0.5, '-1/2', { separator: '-' }],
     [1.5, '1\u00a01/2', { separator: '\u00a0' }],
   ],
+  'separator option: combined with other options': [
+    // separator × sixteenths (never vulgar, so the default separator is ' ')
+    [1.0625, '1-1/16', { separator: '-' }],
+    [1.9375, '1-15/16', { separator: '-' }],
+    [1.0625, '1 1/16', { separator: ' ' }],
+    [1.0625, '11/16', { separator: '' }],
+    [-1.3125, '-1-5/16', { separator: '-' }],
+    // Sixteenths ignore `vulgarFractions` (no vulgar code point exists).
+    [1.0625, '1-1/16', { separator: '-', vulgarFractions }],
+    // separator × fractionSlash
+    [1.5, '1-¹⁄₂', { separator: '-', fractionSlash }],
+    [1.5, '1¹⁄₂', { separator: '', fractionSlash }],
+    [1.0625, '1-¹⁄₁₆', { separator: '-', fractionSlash }],
+    [1.5, '1\u00a0¹⁄₂', { separator: '\u00a0', fractionSlash }],
+    // separator × vulgarFractions (vulgarFractions overrides fractionSlash)
+    [1.5, '1-½', { separator: '-', fractionSlash, vulgarFractions }],
+    [1.5, '1 ½', { separator: ' ', fractionSlash, vulgarFractions }],
+    [1.6875, '1-11/16', { separator: '-', fractionSlash, vulgarFractions }],
+    // separator is ignored when there is no whole-number part
+    [0.0625, '1/16', { separator: '-' }],
+    [0.5, '¹⁄₂', { separator: '-', fractionSlash }],
+    [-0.5, '-½', { separator: '-', vulgarFractions }],
+    // separator is ignored for integers and Roman numerals
+    [3, '3', { separator: '-' }],
+    [12, 'XII', { separator: '-', romanNumerals }],
+  ],
   'tolerance option': [
     // could be '1 1/3' with this tolerance, but '1 5/16' is closer
     [1.3, '1 5/16', { tolerance: 0.1 }],
@@ -327,8 +380,15 @@ export const formatQuantityTests: FormatQuantityTests = {
   ],
   'Roman numerals': [
     ['NaN', null, { romanNumerals }],
-    [0.9, '', { romanNumerals }],
-    [4000, '', { romanNumerals }],
+    // Out of the 1–3999 range (inclusive) yields `null`.
+    [0.9, null, { romanNumerals }],
+    [-1, null, { romanNumerals }],
+    [-3999, null, { romanNumerals }],
+    [4000, null, { romanNumerals }],
+    [4000.5, null, { romanNumerals }],
+    [1e21, null, { romanNumerals }],
+    // Zero is short-circuited before the `romanNumerals` option is read.
+    [0, '', { romanNumerals }],
     [3999.99999, 'MMMCMXCIX', { romanNumerals }],
     [1.3, 'I', { romanNumerals }],
     [1.9, 'I', { romanNumerals }],

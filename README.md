@@ -138,13 +138,17 @@ Any other value—a negative number, `NaN`, a numeric string, `null`, `undefined
 | --------- | ------: |
 | `boolean` | `false` |
 
-Coerces the number into an integer using `Math.floor`, then formats the value as Roman numerals. The algorithm uses strict, modern rules, so the number must be between 1 and 3999 (inclusive).
+Coerces the number into an integer using `Math.floor`, then formats the value as Roman numerals. The algorithm uses strict, modern rules, so the number must be between 1 and 3999 (inclusive). Values outside that range return `null`.
 
 When this option is `true`, all other options are ignored.
 
 ```js
 formatQuantity(1214, { romanNumerals: true }); // "MCCXIV"
 formatQuantity(12.14, { romanNumerals: true, vulgarFractions: true }); // "XII"
+formatQuantity(4000, { romanNumerals: true }); // null
+formatQuantity(-1, { romanNumerals: true }); // null
 ```
+
+> _`formatQuantity(0, …)` returns `""` regardless of this option, since the zero rule is applied before options are read._
 
 [badge-npm]: https://img.shields.io/npm/v/format-quantity.svg?cacheSeconds=3600&logo=npm

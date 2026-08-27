@@ -73,15 +73,12 @@ const romanNumeralsByPlace = [
 
 /**
  * Formats a number as Roman numerals. The number must be between
- * 1 and 3999, inclusive.
+ * 1 and 3999, inclusive; any other value—including non-numbers,
+ * `NaN`, and non-finite numbers—yields `null`.
  */
 export const formatRomanNumerals = (qty: number): string | null => {
-  if (typeof qty !== 'number' || isNaN(qty)) {
+  if (typeof qty !== 'number' || !Number.isFinite(qty) || qty < 1 || qty >= 4000) {
     return null;
-  }
-
-  if (qty < 1 || qty >= 4000) {
-    return '';
   }
 
   const floored = Math.floor(qty);
@@ -104,6 +101,13 @@ export const formatRomanNumerals = (qty: number): string | null => {
  * see {@link FormatQuantityOptions}.
  */
 export const formatQuantity: FormatQuantity = (qty, options) => {
+  // Only numbers and strings are accepted. Anything else (`bigint`, arrays like
+  // `[1]` that would coerce to a numeric string, objects, booleans, nullish) is
+  // rejected up front so off-type inputs behave consistently.
+  if (typeof qty !== 'number' && typeof qty !== 'string') {
+    return null;
+  }
+
   const qtyAsNumber =
     typeof qty !== 'number'
       ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })

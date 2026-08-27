@@ -7,12 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `tolerance` accepts `false` to disable fraction matching entirely, so every non-integer value is returned as a decimal.
+
+### Changed
+
+- `tolerance: 0` now means "only exact quotients match" instead of "match nothing". Use `tolerance: false` for the latter.
+- `formatRomanNumerals` returns `null` instead of `""` for values outside the supported 1–3999 range (including negatives, zero, and non-finite numbers). `formatQuantity(…, { romanNumerals: true })` returns `null` for those values as well, except for `0`, which still returns `""` per the zero rule.
+
 ### Fixed
 
 - Exported constants are now immutable via `Object.freeze()`, including the individual entries of `fractionDecimalMatches`.
 - Tolerance window logic is refined. Closest match now wins instead of first match based on an arbitrary sort order.
 - Invalid `tolerance` values will be ignored.
-- All non-string and non-numeric inputs result in `null`.
+- All non-string and non-numeric inputs result in `null`. Previously `bigint` inputs threw, and single-element arrays such as `[1]` were coerced to a numeric string and formatted.
 - "Close enough" values on which tolerances are based are now more precise on account of being calculated instead of rounded literals (`1 / 3` vs `1.33`).
 - Documentation for the `tolerance` option no longer describes the pre-existing first-match-wins behavior.
 
