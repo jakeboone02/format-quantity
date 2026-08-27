@@ -3,6 +3,7 @@
   "name": "format-quantity",
   "author": "Jake Boone <jakeboone02@gmail.com>",
   "description": "Number formatter for imperial measurements with support for vulgar fractions",
+  "type": "commonjs",
   "files": [
     "dist"
   ],
