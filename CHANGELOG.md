@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Exported constants are now immutable via `Object.freeze()`.
+- Exported constants are now immutable via `Object.freeze()`, including the individual entries of `fractionDecimalMatches`.
 - Tolerance window logic is refined. Closest match now wins instead of first match based on an arbitrary sort order.
 - Invalid `tolerance` values will be ignored.
 - All non-string and non-numeric inputs result in `null`.
