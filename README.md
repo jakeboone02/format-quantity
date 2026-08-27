@@ -60,7 +60,7 @@ The second parameter to `formatQuantity` can be a `boolean` value or an options 
 ### `vulgarFractions`
 
 | Type      | Default |
-| --------- | ------: |
+| --------- | ------- |
 | `boolean` | `false` |
 
 Returns vulgar fractions when appropriate. This option has the same effect as passing a plain `boolean` value as the second parameter.
@@ -76,7 +76,7 @@ Note: `formatQuantity` supports sixteenths, but no vulgar fraction characters ex
 ### `fractionSlash`
 
 | Type      | Default |
-| --------- | ------: |
+| --------- | ------- |
 | `boolean` | `false` |
 
 Uses the [fraction slash character](<https://en.wikipedia.org/wiki/Slash_(punctuation)#Fractions>) (`"\u2044"`) to separate the numerator and denominator instead of the regular "solidus" slash (`"\u002f"`), with Unicode superscript numerator and subscript denominator digits. This option is ignored if the `vulgarFractions` option is also `true`.
@@ -89,8 +89,8 @@ formatQuantity(3.875, { fractionSlash: true, vulgarFractions: true }); // "3⅞"
 ### `separator`
 
 | Type     | Default |
-| -------- | ------: |
-| `string` |     N/A |
+| -------- | ------- |
+| `string` | N/A     |
 
 Overrides the string placed between the whole number and the fraction. When not specified, the default is `" "` (a space) for ASCII and fraction-slash fractions, and `""` (no space) for vulgar fractions. Common alternatives include a hyphen (`"-"`) and a no-break space (`"\u00a0"`).
 
