@@ -2,7 +2,6 @@ import { numericQuantity } from 'numeric-quantity';
 import { defaultOptions, fractionDecimalMatches, vulgarToAsciiMap } from './constants';
 import type {
   FormatQuantity,
-  FormatQuantityOptions,
   ResolvedFormatQuantityOptions,
   SimpleFraction,
   Sixteenth,
@@ -12,23 +11,17 @@ import type {
 const superscriptDigits = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 const subscriptDigits = '₀₁₂₃₄₅₆₇₈₉';
 
-const toSuperscript = (s: string) => {
-  let r = '';
-  for (let i = 0; i < s.length; i++) r += superscriptDigits[+s[i]];
-  return r;
-};
-const toSubscript = (s: string) => {
-  let r = '';
-  for (let i = 0; i < s.length; i++) r += subscriptDigits[+s[i]];
-  return r;
-};
+// oxlint-disable-next-line typescript/no-misused-spread
+const toSuperscript = (s: string) => [...s].map(c => superscriptDigits[+c]).join('');
+// oxlint-disable-next-line typescript/no-misused-spread
+const toSubscript = (s: string) => [...s].map(c => subscriptDigits[+c]).join('');
 
 /**
  * Applies the `vulgarFractions` or `fractionSlash` options as necessary.
  */
 const getFraction = (
   vulgarFractionOrSixteenth: VulgarFraction | Sixteenth,
-  { fractionSlash, vulgarFractions }: FormatQuantityOptions
+  { fractionSlash, vulgarFractions }: ResolvedFormatQuantityOptions
 ) => {
   if (vulgarFractions) {
     return vulgarFractionOrSixteenth;
@@ -53,11 +46,14 @@ const normalizeOptions = (
 ): ResolvedFormatQuantityOptions => ({
   ...defaultOptions,
   ...(typeof options === 'boolean' ? { vulgarFractions: options } : options),
-  // Anything but a positive number is invalid for `tolerance`,
-  // so we only override the default if a valid number is provided.
-  ...(typeof options === 'object' && typeof options.tolerance === 'number' && options.tolerance >= 0
-    ? { tolerance: options.tolerance }
-    : {}),
+  // Only a positive number is valid for `tolerance`, so we override anything
+  // else with the default.
+  ...(options !== null &&
+  typeof options === 'object' &&
+  typeof options.tolerance === 'number' &&
+  options.tolerance >= 0
+    ? {}
+    : { tolerance: defaultOptions.tolerance }),
 });
 
 // oxfmt-ignore
@@ -99,14 +95,14 @@ export const formatRomanNumerals = (qty: number): string | null => {
  * like "½", pass `true` as the second argument. For other options
  * see {@link FormatQuantityOptions}.
  */
-export const formatQuantity: FormatQuantity = (qty, options = defaultOptions) => {
+export const formatQuantity: FormatQuantity = (qty, options) => {
   const qtyAsNumber =
     typeof qty !== 'number'
       ? numericQuantity(qty, { round: false, allowTrailingInvalid: true })
       : qty;
 
   // Return `null` if input is not number-like.
-  if (isNaN(qtyAsNumber) || qtyAsNumber === null) {
+  if (isNaN(qtyAsNumber)) {
     return null;
   }
 
@@ -120,7 +116,7 @@ export const formatQuantity: FormatQuantity = (qty, options = defaultOptions) =>
   // The default options parameter in the function signature only takes effect
   // if the parameter is `undefined`. The nullish coalescing operator below
   // covers the `null` case.
-  const opts = normalizeOptions(options ?? defaultOptions);
+  const opts = normalizeOptions(options);
 
   if (opts.romanNumerals) {
     return formatRomanNumerals(qtyAsNumber);
