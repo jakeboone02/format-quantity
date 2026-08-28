@@ -129,7 +129,11 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
 
   const qtyAsNumber =
     typeof qty !== 'number' && typeof qty !== 'bigint'
-      ? numericQuantity(qty, { round: false, allowTrailingInvalid: opts.allowTrailingInvalid })
+      ? numericQuantity(qty, {
+          allowTrailingInvalid: opts.allowTrailingInvalid,
+          bigIntOnOverflow: true,
+          round: false,
+        })
       : qty;
 
   // Return `null` if input is not number-like.
