@@ -71,7 +71,7 @@ export type ResolvedFormatQuantityOptions = Required<Omit<FormatQuantityOptions,
  * Function signature of {@link formatQuantity}.
  */
 export interface FormatQuantity {
-  (qty: string | number, options?: boolean | FormatQuantityOptions): string | null;
+  (qty: string | number | bigint, options?: boolean | FormatQuantityOptions): string | null;
 }
 
 /** Any numeric character. */

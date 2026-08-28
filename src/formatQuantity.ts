@@ -80,14 +80,19 @@ const romanNumeralsByPlace = [
 ] as const;
 
 /**
- * Formats a number as Roman numerals. The number must be between
+ * Formats a number or bigint as Roman numerals. The number must be between
  * 1 and 3999, inclusive; any other value—including non-numbers,
  * `NaN`, and non-finite numbers—yields `null`.
  */
-export const formatRomanNumerals = (qty: number): string | null => {
-  if (typeof qty !== 'number' || !Number.isFinite(qty) || qty < 1 || qty >= 4000) {
+export const formatRomanNumerals = (quantity: number | bigint): string | null => {
+  if (
+    (typeof quantity !== 'number' && typeof quantity !== 'bigint') ||
+    !(quantity >= 1 && quantity < 4000)
+  ) {
     return null;
   }
+
+  const qty = Number(quantity);
 
   const floored = Math.floor(qty);
 
@@ -109,27 +114,27 @@ export const formatRomanNumerals = (qty: number): string | null => {
  * see {@link FormatQuantityOptions}.
  */
 export const formatQuantity: FormatQuantity = (qty, options) => {
-  // Only numbers and strings are accepted. Anything else (`bigint`, arrays like
-  // `[1]` that would coerce to a numeric string, objects, booleans, nullish) is
+  // Only numbers, bigints, and strings are accepted. Anything else (objects, booleans,
+  // nullish, arrays like `[1]` that would coerce to a numeric string) is
   // rejected up front so off-type inputs behave consistently.
-  if (typeof qty !== 'number' && typeof qty !== 'string') {
+  if (typeof qty !== 'number' && typeof qty !== 'string' && typeof qty !== 'bigint') {
     return null;
   }
 
   const opts = normalizeOptions(options);
 
   const qtyAsNumber =
-    typeof qty !== 'number'
+    typeof qty !== 'number' && typeof qty !== 'bigint'
       ? numericQuantity(qty, { round: false, allowTrailingInvalid: opts.allowTrailingInvalid })
       : qty;
 
   // Return `null` if input is not number-like.
-  if (isNaN(qtyAsNumber)) {
+  if (typeof qtyAsNumber === 'number' && isNaN(qtyAsNumber)) {
     return null;
   }
 
   // Return empty string (or configured `zeroFormat`) if the value is zero.
-  if (qtyAsNumber === 0) {
+  if (Number(qtyAsNumber) === 0) {
     return opts.zeroFormat;
   }
 
@@ -137,11 +142,17 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
     return formatRomanNumerals(qtyAsNumber);
   }
 
-  const absoluteValue = Math.abs(qtyAsNumber);
-  const flooredAbsVal = Math.floor(absoluteValue);
-  const sign = qtyAsNumber < 0 ? '-' : '';
-  const wholeStr = `${flooredAbsVal || ''}`;
-  const decimalValue = absoluteValue - flooredAbsVal;
+  const absoluteValue =
+    typeof qtyAsNumber === 'bigint'
+      ? qtyAsNumber < 0n
+        ? -qtyAsNumber
+        : qtyAsNumber
+      : Math.abs(qtyAsNumber);
+  const flooredAbsVal =
+    typeof absoluteValue === 'bigint' ? absoluteValue : Math.floor(absoluteValue);
+  const wholeNumberStr = `${flooredAbsVal || ''}`;
+  const decimalValue =
+    typeof absoluteValue === 'bigint' ? 0 : absoluteValue - (flooredAbsVal as number);
 
   // For integers just return the given value as a string.
   if (decimalValue === 0) {
@@ -171,8 +182,8 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
   if (closestMatch) {
     const fraction = getFraction(closestMatch, opts);
     const isVulgar = fraction in vulgarToAsciiMap;
-    const sep = wholeStr ? (opts.separator ?? (isVulgar ? '' : ' ')) : '';
-    return `${sign}${wholeStr}${sep}${fraction}`;
+    const sep = wholeNumberStr ? (opts.separator ?? (isVulgar ? '' : ' ')) : '';
+    return `${qtyAsNumber < 0 ? '-' : ''}${wholeNumberStr}${sep}${fraction}`;
   }
 
   return `${qtyAsNumber}`;

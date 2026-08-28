@@ -4,17 +4,17 @@
 [![downloads](https://img.shields.io/npm/dm/format-quantity.svg)](https://npm-stat.com/charts.html?package=format-quantity&from=2015-08-01)
 [![MIT License](https://img.shields.io/npm/l/format-quantity.svg)](https://opensource.org/licenses/MIT)
 
-Formats a number (or string that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5".
+Formats a `number` (or `bigint`, or `string` that appears to be a number) as one would see it written in imperial measurements, e.g. "1 1/2" instead of "1.5".
 
 **[Full documentation](https://jakeboone02.github.io/format-quantity/)**
 
 Features:
 
 - To use vulgar fraction characters like "⅞", pass `true` as the second argument. Other options like Roman numerals are described below.
-- String inputs are parsed with [`numeric-quantity`](https://www.npmjs.com/package/numeric-quantity), so mixed numbers (`"1 1/2"`), vulgar fractions (`"½"`), bare fractions (`"1/3"`), and comma/underscore-separated numbers (`"1,000"`) are all accepted in addition to plain decimal strings.
-- The return value will be `null` if the first argument is not a `number` or `string`, or is a string with no recognizable numeric portion at the start. Trailing junk is tolerated, so `formatQuantity("1.5 cups")` returns `"1 1/2"`.
-- The return value will be an empty string (`""`) if the first argument is `0` or `"0"`, which fits the primary use case of formatting recipe ingredient quantities.
-- Values too large or too small for positional notation are returned in JavaScript's exponential form (e.g. `formatQuantity(1e21)` is `"1e+21"`), and `Infinity`/`-Infinity` are stringified as-is.
+- String inputs are parsed with [`numeric-quantity`](https://www.npmjs.com/package/numeric-quantity), so mixed numbers (`"1 1/2"`), vulgar fractions (`"½"`), bare fractions (`"1/3"`), and comma- or underscore-separated numbers (`"1,000"`) are all accepted in addition to plain decimal strings.
+- The return value will be `null` if the first argument is not a `number`, `string`, or `bigint`, or is a string with no recognizable numeric portion at the start. Trailing junk is tolerated, so `formatQuantity("1.5 cups")` returns `"1 1/2"`.
+- The return value will be an empty string (`""`) if the first argument is `0`, `0n`, or `"0"`, which fits the primary use case of formatting recipe ingredient quantities.
+- Values too large or too small for positional notation are returned in JavaScript's exponential form (e.g. `formatQuantity(1e21)` is `"1e+21"`), and `Infinity`/`-Infinity` are stringified as-is. `bigint` inputs are never exponential; they stringify in full.
 
 > _For the inverse operation—converting a string to a `number`—check out [numeric-quantity](https://www.npmjs.com/package/numeric-quantity). It handles mixed numbers, vulgar fractions, comma/underscore separators, and Roman numerals._
 >
@@ -165,7 +165,7 @@ formatQuantity('123abc', { allowTrailingInvalid: false }); // null
 | --------- | ------: |
 | `boolean` | `false` |
 
-Coerces the number into an integer using `Math.floor`, then formats the value as Roman numerals. The algorithm uses strict, modern rules, so the number must be between 1 and 3999 (inclusive). Values outside that range return `null`.
+Coerces the number into an integer using `Math.floor`, then formats the value as Roman numerals. The algorithm uses strict, modern rules, so the number must be between `1` and `3999` inclusive (or between `1n` and `3999n` — `bigint` is also allowed). Values outside that range return `null`.
 
 When this option is `true`, all other options are ignored.
 
@@ -176,6 +176,6 @@ formatQuantity(4000, { romanNumerals: true }); // null
 formatQuantity(-1, { romanNumerals: true }); // null
 ```
 
-> _`formatQuantity(0, …)` returns `""` regardless of this option, since the zero rule is applied before options are read._
+> _`formatQuantity(0, …)` returns `""` regardless of this option, since the zero rule is applied before options are processed._
 
 [badge-npm]: https://img.shields.io/npm/v/format-quantity.svg?cacheSeconds=3600&logo=npm

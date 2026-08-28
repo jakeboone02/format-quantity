@@ -5,7 +5,6 @@ import { formatQuantity } from './formatQuantity';
 import type { FormatQuantityOptions } from './types';
 
 type NqNOptsNumeric = NumericQuantityOptions & {
-  bigIntOnOverflow: false;
   round: false;
   verbose: false;
 };
@@ -22,7 +21,7 @@ const nqOpts = {
 const expectNumberRoundTrip = (
   n: number,
   fqOpts?: FormatQuantityOptions,
-  nqExtra?: Parameters<typeof numericQuantity>[1]
+  nqExtra?: Partial<NqNOptsNumeric>
 ) => {
   const str = formatQuantity(n, fqOpts);
   expect(str).not.toBeNull();
@@ -31,14 +30,28 @@ const expectNumberRoundTrip = (
 };
 
 /**
+ * Helper: bigint → formatQuantity → numericQuantity → assert ≈ original.
+ */
+const expectBigIntRoundTrip = (
+  n: bigint,
+  fqOpts?: FormatQuantityOptions,
+  nqExtra?: Partial<NqNOptsNumeric>
+) => {
+  const str = formatQuantity(n, fqOpts);
+  expect(str).not.toBeNull();
+  const result = numericQuantity(str!, { ...nqOpts, bigIntOnOverflow: true, ...nqExtra });
+  expect(result).toBe(n);
+};
+
+/**
  * Helper: string → numericQuantity → formatQuantity → assert === original.
  */
 const expectStringRoundTrip = (
   s: string,
   fqOpts?: FormatQuantityOptions,
-  nqExtra?: NqNOptsNumeric
+  nqExtra?: Partial<NqNOptsNumeric>
 ) => {
-  const num = numericQuantity(s, { ...nqOpts, ...nqExtra });
+  const num = numericQuantity(s, { ...nqOpts, bigIntOnOverflow: true, ...nqExtra });
   expect(num).not.toBeNaN();
   const result = formatQuantity(num, fqOpts);
   expect(result).toBe(s);
@@ -210,6 +223,15 @@ describe('Round trip A: number → string → number', () => {
     for (const n of [1, 42, 100, 1000]) {
       test(`${n}`, () => expectNumberRoundTrip(n));
     }
+
+    for (const n of [
+      -9_007_199_254_740_992n,
+      9_007_199_254_740_992n,
+      -9_999_999_999_999_999n,
+      9_999_999_999_999_999n,
+    ]) {
+      test(`${n}`, () => expectBigIntRoundTrip(n));
+    }
   });
 
   describe('A8: edge cases', () => {
@@ -286,6 +308,10 @@ describe('Round trip B: string → number → string', () => {
     for (const s of ['1', '42', '1000']) {
       test(`"${s}"`, () => expectStringRoundTrip(s));
     }
+
+    for (const s of ['9999999999999999', '-9999999999999999']) {
+      test(`"${s}"`, () => expectStringRoundTrip(s));
+    }
   });
 
   describe('B5: decimal strings (no fraction snap)', () => {
@@ -300,7 +326,7 @@ describe('Round trip B: string → number → string', () => {
     const cases = ['I', 'IV', 'XIV', 'MCCXIV', 'MMMCMXCIX'];
 
     for (const s of cases) {
-      test(`"${s}"`, () => expectStringRoundTrip(s, rn, { ...nqOpts, ...rnNq }));
+      test(`"${s}"`, () => expectStringRoundTrip(s, rn, rnNq));
     }
   });
 

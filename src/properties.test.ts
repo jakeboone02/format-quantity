@@ -53,7 +53,6 @@ describe('property: null is returned exactly for non-numeric input', () => {
       [1],
       () => 1,
       Symbol.iterator,
-      1n,
       new Date(0),
     ];
 

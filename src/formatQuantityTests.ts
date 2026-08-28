@@ -34,8 +34,6 @@ export const formatQuantityTests: FormatQuantityTests = {
     // @ts-expect-error invalid input
     [['1 1/2'], null],
     // @ts-expect-error invalid input
-    [1n, null],
-    // @ts-expect-error invalid input
     [Symbol.iterator, null],
     // @ts-expect-error invalid input
     [new Date(0), null],
@@ -45,7 +43,7 @@ export const formatQuantityTests: FormatQuantityTests = {
     ['abc', null],
     ['--1', null],
   ],
-  'string inputs: allow trailing invalid characters': [
+  'trailing invalid characters': [
     // `allowTrailingInvalid` is passed to `numericQuantity`, so a leading
     // numeric portion wins even when the rest of the string is garbage.
     ['1.5abc', '1 1/2'],
@@ -55,10 +53,9 @@ export const formatQuantityTests: FormatQuantityTests = {
     ['1½ tsp', '1 1/2'],
     // ...but there has to be a leading numeric portion.
     ['abc1.5', null],
-  ],
-  'string inputs: disallow trailing invalid characters': [
     ['123abc', null, { allowTrailingInvalid: false }],
     ['1.5', '1 1/2', { allowTrailingInvalid: false }],
+    [1.5, '1 1/2', { allowTrailingInvalid: false }],
   ],
   'returns blank string for zero': [
     [0, ''],
@@ -234,11 +231,30 @@ export const formatQuantityTests: FormatQuantityTests = {
     ['1_000', '1000'],
     ['1_000.5', '1000 1/2'],
   ],
+  'bigint inputs': [
+    [1n, '1'],
+    [1000n, '1000'],
+    [1_000_000n, '1000000'],
+    [1_000_000_000_000n, '1000000000000'],
+    [1_000_000_000_000_000n, '1000000000000000'],
+    [-1n, '-1'],
+    [-1000n, '-1000'],
+    [-1_000_000n, '-1000000'],
+    [-1_000_000_000_000n, '-1000000000000'],
+    [-1_000_000_000_000_000n, '-1000000000000000'],
+    [1n, 'I', { romanNumerals }],
+    [4000n, null, { romanNumerals }],
+    [0n, 'zero', { zeroFormat: 'zero' }],
+  ],
   'empty or invalid options': [
-    [1.5, '1 1/2', 42 as any],
-    [1.5, '1 1/2', 'string' as any],
-    [1.5, '1 1/2', null as any],
-    [1.5, '1 1/2', [] as any],
+    // @ts-expect-error invalid option type
+    [1.5, '1 1/2', 42],
+    // @ts-expect-error invalid option type
+    [1.5, '1 1/2', 'string'],
+    // @ts-expect-error invalid option type
+    [1.5, '1 1/2', null],
+    // @ts-expect-error invalid option type
+    [1.5, '1 1/2', []],
     [1.5, '1 1/2', {}],
   ],
   'vulgarFractions option': [
