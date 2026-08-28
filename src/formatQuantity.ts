@@ -69,6 +69,10 @@ const normalizeOptions = (
     opts.zeroFormat = defaultOptions.zeroFormat;
   }
 
+  if (opts.allowTrailingInvalid !== false) {
+    opts.allowTrailingInvalid = true;
+  }
+
   return opts;
 };
 
