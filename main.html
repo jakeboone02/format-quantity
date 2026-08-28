@@ -181,9 +181,7 @@
               opts === '' ? '' : `, ${JSON.stringify(opts).replace(/([,:])/g, '$1 ')}`;
             testResultHTML += `<div class="pass">${
               actual === result ? '✅' : '❌'
-            }</div><div>formatQuantity(${JSON.stringify(
-              quantity
-            )}${optionString})</div><div>${JSON.stringify(
+            }</div><div>formatQuantity(${typeof quantity === 'bigint' ? `${quantity.toString()}n` : JSON.stringify(quantity)}${optionString})</div><div>${JSON.stringify(
               result
             )}</div><div>${JSON.stringify(actual)}</div>`;
           }
