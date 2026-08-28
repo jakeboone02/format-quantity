@@ -176,6 +176,6 @@ formatQuantity(4000, { romanNumerals: true }); // null
 formatQuantity(-1, { romanNumerals: true }); // null
 ```
 
-> _`formatQuantity(0, …)` returns `""` regardless of this option, since the zero rule is applied before options are processed._
+> _`formatQuantity(0, …)` returns `""` (or the configured `zeroFormat`) regardless of this option, since the zero rule is applied before options are processed._
 
 [badge-npm]: https://img.shields.io/npm/v/format-quantity.svg?cacheSeconds=3600&logo=npm

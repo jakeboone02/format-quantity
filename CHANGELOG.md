@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `tolerance: 0` now means "only exact quotients match" instead of "match nothing". Use `tolerance: false` for the latter.
-- `formatRomanNumerals` returns `null` instead of `""` for values outside the supported 1–3999 range (including negatives, zero, and non-finite numbers). `formatQuantity(…, { romanNumerals: true })` returns `null` for those values as well, except for `0`, which still returns `""` per the zero rule.
+- `formatRomanNumerals` returns `null` instead of `""` for values outside the supported 1–3999 range (including negatives, zero, and non-finite numbers). `formatQuantity(…, { romanNumerals: true })` returns `null` for those values as well, except for `0`, which still returns `""` (or the configured `zeroFormat`) per the zero rule.
 
 ### Fixed
 
