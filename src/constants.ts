@@ -14,7 +14,7 @@ export const defaultTolerance = 0.0075 as const;
 /**
  * Default options for {@link formatQuantity}.
  */
-export const defaultOptions: ResolvedFormatQuantityOptions = Object.freeze({
+export const defaultOptions: Readonly<ResolvedFormatQuantityOptions> = Object.freeze({
   vulgarFractions: false,
   tolerance: defaultTolerance,
   fractionSlash: false,
@@ -26,7 +26,7 @@ export const defaultOptions: ResolvedFormatQuantityOptions = Object.freeze({
 /**
  * Map of vulgar fractions to their traditional ASCII equivalents.
  */
-export const vulgarToAsciiMap: Record<VulgarFraction, SimpleFraction> = Object.freeze({
+export const vulgarToAsciiMap: Readonly<Record<VulgarFraction, SimpleFraction>> = Object.freeze({
   '¼': '1/4',
   '½': '1/2',
   '¾': '3/4',
