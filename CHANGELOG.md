@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `tolerance: 0` now means "only exact quotients match" instead of "match nothing". Use `tolerance: false` for the latter.
 - `formatRomanNumerals` returns `null` instead of `""` for values outside the supported 1–3999 range (including negatives, zero, and non-finite numbers). `formatQuantity(…, { romanNumerals: true })` returns `null` for those values as well, except for `0`, which still returns `""` (or the configured `zeroFormat`) per the zero rule.
+- UMD build renamed `dist/format-quantity.umd.min.js`.
 
 ### Fixed
 
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All non-string and non-numeric inputs result in `null`. Previously `bigint` inputs threw, and single-element arrays such as `[1]` were coerced to a numeric string and formatted.
 - "Close enough" values on which tolerances are based are now more precise on account of being calculated instead of rounded literals (`1 / 3` vs `1.33`).
 - Documentation for the `tolerance` option no longer describes the pre-existing first-match-wins behavior.
+- UMD build sets `FormatQuantity` global variable when run in a browser (`window` is defined).
 
 ## [v3.1.0] - 2026-02-12
 

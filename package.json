@@ -24,7 +24,7 @@
   },
   "types": "./dist/format-quantity.legacy-esm.d.ts",
   "sideEffects": false,
-  "unpkg": "./dist/format-quantity.iife.umd.min.js",
+  "unpkg": "./dist/format-quantity.umd.min.js",
   "license": "MIT",
   "keywords": [
     "recipe",

@@ -83,15 +83,21 @@ if (process.env.NODE_ENV === 'production') {
         ]);
       },
     },
-    // UMD (ish)
+    // UMD (browser global `FormatQuantity`, plus CJS/AMD interop)
     {
       ...commonOptions,
       ...productionOptions,
       dts: false,
-      format: 'iife',
+      format: 'umd',
       globalName: 'FormatQuantity',
       deps: { alwaysBundle: ['numeric-quantity'] },
-      outExtensions: () => ({ js: '.umd.min.js' }),
+      outExtensions: () => ({ js: '.min.js' }),
+      // Bundlers that treat classic <script> tags as CJS modules (e.g. Bun's HTML entrypoint
+      // support) hit the UMD `exports` branch, so the browser global never gets defined.
+      // Re-expose it explicitly when running in a browser.
+      footer: {
+        js: `typeof window<"u"&&typeof exports=="object"&&(window.FormatQuantity=exports);`,
+      },
     },
   ];
 
