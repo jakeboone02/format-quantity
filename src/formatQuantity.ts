@@ -131,6 +131,7 @@ export const formatQuantity: FormatQuantity = (qty, options) => {
     typeof qty !== 'number' && typeof qty !== 'bigint'
       ? numericQuantity(qty, {
           allowTrailingInvalid: opts.allowTrailingInvalid,
+          romanNumerals: opts.romanNumerals,
           bigIntOnOverflow: true,
           round: false,
         })

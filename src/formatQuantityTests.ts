@@ -441,6 +441,7 @@ export const formatQuantityTests: FormatQuantityTests = {
     [11, 'XI', { romanNumerals }],
     [12, 'XII', { romanNumerals }],
     [1214, 'MCCXIV', { romanNumerals }],
+    ['MCCXIV', 'MCCXIV', { romanNumerals }],
     // Make sure it favors the romanNumerals option
     [12, 'XII', { romanNumerals, fractionSlash }],
     [12, 'XII', { romanNumerals, vulgarFractions }],
