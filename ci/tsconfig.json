@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
+    "types": ["vite/client"],
     "strict": true,
-    "module": "commonjs",
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "lib": ["ES6", "DOM"],
-    "moduleResolution": "bundler"
-  }
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "lib": ["ES2020", "DOM"]
+  },
+  "include": ["src"]
 }

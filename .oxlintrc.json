@@ -12,5 +12,6 @@
   "rules": {},
   "env": {
     "builtin": true
-  }
+  },
+  "ignorePatterns": ["/ci/**"]
 }

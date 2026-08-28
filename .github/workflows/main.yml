@@ -22,4 +22,4 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Publish to pkg.pr.new
-        run: bunx pkg-pr-new publish --packageManager=bun,npm,pnpm --bun
+        run: bunx pkg-pr-new publish --packageManager=bun,npm,pnpm --bun --template=./ci

@@ -1,4 +1,3 @@
-// @ts-ignore
 import { formatQuantity } from 'format-quantity';
 import { numbers } from './numbers';
 import './styles.css';
