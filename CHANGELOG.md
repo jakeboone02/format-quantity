@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.2.0] - 2026-08-29
+
 ### Added
 
 - `tolerance` accepts `false` to disable fraction matching entirely, so every non-integer value is returned as a decimal.
@@ -201,7 +203,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Release comparison links -->
 
-[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v3.1.0...HEAD
+[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v3.2.0...HEAD
+[v3.2.0]: https://github.com/jakeboone02/format-quantity/compare/v3.1.0...v3.2.0
 [v3.1.0]: https://github.com/jakeboone02/format-quantity/compare/v3.0.0...v3.1.0
 [v3.0.0]: https://github.com/jakeboone02/format-quantity/compare/v2.1.0...v3.0.0
 [v2.1.0]: https://github.com/jakeboone02/format-quantity/compare/v2.0.1...v2.1.0
