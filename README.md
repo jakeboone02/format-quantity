@@ -1,3 +1,5 @@
+# format-quantity
+
 [![npm][badge-npm]](https://www.npmjs.com/package/format-quantity)
 ![workflow status](https://github.com/jakeboone02/format-quantity/actions/workflows/main.yml/badge.svg)
 [![codecov.io](https://codecov.io/github/jakeboone02/format-quantity/coverage.svg?branch=main)](https://codecov.io/github/jakeboone02/format-quantity?branch=main)
