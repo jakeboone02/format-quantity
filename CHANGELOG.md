@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.2.1] - 2026-11-17
+
+### Fixed
+
+- Added page title to README.md.
+
 ## [v3.2.0] - 2026-08-29
 
 ### Added
@@ -203,7 +209,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Release comparison links -->
 
-[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v3.2.0...HEAD
+[unreleased]: https://github.com/jakeboone02/format-quantity/compare/v3.2.1...HEAD
+[v3.2.1]: https://github.com/jakeboone02/format-quantity/compare/v3.2.0...v3.2.1
 [v3.2.0]: https://github.com/jakeboone02/format-quantity/compare/v3.1.0...v3.2.0
 [v3.1.0]: https://github.com/jakeboone02/format-quantity/compare/v3.0.0...v3.1.0
 [v3.0.0]: https://github.com/jakeboone02/format-quantity/compare/v2.1.0...v3.0.0
